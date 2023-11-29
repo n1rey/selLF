@@ -1,4 +1,4 @@
-package com.portfolio.sellf.domain.contact.comtroller;
+package com.portfolio.sellf.domain.contact.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

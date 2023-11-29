@@ -34,19 +34,19 @@
           </div>
           
           <div class="col-lg-7">
-            <form action="/submitInfo" class="nk-form nk-form-ajax">
+            <form th:action="@{/join/submitInfo}" class="nk-form nk-form-ajax" method="post">
               <div class="nk-gap-1"></div>
-              <input type="text" class="form-control required" name="id" placeholder="아이디를 입력하세요.">
+              <input type="text" class="form-control required" name="id" placeholder="아이디를 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" name="password" placeholder="비밀번호를 입력하세요">
+              <input type="password" class="form-control required" id="pwd" name="password" placeholder="비밀번호를 입력하세요" maxlength="100">
               <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" name="password2" placeholder="비밀번호를 다시 입력하세요">
-              <div class="nk-gap-1"></div>
-              <input type="text" class="form-control required" name="email" placeholder="이메일을 입력하세요">
+              <input type="password" class="form-control required" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력하세요" maxlength="100">
+              <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-weight: bold; font-size: small;"></div>
+              <input type="text" class="form-control required" name="email" placeholder="이메일을 입력하세요" maxlength="100">
               <div class="nk-gap-1"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
-              <button class="nk-btn">Join SelLF</button>
+              <button type="button" th:onclick="test()" class="nk-btn">Join SelLF</button> <button type="button" th:onclick="|location.href='@{/}'|" class="nk-btn">Find SelLF</button>
             </form>
           </div>
         </div>
@@ -55,5 +55,44 @@
       <!-- END: Contact Info -->
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
+    <script>
+      function test() {
+        var id = $("input[name=id]").val()
+        var password = $("#pwd").val()
+        var password2 = $("#pwd2").val()
+        var email = $("input[name=email]").val()
+
+        if(!!checkInfo(id, email)) return
+      }
+
+      function checkInfo(id, email) {
+        if(!id) {
+          alert('id를 입력하세요.')
+          return 1
+        }
+        if(id.length > 15) {
+          alert('id는 15글자 이하입니다.')
+          return 1
+        }
+        if(!email) {
+          alert('email를 입력하세요.')
+          return 1
+        }
+        if(email.length > 100) {
+          alert('email는 100글자 이하입니다.')
+          return 1
+        }
+      }
+      $(document).ready(function() {
+        $('#pwd, #pwd2').keyup(function() {
+          if($('#pwd').val() != $('#pwd2').val()) {
+            $('#pwd-status').text('두 값이 다릅니다.')
+          }
+          else {
+            $('#pwd-status').text('')
+          }
+        })
+      })
+    </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-package com.portfolio.sellf.domain.join.comtroller;
+package com.portfolio.sellf.domain.join.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,9 +38,22 @@ public class JoinController {
    * @author 한승현
    * @date 2023/11/29
    **/
-  @RequestMapping(value = {"/test"}) 
-  public String testPage() {
+  @RequestMapping("/test") 
+  public String test() {
     System.out.println(joinService.test());
     return "/join/join";
+  }
+
+    /**
+   * <pre>
+   * DB연동 테스트
+   *
+   * @author 한승현
+   * @date 2023/11/29
+   **/
+  @RequestMapping("/submitInfo") 
+  public String submitInfo() {
+    
+    return "redirect:/join";
   }
 }
