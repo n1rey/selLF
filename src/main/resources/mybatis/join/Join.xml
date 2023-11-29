@@ -25,5 +25,8 @@
   )
   </insert>
 
+  <select id="test" parameterType="String" resultType="int">
+    select 1
+  </select>
 </mapper>
 

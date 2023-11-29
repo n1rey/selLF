@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: join.html
+    Version: 0.1
+    Description : 회원가입 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <th:block th:replace="@{/include/head}"></th:block>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <!-- START: Contact Info -->
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Join Info</h2>
+            <div class="nk-gap mnt-3"></div>
+            <p>회원가입 하지않아도 사이트는 구경하실 수 있습니다. 회원가입 시 게시글에 좋아요, 댓글기능이 가능합니다.</p>
+            <ul class="nk-contact-info">
+                <li><strong style="color:red">참고사항</strong></li>
+                <li>1. 패스워드는 암호화 알고리즘으로 저장하고 있습니다.</li>
+                <li>2. 이메일도 암호화 알고리즘으로 저장하고 있습니다.</li>
+                <li>3. 회원가입 정보는 30일 뒤 삭제됩니다.</li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          
+          <div class="col-lg-7">
+            <form action="/submitInfo" class="nk-form nk-form-ajax">
+              <div class="nk-gap-1"></div>
+              <input type="text" class="form-control required" name="id" placeholder="아이디를 입력하세요.">
+              <div class="nk-gap-1"></div>
+              <input type="password" class="form-control required" name="password" placeholder="비밀번호를 입력하세요">
+              <div class="nk-gap-1"></div>
+              <input type="password" class="form-control required" name="password2" placeholder="비밀번호를 다시 입력하세요">
+              <div class="nk-gap-1"></div>
+              <input type="text" class="form-control required" name="email" placeholder="이메일을 입력하세요">
+              <div class="nk-gap-1"></div>
+              <div class="response-success"></div>
+              <div class="response-error"></div>
+              <button class="nk-btn">Join SelLF</button>
+            </form>
+          </div>
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+  </body>
+</html>

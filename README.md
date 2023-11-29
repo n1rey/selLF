@@ -18,4 +18,4 @@ OPTIONS
 3. Power Mode : 타자 입력 시 combo
 
 
-java 1.8.0_291, Spring boot 2.6.2, 
+java 1.8.0_291, Spring boot 2.6.2, PostgreSQL 15.5.1

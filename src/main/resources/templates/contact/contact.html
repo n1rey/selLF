@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: contact.html
+    Version: 0.1
+    Description : 연락 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+    <style>
+      /*구글맵 */
+      gmp-map {
+        height: 100%;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHH2G-C6jMlcG-opvhcJXWt5EaIeYcotk&callback=console.debug&libraries=maps,marker&v=beta"></script>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <th:block th:replace="@{/include/head}"></th:block>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+        <div class="nk-main bg-white">
+            <!-- START: Google Map -->
+            <div id="google-map-contact" class="nk-gmaps nk-gmaps-lg">
+              <gmp-map center="37.48167037963867,126.88253021240234" zoom="15" map-id="DEMO_MAP_ID">
+                <gmp-advanced-marker position="37.48167037963867,126.88253021240234" title="My location">
+                </gmp-advanced-marker>
+              </gmp-map>
+            </div>
+            <!-- END: Google Map -->
+            <!-- START: Contact Info -->
+            <div class="container">
+                <div class="nk-gap-5 mnt-10"></div>
+                <div class="row vertical-gap">
+                    <div class="col-lg-5">
+                        <!-- START: Info -->
+                        <h2>Contact Info:</h2>
+                        <div class="nk-gap mnt-3"></div>
+                        <p>아래 적힌 정보로 연락하시거나 <br/>우측 양식을 통해 저에게 메일을 보내실 수 있습니다.<br/>
+                        Please contact us using the information below<br/>You can send me an email through the form on the right.</p>
+                        <ul class="nk-contact-info">
+                            <li><strong>Name:</strong> 한승현</li>
+                            <li><strong>Phone:</strong> 010 4720 5289</li>
+                            <li><strong>Email:</strong> tmdgus4720@naver.com</li>
+                        </ul>
+                        <!-- END: Info -->
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- START: Form -->
+                        <form action="/contact/sendMail" class="nk-form nk-form-ajax">
+                            <div class="row vertical-gap">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control required" name="name" placeholder="Your Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control required" name="email" placeholder="Your Email">
+                                </div>
+                            </div>
+                            <div class="nk-gap-1"></div>
+                            <input type="text" class="form-control required" name="title" placeholder="Title">
+                            <div class="nk-gap-1"></div>
+                            <textarea class="form-control required" name="message" rows="8" placeholder="Comment" aria-required="true"></textarea>
+                            <div class="nk-gap-1"></div>
+                            <div class="nk-form-response-success"></div>
+                            <div class="nk-form-response-error"></div>
+                            <button class="nk-btn">Send Message</button>
+                        </form>
+                        <!-- END: Form -->
+                    </div>
+                </div>
+                <div class="nk-gap-5"></div>
+            </div>
+            <!-- END: Contact Info -->
+            <th:block th:replace="@{/include/footer}"></th:block>
+        </div>
+      <script th:src="@{/resources/js/piroll.min.js}"></script>
+      <script th:src="@{/resources/js/piroll-init.js}"></script>
+    </body>
+</html>

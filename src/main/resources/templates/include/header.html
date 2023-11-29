@@ -1,8 +1,15 @@
+<div class="etcDiv" style="height:32px; background-color: #fff;"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementsByClassName('container')[0].style.display='block';
+    document.getElementsByClassName('etcDiv')[0].style.display='none';
+  });
+</script>
 <!-- 모바일 햄버거 버튼시작 -->
 <nav class="nk-navbar nk-navbar-top">
-    <div class="container">
+    <div class="container" style="display: none;">
         <div class="nk-nav-table">
-            <a href="index.html" class="nk-nav-logo">
+            <a href="/" class="nk-nav-logo">
                 <img th:src="@{/resources/images/examples/logo.svg}" alt="" width="31">
             </a>
             <ul class="nk-nav nk-nav-right hidden-md-down" data-nav-mobile="#nk-nav-mobile">
@@ -184,9 +191,20 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="page-contact-us.html"> Contact </a>
-                </li>
+                <li class=" nk-drop-item">
+                  <a href="/contact"> Contact </a>
+                  <ul class="dropdown">
+                      <li>
+                          <a href="/contact"> Contact Me </a>
+                      </li>
+                      <li>
+                          <a href="blog-single.html"> Single Post </a>
+                      </li>
+                      <li>
+                        <a href="/join"> Join </a>
+                    </li>
+                  </ul>
+              </li>
             </ul>
             <ul class="nk-nav nk-nav-right nk-nav-icons">
                 <li class="single-icon hidden-lg-up">
