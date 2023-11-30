@@ -1,4 +1,4 @@
-package com.portfolio.sellf.domain.join.controller;
+package com.portfolio.sellf.domain.user.join.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,7 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.portfolio.sellf.domain.join.service.JoinService;
+import com.portfolio.sellf.domain.user.join.service.JoinService;
+import com.portfolio.sellf.domain.user.join.vo.UserVo;
 
 @Validated
 @Controller
@@ -27,33 +28,19 @@ public class JoinController {
    **/
   @RequestMapping(value = {"", "/"}) 
   public String joinMainPage() {
-    
     return "/join/join";
   }
-
     /**
    * <pre>
-   * DB연동 테스트
+   * 회원가입
    *
    * @author 한승현
-   * @date 2023/11/29
-   **/
-  @RequestMapping("/test") 
-  public String test() {
-    System.out.println(joinService.test());
-    return "/join/join";
-  }
-
-    /**
-   * <pre>
-   * DB연동 테스트
-   *
-   * @author 한승현
-   * @date 2023/11/29
+   * @date 2023/11/30
    **/
   @RequestMapping("/submitInfo") 
-  public String submitInfo() {
-    
+  public String submitInfo(UserVo user) {
+    System.out.println(user);
+    joinService.insertUser(user);
     return "redirect:/join";
   }
 }

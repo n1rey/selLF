@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: join.html
+    Version: 0.1
+    Description : 회원가입 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+    <script th:src="@{/resources/js/validation.js}"></script>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <th:block th:replace="@{/include/head}"></th:block>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <!-- START: Contact Info -->
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Find Info</h2>
+            <div class="nk-gap mnt-3"></div>
+            <ul class="nk-contact-info">
+              <li><strong style="color:red">참고사항</strong></li>
+              <li>1. 로그인 정보는 30일 이후 삭제됩니다.</li>
+              <li>2. 이메일 정보로 로그인 정보를 찾을 수 있습니다.</li>
+              <li>3. 계정 찾기 시 로그인 정보를 새로 등록해야 합니다.</li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          
+          <div class="col-lg-7">
+            <form th:action="@{/find/searchInfo}" id="findForm" class="nk-form nk-form-ajax" method="post">
+              <div class="nk-gap-1"></div>
+              <input type="text" class="form-control required" id="userNickname" name="userNickname" placeholder="닉네임을 입력하세요." maxlength="15">
+              <div class="nk-gap-1"></div>
+              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100">
+              <div class="nk-gap-1"></div>
+              <div class="response-success"></div>
+              <div class="response-error"></div>
+              <button type="button" th:onclick="find()" class="nk-btn">Find Info</button>
+            </form>
+          </div>
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+    <script>
+      function find() {
+        let nickname = $('#userNickname').val()
+        let email = $('#userEmail').val()
+        if(!nickname || nickname.length > 15) {
+          $('#userNickname').next().text('1 ~ 15글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#userNickname').focus()
+          return 1
+        }
+        else {
+          $('#userNickname').next().text('')
+        }
+        if(!valid.validateEmail(email)) return
+        $('#findForm').submit();
+      }
+    </script>
+  </body>
+</html>

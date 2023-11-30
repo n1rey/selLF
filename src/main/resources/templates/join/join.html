@@ -8,6 +8,7 @@
 -->
   <head>
     <th:block th:replace="@{/include/header}"></th:block>
+    <script th:src="@{/resources/js/validation.js}"></script>
   </head>
   <body>
     <header class="nk-header nk-header-opaque">
@@ -23,30 +24,39 @@
             <!-- START: Info -->
             <h2>Join Info</h2>
             <div class="nk-gap mnt-3"></div>
-            <p>회원가입 하지않아도 사이트는 구경하실 수 있습니다. 회원가입 시 게시글에 좋아요, 댓글기능이 가능합니다.</p>
+            <p>회원가입 하지않아도 사이트는 구경하실 수 있습니다.
+              <br/> 회원가입 시 좋아요, 댓글이 가능합니다.
+              <br/> 회원가입이 부담스럽다면 일회용 계정을 발급받으세요.
+            </p>
+            
             <ul class="nk-contact-info">
                 <li><strong style="color:red">참고사항</strong></li>
                 <li>1. 패스워드는 암호화 알고리즘으로 저장하고 있습니다.</li>
                 <li>2. 이메일도 암호화 알고리즘으로 저장하고 있습니다.</li>
                 <li>3. 회원가입 정보는 30일 뒤 삭제됩니다.</li>
+                <li>4. 일회용 계정은 1시간 뒤 만료됩니다.</li>
             </ul>
             <!-- END: Info -->
           </div>
           
           <div class="col-lg-7">
-            <form th:action="@{/join/submitInfo}" class="nk-form nk-form-ajax" method="post">
+            <form th:action="@{/join/submitInfo}" id="joinForm" class="nk-form nk-form-ajax" method="post">
               <div class="nk-gap-1"></div>
-              <input type="text" class="form-control required" name="id" placeholder="아이디를 입력하세요." maxlength="15">
+              <input type="text" class="form-control required" id="userNickname" name="userNickname" placeholder="닉네임을 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" id="pwd" name="password" placeholder="비밀번호를 입력하세요" maxlength="100">
+              <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력하세요" maxlength="100">
-              <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-weight: bold; font-size: small;"></div>
-              <input type="text" class="form-control required" name="email" placeholder="이메일을 입력하세요" maxlength="100">
+              <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30">
+              <div class="nk-gap-1"></div>
+              <input type="password" class="form-control required" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력하세요" maxlength="30">
+              <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
+              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100">
               <div class="nk-gap-1"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
-              <button type="button" th:onclick="test()" class="nk-btn">Join SelLF</button> <button type="button" th:onclick="|location.href='@{/}'|" class="nk-btn">Find SelLF</button>
+              <button type="button" th:onclick="join()" class="nk-btn">Join SelLF</button>
+              <button type="button" th:onclick="|location.href='@{/find}'|" class="nk-btn">Find SelLF</button>
+              <button type="button" th:onclick="issue()" class="nk-btn">Issue SelLF</button>
             </form>
           </div>
         </div>
@@ -56,43 +66,50 @@
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
     <script>
-      function test() {
-        var id = $("input[name=id]").val()
-        var password = $("#pwd").val()
-        var password2 = $("#pwd2").val()
-        var email = $("input[name=email]").val()
-
-        if(!!checkInfo(id, email)) return
-      }
-
-      function checkInfo(id, email) {
-        if(!id) {
-          alert('id를 입력하세요.')
-          return 1
-        }
-        if(id.length > 15) {
-          alert('id는 15글자 이하입니다.')
-          return 1
-        }
-        if(!email) {
-          alert('email를 입력하세요.')
-          return 1
-        }
-        if(email.length > 100) {
-          alert('email는 100글자 이하입니다.')
-          return 1
-        }
-      }
+      var pwdCheck = true
       $(document).ready(function() {
-        $('#pwd, #pwd2').keyup(function() {
-          if($('#pwd').val() != $('#pwd2').val()) {
+        $('#userPassword, #pwd2').keyup(function() {
+          if($('#userPassword').val() != $('#pwd2').val()) {
             $('#pwd-status').text('두 값이 다릅니다.')
+            pwdCheck = false;
           }
           else {
             $('#pwd-status').text('')
+            pwdCheck = true;
           }
+          valid.validatePassword($('#userPassword').val())
         })
       })
+
+      function join() {
+        var nickname = $("#userNickname").val()
+        var id = $("#userId").val()
+        var password = $("#userPassword").val()
+        var password2 = $("#pwd2").val()
+        var email = $("#userEmail").val()
+
+        if(password != password2) return
+        if(!!checkInfo(nickname, id, email, password)) return
+        if(!valid.validatePassword(password)) return
+        if(!valid.validateEmail(email)) return
+
+        $('#joinForm').submit();
+      }
+
+      function checkInfo(nickname, id, email, password) {
+        if(!nickname || nickname.length > 15) {
+          $('#userNickname').next().text('1 ~ 15글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#userNickname').focus()
+          return 1
+        }
+        $('#userNickname').next().text('')
+        if(!id || id.length > 15) {
+          $('#userId').next().text('1 ~ 15글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#userId').focus()
+          return 1
+        }
+        $('#userId').next().text('')
+      }
     </script>
   </body>
 </html>

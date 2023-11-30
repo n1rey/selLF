@@ -3,26 +3,26 @@
 <mapper namespace="com.portfolio.sellf.domain.join.mapper.JoinMapper">
 
   <!-- 회원가입 -->
-  <insert id="joinUser" useGeneratedKeys="true" keyProperty="accountVo.userNo">
-  INSERT INTO TB_USER (
-    USER_NO
-    ,USER_ID
-    ,USER_PASSWORD
-    ,USER_NAME
-    ,USER_NICKNAME
-    ,USER_PROFILE_IMAGE
-    ,USER_TEMPORARY_YN
-    ,USER_SHARE_CODE
-  ) VALUES (
-    #{accountVo.userNo}
-    ,#{accountVo.userId}
-    ,#{accountVo.userPassword}
-    ,#{accountVo.userId}
-    ,#{accountVo.userNickname}
-    ,#{accountVo.userProfileImage}
-    ,#{accountVo.userTemporaryYn}
-    ,#{accountVo.userShareCode}
-  )
+  <insert id="joinUser" useGeneratedKeys="true" keyProperty="userVo.userNo">
+    <selectKey keyColumn="USER_NO" keyProperty="userVo.userNo" resultType="int" order ="BEFORE">
+      SELECT MAX(USER_NO) FROM TB_USER
+    </selectKey>
+    INSERT INTO TB_USER (
+      USER_NO
+      ,USER_ID
+      ,USER_PASSWORD
+      ,USER_NICKNAME
+      ,USER_PROFILE_IMAGE
+    ) VALUES (
+      #{userVo.userNo}
+      ,#{userVo.userId}
+      ,#{userVo.userPassword}
+      ,#{userVo.userId}
+      ,#{userVo.userNickname}
+      ,#{userVo.userProfileImage}
+      ,#{userVo.userTemporaryYn}
+      ,#{userVo.userShareCode}
+    )
   </insert>
 
   <select id="test" parameterType="String" resultType="int">
