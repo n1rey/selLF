@@ -3,7 +3,7 @@
 <!--
     Name: join.html
     Version: 0.1
-    Description : 회원가입 페이지
+    Description : 계정찾기 페이지
     Author: 한승현
 -->
   <head>
@@ -53,8 +53,8 @@
     </div>
     <script>
       function find() {
-        let nickname = $('#userNickname').val()
-        let email = $('#userEmail').val()
+        const nickname = $('#userNickname').val()
+        const email = $('#userEmail').val()
         if(!nickname || nickname.length > 15) {
           $('#userNickname').next().text('1 ~ 15글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
           $('#userNickname').focus()
