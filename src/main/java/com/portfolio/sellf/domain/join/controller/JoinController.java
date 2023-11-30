@@ -1,4 +1,4 @@
-package com.portfolio.sellf.domain.join.comtroller;
+package com.portfolio.sellf.domain.join.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

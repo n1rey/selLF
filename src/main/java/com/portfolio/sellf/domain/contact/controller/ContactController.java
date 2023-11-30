@@ -1,4 +1,4 @@
-package com.portfolio.sellf.domain.contact.comtroller;
+package com.portfolio.sellf.domain.contact.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,6 +47,6 @@ public class ContactController {
     @RequestParam(value = "name", required = false) String name,
     @RequestParam(value = "email", required = false) String email) {
     System.out.println(name+email);
-    return "/contact/contact";
+    return "redirect:/contact";
   }
 }
