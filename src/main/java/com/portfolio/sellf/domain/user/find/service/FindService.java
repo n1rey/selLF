@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portfolio.sellf.domain.user.join.mapper.JoinMapper;
+import com.portfolio.sellf.domain.user.find.mapper.FindMapper;
 
 @Service
 public class FindService {
@@ -14,12 +14,12 @@ public class FindService {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @Autowired
-  private JoinMapper joinMapper;
+  private FindMapper findMapper;
 
   /** 회원가입 **/
   @Transactional
   public int test() {
-    int userNo = joinMapper.test();
+    int userNo = findMapper.test();
     return userNo;
   }
 }
