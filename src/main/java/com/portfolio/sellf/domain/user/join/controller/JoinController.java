@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.portfolio.sellf.common.CommandMap;
 import com.portfolio.sellf.domain.user.join.service.JoinService;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
 
@@ -37,10 +40,11 @@ public class JoinController {
    * @author 한승현
    * @date 2023/11/30
    **/
-  @RequestMapping("/submitInfo") 
-  public String submitInfo(UserVo user) {
-    System.out.println(user);
-    joinService.insertUser(user);
-    return "redirect:/join";
+  @ResponseBody
+  @PostMapping("/submitInfo") 
+  public int submitInfo(CommandMap map) {
+    System.out.println(map.toString());
+    // return joinService.insertUser(user);
+    return 123;
   }
 }

@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     http
       .httpBasic().disable() // 기본설정 해제
+      .csrf().disable() // csrf 보안 토큰 disable처리.
       .headers().frameOptions().sameOrigin()
       .and()
       .authorizeRequests()

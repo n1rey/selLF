@@ -16,7 +16,6 @@
     </header>
     <th:block th:replace="@{/include/mobile_body}"></th:block>
     <div class="nk-main bg-white">
-      <!-- START: Contact Info -->
       <div class="container">
         <div class="nk-gap-5 mnt-10"></div>
         <div class="row vertical-gap">
@@ -40,7 +39,7 @@
           </div>
           
           <div class="col-lg-7">
-            <form th:action="@{/join/submitInfo}" id="joinForm" class="nk-form nk-form-ajax" method="post">
+            <form id="joinForm" class="nk-form nk-form-ajax" method="POST">
               <div class="nk-gap-1"></div>
               <input type="text" class="form-control required" id="userNickname" name="userNickname" placeholder="닉네임을 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
@@ -94,7 +93,20 @@
         if(!valid.validatePassword(password)) return
         if(!valid.validateEmail(email)) return
 
+        var formData = $('#joinForm').serialize()
         $('#joinForm').submit();
+        $.ajax({
+          type : 'POST',
+          url : '/join/submitInfo',
+          data : formData,
+          dataType : 'json',
+          error: function(xhr, status, error){
+            console.log(xhr, status, error);
+          },
+          success : function(data){
+            alert('생성이 완료되었습니다.')
+          }
+        });
       }
 
       function checkInfo(nickname, id) {
