@@ -8,7 +8,6 @@
 -->
   <head>
     <th:block th:replace="@{/include/header}"></th:block>
-    <script th:src="@{/resources/js/validation.js}"></script>
   </head>
   <body>
     <header class="nk-header nk-header-opaque">
@@ -40,6 +39,7 @@
           
           <div class="col-lg-7">
             <form id="joinForm" class="nk-form nk-form-ajax" method="POST">
+              <input type="hidden" id="hsh" name="${_csrf.parameterName}" value="${_csrf.token}"/>
               <div class="nk-gap-1"></div>
               <input type="text" class="form-control required" id="userNickname" name="userNickname" placeholder="닉네임을 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
@@ -94,7 +94,6 @@
         if(!valid.validateEmail(email)) return
 
         var formData = $('#joinForm').serialize()
-        $('#joinForm').submit();
         $.ajax({
           type : 'POST',
           url : '/join/submitInfo',
