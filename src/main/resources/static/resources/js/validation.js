@@ -24,7 +24,29 @@
           $('#userPassword').next().text('')
         }
         return true
+      },
+      validateLoginInfo : function() {
+        const id = $("#userId").val()
+        const pw = $("#userPassword").val()
+        if(!!!id) {
+          $('#userId').next().text('아이디를 입력하세요.').css('color', 'rgb(255 24 24)')
+          $('#userId').focus()
+          return false
+        }
+        $('#userId').next().text('')
+
+        if(!!!pw) {
+          $('#userPassword').next().text('비밀번호를 입력하세요.').css('color', 'rgb(255 24 24)')
+          $('#userPassword').focus()
+          return false
+        }
+        $('#userPassword').next().text('')
+
+        return true
+      },
+      init : function() {
+        return this
       }
     };
-    w.valid = valid
+    w.valid = valid.init()
 }(window, document));

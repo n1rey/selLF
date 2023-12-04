@@ -12,6 +12,7 @@
   <body>
     <header class="nk-header nk-header-opaque">
       <th:block th:replace="@{/include/head}"></th:block>
+      <script th:src="@{/resources/js/validation.js}"></script>
     </header>
     <th:block th:replace="@{/include/mobile_body}"></th:block>
     <div class="nk-main bg-white">
@@ -31,7 +32,7 @@
                 <li><strong style="color:red">참고사항</strong></li>
                 <li>1. 패스워드는 암호화 알고리즘으로 저장하고 있습니다.</li>
                 <li>2. 이메일도 암호화 알고리즘으로 저장하고 있습니다.</li>
-                <li>3. 회원가입 정보는 30일 뒤 삭제됩니다.</li>
+                <li>3. 회원가입 정보는 미접속 후 30일이 지나면 삭제됩니다.</li>
                 <li>4. 일회용 계정은 1시간 뒤 만료됩니다.</li>
             </ul>
             <!-- END: Info -->
@@ -53,9 +54,8 @@
               <div class="nk-gap-1"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
-              <button type="button" th:onclick="join()" class="nk-btn">Join SelLF</button>
-              <button type="button" th:onclick="|location.href='@{/find}'|" class="nk-btn">Find SelLF</button>
-              <button type="button" th:onclick="issue()" class="nk-btn">Issue SelLF</button>
+              <button type="button" th:onclick="join()" class="nk-btn" title="회원가입">Join SelLF</button>
+              <button type="button" th:onclick="issue()" class="nk-btn" title="발급받기">Issue SelLF</button>
             </form>
           </div>
         </div>
@@ -66,7 +66,6 @@
     </div>
     <script>
       var pwdCheck = true;
-
       $(document).ready(function() {
         $('#userPassword, #pwd2').keyup(function() {
           if($('#userPassword').val() != $('#pwd2').val()) {
