@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.portfolio.sellf.global.security.custom.CustomAuthenticationFailureHandler;
 import com.portfolio.sellf.global.security.custom.CustomAuthenticationSuccessHandler;
 import com.portfolio.sellf.global.security.service.CustomUserDeatailService;
 
@@ -29,6 +30,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Autowired
   private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
+  @Autowired
+  private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(customUserDetailsService);
@@ -43,8 +47,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .loginProcessingUrl("/login/do/login")
       .usernameParameter("userId")
       .passwordParameter("userPassword")
-      .defaultSuccessUrl("/login.do",true)
       .successHandler(customAuthenticationSuccessHandler)
+      .failureHandler(customAuthenticationFailureHandler)
       .permitAll();
 
     http
