@@ -1,4 +1,4 @@
-package com.portfolio.sellf.common;
+package com.portfolio.sellf.global.common;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,51 +9,51 @@ public class CommandMap {
 
   Map<String,Object> map = new HashMap<String,Object>();
 
-  public Object get(String key){
+  public Object get(String key) {
 		return map.get(key);
 	}
 	
-	public void put(String key, Object value){
+	public void put(String key, Object value) {
 		map.put(key, value);
 	}
 	
-	public Object remove(String key){
+	public Object remove(String key) {
 		return map.remove(key);
 	}
 	
-	public boolean containsKey(String key){
+	public boolean containsKey(String key) {
 		return map.containsKey(key);
 	}
 	
-	public boolean containsValue(Object value){
+	public boolean containsValue(Object value) {
 		return map.containsValue(value);
 	}
 	
-	public void clear(){
+	public void clear() {
 		map.clear();
 	}
 	
-	public Set<Entry<String, Object>> entrySet(){
+	public Set<Entry<String, Object>> entrySet() {
 		return map.entrySet();
 	}
 	
-	public Set<String> keySet(){
+	public Set<String> keySet() {
 		return map.keySet();
 	}
 	
-	public boolean isEmpty(){
+	public boolean isEmpty() {
 		return map.isEmpty();
 	}
 	
-	public void putAll(Map<? extends String, ?extends Object> m){
+	public void putAll(Map<? extends String, ?extends Object> m) {
 		map.putAll(m);
 	}
 	
-	public Map<String,Object> getMap(){
+	public Map<String,Object> getMap() {
 		return map;
 	}
 
-	public String toString(){
+	public String toString() {
 		return map.toString();
 	}
 }

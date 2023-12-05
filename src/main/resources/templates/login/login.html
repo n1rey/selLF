@@ -37,7 +37,7 @@
           </div>
           
           <div class="col-lg-7">
-            <form id="joinForm" class="nk-form nk-form-ajax" method="POST">
+            <form id="loginForm" class="nk-form nk-form-ajax" method="POST">
               <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
               <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30">
@@ -59,16 +59,20 @@
       function login() {
         if(!valid.validateLoginInfo()) return
 
-        var formData = $('#joinForm').serialize()
+        
         $.ajax({
           type : 'POST',
-          url : '/login/login.do',
-          data : formData,
+          url : '/login/do/login',
+          data : {
+            userId:$('#userId'),
+            userPassword:$('#userPassword')
+          },
           dataType : 'json',
           error: function(xhr, status, error){
             console.log(xhr, status, error);
           },
           success : function(data){
+            console.log(data)
             alert('로그인이 완료되었습니다.')
 
           }

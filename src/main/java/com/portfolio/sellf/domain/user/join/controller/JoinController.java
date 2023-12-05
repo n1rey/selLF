@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.portfolio.sellf.common.CommandMap;
 import com.portfolio.sellf.domain.user.join.service.JoinService;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
+import com.portfolio.sellf.global.common.CommandMap;
+import com.portfolio.sellf.global.security.vo.SecurityUserVo;
 
 @Validated
 @Controller
@@ -41,10 +42,8 @@ public class JoinController {
    * @date 2023/11/30
    **/
   @ResponseBody
-  @PostMapping("/submitInfo") 
-  public int submitInfo(CommandMap map) {
-    System.out.println(map.toString());
-    // return joinService.insertUser(user);
-    return 123;
+  @PostMapping("/submit.do") 
+  public int submitInfo(UserVo user, CommandMap map) {
+    return joinService.joinUser(user);
   }
 }

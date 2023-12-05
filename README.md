@@ -22,3 +22,31 @@ RULES
 2. 카멜표기법
 
 java 1.8.0_291, Spring boot 2.6.2, PostgreSQL 15.5.1
+
+
+
+
+SQL
+CREATE TABLE IF NOT EXISTS sellf.tb_user
+(
+    user_no integer NOT NULL,
+    user_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    user_password character(100) COLLATE pg_catalog."default" NOT NULL,
+    user_email character(50) COLLATE pg_catalog."default" NOT NULL,
+    user_name character(20) COLLATE pg_catalog."default" NOT NULL,
+    user_profile_image character(100) COLLATE pg_catalog."default",
+    user_join_date timestamp(6) with time zone,
+    user_drop_date timestamp(6) with time zone,
+    user_role character(10) COLLATE pg_catalog."default",
+    user_login_date timestamp(6) with time zone,
+    user_drop_yn boolean,
+    CONSTRAINT tb_user_pkey PRIMARY KEY (user_no),
+    CONSTRAINT tb_user_unique UNIQUE (user_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS sellf.tb_user
+    OWNER to test;
+
+GRANT ALL ON TABLE sellf.tb_user TO test;

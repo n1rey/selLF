@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.portfolio.sellf.common.CommandMap;
+import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.domain.user.login.service.LoginService;
 
 @Validated
@@ -40,10 +40,9 @@ public class LoginController {
    * @date 2023/11/30
    **/
   @ResponseBody
-  @PostMapping("/submitInfo") 
-  public int submitInfo(CommandMap map) {
-    System.out.println(map.toString());
-    // return joinService.insertUser(user);
+  @PostMapping("/login.do") 
+  public int submitInfo(UserVo user) {
+    
     return 123;
   }
 }
