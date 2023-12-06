@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.portfolio.sellf.domain.user.join.service.JoinService;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.global.common.CommandMap;
-import com.portfolio.sellf.global.security.vo.SecurityUserVo;
 
 @Validated
 @Controller

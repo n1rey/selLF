@@ -103,12 +103,17 @@
         <artifactId>bootstrap</artifactId>
         <version>5.1.3</version>
     </dependency>
-
+    <!--인터셉터를 위한 라이브러리 -->
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+
+    <!-- <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

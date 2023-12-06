@@ -18,13 +18,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         ObjectMapper mapper = new ObjectMapper();
-
+        
         System.out.println(authentication.getName());
         System.out.println(authentication.getCredentials());
 
-        SecurityUserVo user = new SecurityUserVo();
-        
-
+        SecurityUserVo user = (SecurityUserVo) authentication.getPrincipal();
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().print(mapper.writeValueAsString(user.toString()));

@@ -59,22 +59,24 @@
       function login() {
         if(!valid.validateLoginInfo()) return
 
-        
+        var formData = $('#loginForm').serialize()
+
         $.ajax({
           type : 'POST',
-          url : '/login/do/login',
-          data : {
-            userId:$('#userId'),
-            userPassword:$('#userPassword')
-          },
+          url : '/login/login.do',
+          data : formData,
           dataType : 'json',
           error: function(xhr, status, error){
             console.log(xhr, status, error);
           },
-          success : function(data){
+          success : function(data) {
             console.log(data)
-            alert('로그인이 완료되었습니다.')
-
+            if(data == 1) {
+              location.href = '/'
+            }
+            else {
+              alert('존재하지 않는 아이디이거나 비밀번호가 일치하지 않습니다.')
+            }
           }
         });
       }

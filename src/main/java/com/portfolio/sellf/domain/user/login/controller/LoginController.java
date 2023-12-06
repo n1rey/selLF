@@ -1,5 +1,8 @@
 package com.portfolio.sellf.domain.user.login.controller;
 
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -41,8 +44,15 @@ public class LoginController {
    **/
   @ResponseBody
   @PostMapping("/login.do") 
-  public int submitInfo(UserVo user) {
-    
-    return 123;
+  public int submitInfo(UserVo user, HttpServletRequest httpServletRequest) {
+    int result = loginService.tryLogin(user);
+    if(result == 1) {
+      httpServletRequest.getSession().invalidate();
+      HttpSession session = httpServletRequest.getSession(true);
+
+      session.setAttribute("userId", user.getUserId());
+      session.setMaxInactiveInterval(1800);
+    }
+    return result;
   }
 }
