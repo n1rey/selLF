@@ -32,7 +32,7 @@ public class ContactController {
   @RequestMapping(value = {"", "/"}) 
   public String contactMainPage() {
     
-    return "/contact/contact";
+    return "/user/contact";
   }
 
     /**

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.portfolio.sellf.domain.user.find.service.FindService;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
@@ -28,7 +29,7 @@ public class FindController {
    **/
   @RequestMapping(value = {"", "/"}) 
   public String findMainPage() {
-    return "/find/find";
+    return "/user/find";
   }
 
     /**
@@ -38,9 +39,10 @@ public class FindController {
    * @author 한승현
    * @date 2023/11/30
    **/
-  @RequestMapping("/searchInfo") 
-  public String searchInfo(UserVo user) {
-    System.out.println(user);
-    return "redirect:/find";
+  @ResponseBody
+  @RequestMapping("/searchInfo.do") 
+  public int searchInfo(UserVo user) {
+    int result = findService.searchInfo(user);
+    return result;
   }
 }

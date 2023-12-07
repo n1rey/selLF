@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.user.find.mapper.FindMapper;
+import com.portfolio.sellf.domain.user.join.vo.UserVo;
+import com.portfolio.sellf.global.common.Encryption;
+import com.portfolio.sellf.global.common.RandomInfo;
+import com.portfolio.sellf.global.common.SendMail;
 
 @Service
 public class FindService {
@@ -16,10 +20,29 @@ public class FindService {
   @Autowired
   private FindMapper findMapper;
 
-  /** 회원가입 **/
+  /** 계정찾기 **/
   @Transactional
-  public int test() {
-    int userNo = findMapper.test();
-    return userNo;
+  public int searchInfo(UserVo user) {
+    UserVo userInfo = findMapper.searchInfo(user);
+    int result = -1;
+    
+    if(userInfo != null) {
+      String password = RandomInfo.randomPassword();
+      System.out.println(password);
+      user.setUserPassword(password);
+      boolean flag = SendMail.sendMail(user, "find");
+      if(!flag){
+        return -2;
+      }else{
+        password = Encryption.encodeSha(password);
+        user.setUserPassword(password);
+        findMapper.updatePassword(user);
+        result = 1;
+      }
+    }
+
+    return result;
   }
+
+
 }

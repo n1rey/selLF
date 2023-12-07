@@ -5,9 +5,14 @@
   <!-- 회원가입 -->
   <select id="tryLogin" resultType="com.portfolio.sellf.domain.user.join.vo.UserVo">
     SELECT USER_ID, 
-      USER_PASSWORD
+      USER_PASSWORD,
+      USER_ROLE,
+      USER_NAME,
+      USER_PROFILE_IMAGE,
+      USER_EMAIL
     FROM TB_USER 
     WHERE 1=1
+    AND USER_DROP_YN = '0'
     AND USER_ID = #{userVo.userId}
   </select>
 

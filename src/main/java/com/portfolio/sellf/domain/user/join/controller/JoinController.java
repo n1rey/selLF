@@ -31,7 +31,7 @@ public class JoinController {
    **/
   @RequestMapping(value = {"", "/"}) 
   public String joinMainPage() {
-    return "/join/join";
+    return "/user/join";
   }
     /**
    * <pre>
