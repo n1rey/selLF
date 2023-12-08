@@ -142,13 +142,12 @@
             alert('에러가 발생했습니다.')
           },
           success : function(data) {
-            console.log(data)
-            if(data.result != 'success') {
-              alert('발급이 실패했습니다. 다시 시도해주세요.')
+            console.log(data.map.toString())
+            if(data.map.result != 'success') {
+              alert(data.map.message)
             }
             else {
-              alert('발급이 완료됐습니다. \n 로그인ID :',data.userId,"패스워드 : ",data.password)
-
+              alert('발급이 완료됐습니다. \n로그인ID :'+data.map.userId+"\n패스워드 : "+data.map.password)
             }
           }
         });

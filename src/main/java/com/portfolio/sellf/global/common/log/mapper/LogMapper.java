@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.portfolio.sellf.global.common.log.vo.LogVo;
@@ -13,7 +14,7 @@ import com.portfolio.sellf.global.common.log.vo.LogVo;
 public interface LogMapper {
 
   //로그추가
-  int insertLog(LogVo log);
+  int insertLog(@Param("logVo")LogVo log);
 
   List<LogVo> selectLog(Map<String, Object> map);
 

@@ -17,7 +17,7 @@ public class LogVo {
   private Time log_time;
   private int logUserNo;
   private int logDropYn;
-  private String logURI;
+  private String logUri;
 
   @Override
   public String toString() {
@@ -30,7 +30,7 @@ public class LogVo {
             ", log_time='" + log_time + '\'' +
             ", logUserNo='" + logUserNo + '\'' +
             ", logDropYn='" + logDropYn + '\'' +
-            ", logURI='" + logURI + '\'' +
+            ", logURI='" + logUri + '\'' +
             "}";
   }
 }

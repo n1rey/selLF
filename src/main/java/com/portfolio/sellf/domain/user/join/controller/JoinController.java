@@ -58,9 +58,9 @@ public class JoinController {
   @ResponseBody
   @RequestMapping("/issue.do") 
   public CommandMap issueInfo(HttpServletRequest request, CommandMap map) {
-    CommandMap result = joinService.beforeIssueUser(map, request);
-    if(result.get("result").equals(result)) {
-      result = joinService.afterIssueUser();
+    map = joinService.beforeIssueUser(map, request);
+    if(map.get("result").equals("success")) {
+      map = joinService.afterIssueUser(map);
     }
     return map;
   }

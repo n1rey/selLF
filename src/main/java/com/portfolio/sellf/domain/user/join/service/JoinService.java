@@ -64,7 +64,7 @@ public class JoinService {
     if(!map.get("key").equals("good")) { //비정상접근
       logVo.setLogInfo("키 누락, 비정상적인 접근");
       logVo.setLogIp(ip);
-      logVo.setLogURI(uri);
+      logVo.setLogUri(uri);
       logVo.setLogType("caution");
       logMapper.insertLog(logVo);
 
@@ -86,15 +86,14 @@ public class JoinService {
       logVo.setLogType(type);
       logVo.setLogIp(ip);
       logVo.setLogInfo("일회용 계정 발급");
-      logVo.setLogURI(uri);
+      logVo.setLogUri(uri);
       logMapper.insertLog(logVo);
       map.put("result", "success");
       return map;
     }
   }
 
-  public CommandMap afterIssueUser() {
-    CommandMap map = new CommandMap();
+  public CommandMap afterIssueUser(CommandMap map) {
     UserVo userVo = createRandomUser();
     String password = RandomInfo.randomPassword();
     userVo.setUserPassword(Encryption.encodeSha(password));
