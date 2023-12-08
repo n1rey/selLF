@@ -31,15 +31,16 @@ CREATE TABLE IF NOT EXISTS sellf.tb_user
 (
     user_no integer NOT NULL,
     user_id character(20) COLLATE pg_catalog."default" NOT NULL,
-    user_password character(100) COLLATE pg_catalog."default" NOT NULL,
+    user_password character(300) COLLATE pg_catalog."default" NOT NULL,
     user_email character(50) COLLATE pg_catalog."default" NOT NULL,
     user_name character(20) COLLATE pg_catalog."default" NOT NULL,
     user_profile_image character(100) COLLATE pg_catalog."default",
-    user_join_date timestamp(6) with time zone,
+    user_join_date date,
     user_drop_date timestamp(6) with time zone,
     user_role character(10) COLLATE pg_catalog."default",
     user_login_date timestamp(6) with time zone,
-    user_drop_yn boolean,
+    user_drop_yn "char" DEFAULT '0'::"char",
+    user_join_time time(6) without time zone,
     CONSTRAINT tb_user_pkey PRIMARY KEY (user_no),
     CONSTRAINT tb_user_unique UNIQUE (user_id)
 )
@@ -50,3 +51,23 @@ ALTER TABLE IF EXISTS sellf.tb_user
     OWNER to test;
 
 GRANT ALL ON TABLE sellf.tb_user TO test;
+
+----------------------------------------
+CREATE TABLE IF NOT EXISTS sellf.tb_log
+(
+    log_no integer NOT NULL,
+    log_type character(10) COLLATE pg_catalog."default" NOT NULL,
+    log_ip character(50) COLLATE pg_catalog."default" NOT NULL,
+    log_info text COLLATE pg_catalog."default" NOT NULL,
+    log_user_no integer,
+    log_drop_yn "char" DEFAULT '0'::"char",
+    log_uri character(30) COLLATE pg_catalog."default",
+    log_date date NOT NULL,
+    log_time time(6) without time zone NOT NULL,
+    CONSTRAINT tb_log_pkey PRIMARY KEY (log_no)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS sellf.tb_log
+    OWNER to test;
