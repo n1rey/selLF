@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class RandomInfo {
   
-  public static String randomId() {
+  public static String randomId(int length) {
     String id = "";
     final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+-=[]{}|/";
     StringBuilder sb = new StringBuilder(8);
     Random random = new SecureRandom();
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < length; i++) {
         int randomIndex = random.nextInt(CHARACTERS.length());
         char randomChar = CHARACTERS.charAt(randomIndex);
         sb.append(randomChar);
@@ -42,7 +42,7 @@ public class RandomInfo {
         sr.setSeed(new Date().getTime());
         int idx = 0;
         int len = charSet.length;
-        for (int i=0; i<8; i++) {
+        for (int i=0; i<10; i++) {
           idx = sr.nextInt(len);
           sb.append(charSet[idx]);
         }

@@ -40,7 +40,6 @@ public class FindService {
         result = 1;
       }
     }
-
     return result;
   }
 

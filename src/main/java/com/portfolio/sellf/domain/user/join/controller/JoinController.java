@@ -1,5 +1,7 @@
 package com.portfolio.sellf.domain.user.join.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -44,5 +46,22 @@ public class JoinController {
   @PostMapping("/submit.do") 
   public int submitInfo(UserVo user, CommandMap map) {
     return joinService.joinUser(user);
+  }
+
+    /**
+   * <pre>
+   * 계정발급
+   *
+   * @author 한승현
+   * @date 2023/12/08
+   **/
+  @ResponseBody
+  @RequestMapping("/issue.do") 
+  public CommandMap issueInfo(HttpServletRequest request, CommandMap map) {
+    CommandMap result = joinService.beforeIssueUser(map, request);
+    if(result.get("result").equals(result)) {
+      result = joinService.afterIssueUser();
+    }
+    return map;
   }
 }

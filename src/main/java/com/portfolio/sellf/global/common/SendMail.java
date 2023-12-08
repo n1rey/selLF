@@ -11,8 +11,12 @@ import com.portfolio.sellf.domain.user.join.vo.UserVo;
 @Component
 public class SendMail {
 
+	private static JavaMailSender mailSender;
+	
 	@Autowired
-  static MailSender mailSender;
+	public void MailUtil(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
 
   
   public static boolean sendMail(UserVo user, String type) {
@@ -39,7 +43,6 @@ public class SendMail {
         simpleMailMessage.setTo("tmdgus4720@naver.com");
         simpleMailMessage.setSubject("[selLF] 스케쥴러 메일");
         simpleMailMessage.setText("총 접속 수 : "+user.getUserProfileImage()+" 명 입니다. \n비정상 시도 횃수 : "+user.getUserId()+"번 입니다.");
-        System.out.println("스케쥴러");
       }
       mailSender.send(simpleMailMessage);
     } catch (Exception e) {

@@ -33,7 +33,7 @@ public class LoginController {
    **/
   @RequestMapping(value = {"", "/"}) 
   public String loginMainPage() {
-    return "/login/login";
+    return "/user/login";
   }
     /**
    * <pre>

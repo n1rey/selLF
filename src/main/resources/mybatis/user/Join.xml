@@ -15,6 +15,8 @@
       ,USER_NAME
       ,USER_PROFILE_IMAGE
       ,USER_JOIN_DATE
+      ,USER_JOIN_TIME
+      ,USER_ROLE
     ) VALUES (
       #{userVo.userNo}
       ,#{userVo.userId}
@@ -22,7 +24,9 @@
       ,#{userVo.userEmail}
       ,#{userVo.userName}
       ,#{userVo.userProfileImage}
-      ,NOW()
+      ,CURRENT_DATE
+      ,CURRENT_TIME
+      ,#{userVo.userRole}
     )
   </insert>
 
@@ -30,5 +34,16 @@
   <select id="checkId" resultType="int" parameterType="map">
     SELECT COUNT(*) FROM TB_USER WHERE USER_ID = #{userid}
   </select>
+
+  <!--게스트 아이디 삭제-->
+  <delete id="deleteGuest">
+    <![CDATA[
+      DELETE FROM TB_USER
+      WHERE 1=1
+      AND USER_JOIN_DATE <= CURRENT_DATE
+      AND USER_JOIN_TIME <= CURRENT_TIME - INTERVAL '1HOUR'
+      AND USER_ROLE = 'guest'
+    ]]>
+  </delete>
 </mapper>
 

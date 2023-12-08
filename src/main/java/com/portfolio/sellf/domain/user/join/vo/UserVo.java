@@ -17,6 +17,7 @@ public class UserVo {
   private int userDropYn;
   private Timestamp userDropDt;
   private String userEmail;
+  private String userRole;
 
   @Override
   public String toString() {
@@ -30,6 +31,7 @@ public class UserVo {
             ", userDropYn=" + userDropYn +
             ", userDropDt=" + userDropDt +
             ", userEmail=" + userEmail +
+            ", userRole=" + userRole +
             '}';
   }
 }
