@@ -16,15 +16,14 @@ public class LoginService {
 
   /** 로그인 **/
   @Transactional
-  public int tryLogin(UserVo user) {
+  public UserVo tryLogin(UserVo user) {
     String encryptPassword = Encryption.encodeSha(user.getUserPassword());
     user.setUserPassword(encryptPassword);
     UserVo userVo = loginMapper.tryLogin(user);
-    int loginYn = 1;
 
     if(null == userVo || !userVo.getUserPassword().trim().equals(encryptPassword.trim())) {
-      loginYn = -1;
+      userVo = null;
     }
-    return loginYn;
+    return userVo;
   }
 }

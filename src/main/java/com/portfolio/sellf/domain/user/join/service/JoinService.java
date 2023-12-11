@@ -19,6 +19,7 @@ import com.portfolio.sellf.global.common.CommonUtil;
 import com.portfolio.sellf.global.common.Encryption;
 import com.portfolio.sellf.global.common.RandomInfo;
 import com.portfolio.sellf.global.common.log.mapper.LogMapper;
+import com.portfolio.sellf.global.common.log.service.LogService;
 import com.portfolio.sellf.global.common.log.vo.LogVo;
 
 @Service
@@ -30,7 +31,7 @@ public class JoinService {
   private JoinMapper joinMapper;
 
   @Autowired
-  private LogMapper logMapper;
+  private LogService logService;
 
   /** 회원가입 **/
   @Transactional
@@ -66,7 +67,7 @@ public class JoinService {
       logVo.setLogIp(ip);
       logVo.setLogUri(uri);
       logVo.setLogType("caution");
-      logMapper.insertLog(logVo);
+      logService.insertLog(logVo);
 
       map.put("result", "caution");
       map.put("message", "비정상 접근이 감지되었습니다.");
@@ -77,7 +78,7 @@ public class JoinService {
       map.put("LOG_IP", ip);
       map.put("LOG_URI", uri);
       map.put("TIME","1");
-      List<LogVo> logList = logMapper.selectLog(map.getMap());
+      List<LogVo> logList = logService.selectLog(map.getMap());
       if(logList.size() > 0) {
         map.put("result", "fail");
         map.put("message", "이미 발급받은 계정이 존재합니다.");
@@ -87,7 +88,7 @@ public class JoinService {
       logVo.setLogIp(ip);
       logVo.setLogInfo("일회용 계정 발급");
       logVo.setLogUri(uri);
-      logMapper.insertLog(logVo);
+      logService.insertLog(logVo);
       map.put("result", "success");
       return map;
     }

@@ -43,14 +43,16 @@ public class LoginController {
   @ResponseBody
   @PostMapping("/login.do") 
   public int login(UserVo user, HttpServletRequest httpServletRequest) {
-    int result = loginService.tryLogin(user);
-    if(result == 1) {
+    int flag = -1;
+    UserVo result = loginService.tryLogin(user);
+    if(result != null) {
       httpServletRequest.getSession().invalidate();
       HttpSession session = httpServletRequest.getSession(true);
       user.setUserPassword("");
-      session.setAttribute("user", user);
+      session.setAttribute("user", result);
       session.setMaxInactiveInterval(1800);
+      flag = 1;
     }
-    return result;
+    return flag;
   }
 }

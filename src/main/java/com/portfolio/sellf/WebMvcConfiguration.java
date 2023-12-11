@@ -2,6 +2,7 @@ package com.portfolio.sellf;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,8 +20,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginCheckInterceptor())
+        registry.addInterceptor(loginCheckInterceptor())
         .excludePathPatterns("/css/**", "/logout.do", "/resources/**", "/favicon.ico", "/error")
         .addPathPatterns("/**");
+    }
+
+    @Bean
+    public LoginCheckInterceptor loginCheckInterceptor() {
+        return new LoginCheckInterceptor();
     }
 }
