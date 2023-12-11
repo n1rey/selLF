@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
 
+import javafx.event.ActionEvent;
+
 @Component
 public class SendMail {
 
@@ -19,9 +21,7 @@ public class SendMail {
 	}
 
   
-  public static boolean sendMail(UserVo user, String type) {
-    
-    boolean flag = true;
+  public static void sendMail(UserVo user, String type) {
 
     try {
       SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -44,13 +44,19 @@ public class SendMail {
         simpleMailMessage.setSubject("[selLF] 스케쥴러 메일");
         simpleMailMessage.setText("총 접속 수 : "+user.getUserProfileImage()+" 명 입니다. \n비정상 시도 횃수 : "+user.getUserId()+"번 입니다.");
       }
-      mailSender.send(simpleMailMessage);
+
+      Thread thread = new Thread(){
+        public void run() {
+          mailSender.send(simpleMailMessage);
+        }
+      };
+      thread.start();
+
+
+
     } catch (Exception e) {
-      flag = false;
       e.printStackTrace();
     }
-
-    return flag;
   }
 	
 }

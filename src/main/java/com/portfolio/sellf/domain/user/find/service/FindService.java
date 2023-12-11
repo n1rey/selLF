@@ -28,17 +28,12 @@ public class FindService {
     
     if(userInfo != null) {
       String password = RandomInfo.randomPassword();
-      System.out.println(password);
       user.setUserPassword(password);
-      boolean flag = SendMail.sendMail(user, "find");
-      if(!flag){
-        return -2;
-      }else{
-        password = Encryption.encodeSha(password);
-        user.setUserPassword(password);
-        findMapper.updatePassword(user);
-        result = 1;
-      }
+      SendMail.sendMail(user, "find");
+      password = Encryption.encodeSha(password);
+      user.setUserPassword(password);
+      findMapper.updatePassword(user);
+      result = 1;
     }
     return result;
   }

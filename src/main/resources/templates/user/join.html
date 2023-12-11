@@ -11,10 +11,10 @@
   </head>
   <body>
     <header class="nk-header nk-header-opaque">
-      <th:block th:replace="@{/include/head}"></th:block>
+      <div th:replace="@{/include/head}"></div>
       <script th:src="@{/resources/js/validation.js}"></script>
     </header>
-    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <!-- <th:block th:replace="@{/include/mobile_body}"></th:block> -->
     <div class="nk-main bg-white">
       <div class="container">
         <div class="nk-gap-5 mnt-10"></div>
@@ -35,7 +35,6 @@
                 <li>3. 일회용 계정은 1시간 뒤 만료됩니다.</li>
                 <li>4. 일회용 계정 발급 후 1시간이 지난 후에 재발급이 가능합니다.</li>
             </ul>
-            <div id="issueInfo"></div>
             <!-- END: Info -->
           </div>
           
@@ -98,11 +97,11 @@
           data : formData,
           dataType : 'json',
           error: function(xhr, status, error) {
-            alert('에러가 발생했습니다.')
+            swal.fire('error', '다시 시도해주세요.', 'error');
           },
           success : function(data) {
             if(data == -1) {
-              alert('생성이 실패했습니다. 다시 시도해주세요.')
+              swal.fire('생성실패', '다시 시도해주세요.', 'warning');
             }
             else if(data == -999) {
               $('#userId').css('border-color', 'red')
@@ -110,8 +109,7 @@
               $('#userId').focus()
             }
             else {
-              alert('생성이 완료됐습니다.')
-              location.href='/login'
+              swal.fire('success', '생성이 완료됐습니다.', 'success').then(result => {location.href='/login'});
             }
           }
         });
@@ -139,15 +137,14 @@
           data : {key : 'good'},
           dataType : 'json',
           error: function(xhr, status, error) {
-            alert('에러가 발생했습니다.')
+            swal.fire('error', '다시 시도해주세요.', 'error')
           },
           success : function(data) {
-            console.log(data.map.toString())
             if(data.map.result != 'success') {
-              alert(data.map.message)
+              swal.fire('발급실패', data.map.message, 'warning')
             }
             else {
-              alert('발급이 완료됐습니다. \n로그인ID :'+data.map.userId+"\n패스워드 : "+data.map.password)
+              swal.fire('success', '로그인ID :'+data.map.userId+"\n패스워드 : "+data.map.password, 'info');
             }
           }
         });

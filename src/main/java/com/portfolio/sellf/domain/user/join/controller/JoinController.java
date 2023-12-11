@@ -14,7 +14,6 @@ import com.portfolio.sellf.domain.user.join.service.JoinService;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.global.common.CommandMap;
 
-@Validated
 @Controller
 @RequestMapping("/join")
 public class JoinController {

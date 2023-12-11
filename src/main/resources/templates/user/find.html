@@ -66,24 +66,24 @@
         if(!valid.validateEmail(email)) return
 
         var formData = $('#findForm').serialize()
+
         $.ajax({
           type : 'POST',
           url : '/find/searchInfo.do',
           data : formData,
           dataType : 'json',
           error: function(xhr, status, error) {
-            alert('에러가 발생했습니다.')
+            swal.fire('error', '다시 시도해주세요.', 'error')
           },
           success : function(data) {
             if(data == -1) {
-              alert('존재하지않는 계정입니다.')
+              swal.fire('발급실패', '존재하지않는 계정입니다.', 'warning')
             }
             else if(data == -2) {
-              alert('에러가 발생했습니다. 잠시 후 다시 시도해주세요.')
+              swal.fire('error', '잠시 후 다시 시도해주세요.', 'error')
             }
             else {
-              alert('메일이 발송되었습니다.')
-              location.href='/login'
+              swal.fire('success', '메일이 발송되었습니다.', 'success').then(result => {location.href='/login'})
             }
           }
         })
