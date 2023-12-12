@@ -51,7 +51,7 @@ public class LoginController {
       httpServletRequest.getSession().invalidate();
       HttpSession session = httpServletRequest.getSession(true);
       session.setAttribute("user", result);
-      session.setMaxInactiveInterval(1800);
+      session.setMaxInactiveInterval(3600);
       flag = 1;
     }
     return flag;

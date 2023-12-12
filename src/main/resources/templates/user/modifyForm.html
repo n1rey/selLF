@@ -30,8 +30,7 @@
             
             <ul class="nk-contact-info">
               <li><strong style="color:red">참고사항</strong></li>
-              <li>1. 패스워드 불일치 시 업데이트 되지않습니다.</li>
-              <li>2. 회원가입 정보는 미접속 후 30일이 지나면 삭제됩니다.</li>
+              <li>1. 패스워드의 변경주기는 90일입니다.</li>
             </ul>
             <!-- END: Info -->
           </div>
@@ -40,14 +39,14 @@
             <form id="modifyForm" class="nk-form nk-form-ajax" method="POST">
               <input type="hidden" id="userId" name="userId" th:value="${user.userId}"/>
               <input type="hidden" id="exiUserName" th:value="${user.userName}"/>
-              <input type="text" class="form-control required" id="userName" name="userName" placeholder="이름을 입력하세요." maxlength="15" th:value="${user.userName}">
+              <input type="text" class="form-control required" id="userName" name="userName" placeholder="변경할 이름을 입력하세요." maxlength="15" th:value="${user.userName}">
               <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30">
+              <input type="password" class="form-control" id="userPassword" name="userPassword" value="" placeholder="변경할 비밀번호를 입력하세요" maxlength="30">
               <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력하세요" maxlength="30">
+              <input type="password" class="form-control" id="pwd2" name="password2" value="" placeholder="변경할 비밀번호를 다시 입력하세요" maxlength="30">
               <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
               <input type="hidden" id="exiUserEmail" th:value="${user.userEmail}"/>
-              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100" th:value="${user.userEmail}">
+              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="변경할 이메일을 입력하세요" maxlength="100" th:value="${user.userEmail}">
               <div class="nk-gap-1"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
@@ -83,10 +82,10 @@
         const email = $("#userEmail").val()
 
         if(password != password2) return
-        if(!valid.validatePassword(password)) return
         if(!valid.validateEmail(email)) return
 
-        var formData = $('#joinForm').serialize()
+        var formData = $('#modifyForm').serialize()
+
         $.ajax({
           type : 'POST',
           url : '/modify/submit.do',
@@ -100,7 +99,7 @@
               swal.fire('생성실패', '다시 시도해주세요.', 'warning')
             }
             else {
-              swal.fire('success', '수정이 완료됐습니다.', 'success')
+              swal.fire('success', '수정이 완료됐습니다.', 'success').then(result =>{location.reload})
             }
           }
         });

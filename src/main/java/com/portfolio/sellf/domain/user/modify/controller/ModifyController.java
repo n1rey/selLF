@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.domain.user.modify.service.ModifyService;
 import com.portfolio.sellf.global.common.CommandMap;
+import com.portfolio.sellf.global.common.log.vo.LogVo;
 
 
 @Controller
@@ -25,26 +26,46 @@ public class ModifyController {
 
   @Autowired
   private ModifyService modifyService;
+  
     /**
    * <pre>
-   * 개인정보 수정페이지
+   * 개인정보 체크페이지
    *
    * @author 한승현
    * @date 2023/12/11
    **/
   @RequestMapping(value = {"", "/"}) 
-  public String modifyMainPage(HttpServletRequest request, Model model, HttpServletResponse response) {
-    UserVo user = (UserVo) request.getSession().getAttribute("user");
-    model.addAttribute("user", user);
-    return "/user/modify";
+  public String modifyCheckPage(HttpServletRequest request, HttpServletResponse response) {
+    return "/user/modify-check";
   }
 
       /**
    * <pre>
-   * 회원가입
+   * 패스워드 검증
    *
    * @author 한승현
-   * @date 2023/11/30
+   * @date 2023/12/12
+   **/
+  @RequestMapping("/checkPassword.do") 
+  public String checkPassword(HttpServletRequest request, CommandMap map, Model model) {
+    String message = modifyService.checkPassword(request, map);
+    if(message.equals("")) {
+      UserVo user = (UserVo) request.getSession().getAttribute("user");
+      user.setUserPassword("");
+      model.addAttribute("user", user);
+      return "/user/modifyForm";
+    }else {
+      model.addAttribute("message", message);
+      return "/user/modify-check";
+    }
+  }
+
+      /**
+   * <pre>
+   * 회원정보 수정
+   *
+   * @author 한승현
+   * @date 2023/12/12
    **/
   @ResponseBody
   @PostMapping("/submit.do") 

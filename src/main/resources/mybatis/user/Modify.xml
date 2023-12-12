@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.portfolio.sellf.domain.user.modify.mapper.JoinMapper">
+<mapper namespace="com.portfolio.sellf.domain.user.modify.mapper.ModifyMapper">
 
   <!--회원정보 수정-->
   <update id="updateUser" parameterType="com.portfolio.sellf.domain.user.join.vo.UserVo">
-    UPDATE TB_USER SET USER_NAME = #{USER_NAME}, USER_PASSWORD = #{USER_PASSWORD}, USER_EMAIL = #{USER_EMAIL} WHERE USER_ID = #{USER_ID}
+    UPDATE TB_USER SET 
+      USER_NAME = #{userVo.userName}, 
+      USER_EMAIL = #{userVo.userEmail},
+      <if test="userVo.userPassword != null and userVo.userPassword != ''">
+        USER_PASSWORD = #{userVo.userPassword}
+      </if>
+      WHERE 1=1
+      AND USER_ID = #{userVo.userId}
   </update>
 </mapper>
 
