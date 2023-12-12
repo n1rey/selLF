@@ -22,6 +22,7 @@ public class LoginController {
 
   @Autowired
   private LoginService loginService;
+
     /**
    * <pre>
    * 로그인 메인페이지
@@ -33,6 +34,7 @@ public class LoginController {
   public String loginMainPage() {
     return "/user/login";
   }
+  
     /**
    * <pre>
    * 회원가입
@@ -48,7 +50,6 @@ public class LoginController {
     if(result != null) {
       httpServletRequest.getSession().invalidate();
       HttpSession session = httpServletRequest.getSession(true);
-      user.setUserPassword("");
       session.setAttribute("user", result);
       session.setMaxInactiveInterval(1800);
       flag = 1;

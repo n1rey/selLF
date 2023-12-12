@@ -3,7 +3,7 @@
 <!--
     Name: modify.html
     Version: 0.1
-    Description : 회원정보 수정페이지
+    Description : 정보수정페이지
     Author: 한승현
 -->
   <head>
@@ -29,28 +29,29 @@
             </p>
             
             <ul class="nk-contact-info">
-                <li><strong style="color:red">참고사항</strong></li>
-                <li>1. 패스워드는 암호화 알고리즘으로 저장하고 있습니다.</li>
-                <li>2. 회원가입 정보는 미접속 후 30일이 지나면 삭제됩니다.</li>
-                <li>3. 일회용 계정은 1시간 뒤 만료됩니다.</li>
-                <li>4. 일회용 계정 발급 후 1시간이 지난 후에 재발급이 가능합니다.</li>
+              <li><strong style="color:red">참고사항</strong></li>
+              <li>1. 패스워드 불일치 시 업데이트 되지않습니다.</li>
+              <li>2. 회원가입 정보는 미접속 후 30일이 지나면 삭제됩니다.</li>
             </ul>
             <!-- END: Info -->
           </div>
           
           <div class="col-lg-7">
-            <form id="joinForm" class="nk-form nk-form-ajax" method="POST">
-              <input type="text" class="form-control required" id="userName" name="userName" placeholder="이름을 입력하세요." maxlength="15" th:value="${user}">
+            <form id="modifyForm" class="nk-form nk-form-ajax" method="POST">
+              <input type="hidden" id="userId" name="userId" th:value="${user.userId}"/>
+              <input type="hidden" id="exiUserName" th:value="${user.userName}"/>
+              <input type="text" class="form-control required" id="userName" name="userName" placeholder="이름을 입력하세요." maxlength="15" th:value="${user.userName}">
               <div class="nk-gap-1"></div>
               <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30">
               <div class="nk-gap-1"></div>
               <input type="password" class="form-control required" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력하세요" maxlength="30">
               <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
+              <input type="hidden" id="exiUserEmail" th:value="${user.userEmail}"/>
               <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100" th:value="${user.userEmail}">
               <div class="nk-gap-1"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
-              <button type="button" th:onclick="join()" class="nk-btn" title="수정하기">Modify SelLF</button>
+              <button type="button" th:onclick="modify()" class="nk-btn" title="수정하기">Modify SelLF</button>
             </form>
           </div>
         </div>
@@ -75,7 +76,7 @@
         })
       })
 
-      function join() {
+      function modify() {
         const name = $("#userName").val()
         const password = $("#userPassword").val()
         const password2 = $("#pwd2").val()
@@ -88,7 +89,7 @@
         var formData = $('#joinForm').serialize()
         $.ajax({
           type : 'POST',
-          url : '/join/submit.do',
+          url : '/modify/submit.do',
           data : formData,
           dataType : 'json',
           error: function(xhr, status, error) {
@@ -103,15 +104,6 @@
             }
           }
         });
-      }
-
-      function checkInfo(name) {
-        if(!name || name.length > 15) {
-          $('#userName').next().text('1 ~ 15글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
-          $('#userName').focus()
-          return 1
-        }
-        $('#userName').next().text('')
       }
     </script>
   </body>

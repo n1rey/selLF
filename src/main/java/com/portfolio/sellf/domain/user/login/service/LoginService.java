@@ -21,7 +21,7 @@ public class LoginService {
     user.setUserPassword(encryptPassword);
     UserVo userVo = loginMapper.tryLogin(user);
 
-    if(null == userVo || !userVo.getUserPassword().trim().equals(encryptPassword.trim())) {
+    if(null == userVo || !userVo.getUserPassword().equals(encryptPassword)) {
       userVo = null;
     }
     return userVo;

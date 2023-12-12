@@ -1,8 +1,6 @@
 package com.portfolio.sellf.domain.user.join.service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +16,6 @@ import com.portfolio.sellf.global.common.CommandMap;
 import com.portfolio.sellf.global.common.CommonUtil;
 import com.portfolio.sellf.global.common.Encryption;
 import com.portfolio.sellf.global.common.RandomInfo;
-import com.portfolio.sellf.global.common.log.mapper.LogMapper;
 import com.portfolio.sellf.global.common.log.service.LogService;
 import com.portfolio.sellf.global.common.log.vo.LogVo;
 
@@ -73,7 +70,7 @@ public class JoinService {
       map.put("message", "비정상 접근이 감지되었습니다.");
 
       return map;
-    }else{
+    }else {
       map.put("LOG_TYPE", type);
       map.put("LOG_IP", ip);
       map.put("LOG_URI", uri);

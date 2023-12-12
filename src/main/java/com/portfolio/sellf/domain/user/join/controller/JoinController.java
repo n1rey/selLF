@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +22,7 @@ public class JoinController {
 
   @Autowired
   private JoinService joinService;
+
     /**
    * <pre>
    * 회원가입 메인페이지
@@ -34,6 +34,7 @@ public class JoinController {
   public String joinMainPage() {
     return "/user/join";
   }
+
     /**
    * <pre>
    * 회원가입

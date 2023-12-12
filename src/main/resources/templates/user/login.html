@@ -67,7 +67,7 @@
           data : formData,
           dataType : 'json',
           error: function(xhr, status, error){
-            console.log(xhr, status, error);
+            swal.fire('error', '에러가 발생했습니다. 잠시후 다시 시도해주세요.', 'error')
           },
           success : function(data) {
             if(data == 1) {
