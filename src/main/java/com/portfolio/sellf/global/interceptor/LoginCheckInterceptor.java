@@ -26,10 +26,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     logger.info("==========================preInterceptor============================");
-    HttpSession session = request.getSession();
-    UserVo user = (UserVo) session.getAttribute("user");
+    UserVo user = CommonUtil.getSessionUser(request);
+    String referer = request.getHeader("Referer");
 
-    if(request.getRequestURI().equals("/login") && user != null) {
+    if(request.getRequestURI().equals("/login") && !CommonUtil.checkNull(referer)) {
       String ip = CommonUtil.getIp(request);
       logger.info("비정상 접근 시도 사용자 : "+user.getUserId()+" IP : "+ ip);
       //이 부분에서 로그와 DB로그테이블에 저장하면 될듯.
@@ -42,7 +42,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 
       response.sendRedirect(request.getContextPath()+"/");
       return false;
-    }else if(request.getRequestURI().startsWith("/modify") && user == null) {
+    }else if(request.getRequestURI().startsWith("/modify") && !CommonUtil.checkNull(referer)) {
       String ip = CommonUtil.getIp(request);
       logger.info("비정상 접근 시도 사용자 IP : "+ ip);
       //이 부분에서 로그와 DB로그테이블에 저장하면 될듯.

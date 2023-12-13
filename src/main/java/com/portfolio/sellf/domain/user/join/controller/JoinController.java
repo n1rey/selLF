@@ -3,7 +3,6 @@ package com.portfolio.sellf.domain.user.join.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +15,6 @@ import com.portfolio.sellf.global.common.CommandMap;
 @Controller
 @RequestMapping("/join")
 public class JoinController {
-
-  @Value("${sellf.web.url}")
-  private String SELLF_WEB_URL;
 
   @Autowired
   private JoinService joinService;

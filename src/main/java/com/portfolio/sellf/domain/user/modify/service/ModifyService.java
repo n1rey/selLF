@@ -1,7 +1,6 @@
 package com.portfolio.sellf.domain.user.modify.service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +29,7 @@ public class ModifyService {
 
   /** 비밀번호 체크 **/
   public String checkPassword(HttpServletRequest request, CommandMap map) {
-    HttpSession session = request.getSession();
-    UserVo user = (UserVo) session.getAttribute("user");
+    UserVo user = CommonUtil.getSessionUser(request);
     try {
       if(user.getUserPassword().equals(Encryption.encodeSha(map.get("userPassword").toString()))) return "";
     } catch (Exception e) {
@@ -49,11 +47,10 @@ public class ModifyService {
   /** 회원정보수정 **/
   @Transactional
   public int updateUser(UserVo user) {
-    if(user.getUserPassword() != null){
+    if(!CommonUtil.checkNull(user.getUserPassword())){
       String encryptPassword = Encryption.encodeSha(user.getUserPassword());
       user.setUserPassword(encryptPassword);
     }
-    System.out.println(user.getUserPassword()+"==================================");
     int result = modifyMapper.updateUser(user);
 
     return result;

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: insertFrom.html
+    Version: 0.1
+    Description : 게시판등록 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <div th:replace="@{/include/head}"></div>
+      <script th:src="@{/resources/js/validation.js}"></script>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Join Info</h2>
+            <div class="nk-gap mnt-3"></div>
+            <p>회원가입 하지않아도 사이트는 구경하실 수 있습니다.
+              <br/> 회원가입 시 좋아요, 댓글이 가능합니다.
+              <br/> 회원가입이 부담스럽다면 일회용 계정을 발급받으세요.
+            </p>
+            
+            <ul class="nk-contact-info">
+                <li><strong style="color:red">참고사항</strong></li>
+                <li>1. 패스워드는 암호화 알고리즘으로 저장하고 있습니다.</li>
+                <li>2. 회원가입 정보는 미접속 후 30일이 지나면 삭제됩니다.</li>
+                <li>3. 일회용 계정은 1시간 뒤 만료됩니다.</li>
+                <li>4. 일회용 계정 발급 후 1시간이 지난 후에 재발급이 가능합니다.</li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          
+          <div class="col-lg-7">
+            <form id="joinForm" class="nk-form nk-form-ajax" method="POST">
+              <input type="text" class="form-control required" id="userName" name="userName" placeholder="이름을 입력하세요." maxlength="15">
+              <div class="nk-gap-1"></div>
+              <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
+              <div class="nk-gap-1"></div>
+              <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30">
+              <div class="nk-gap-1"></div>
+              <input type="password" class="form-control required" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력하세요" maxlength="30">
+              <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
+              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100">
+              <div class="nk-gap-1"></div>
+              <div class="response-success"></div>
+              <div class="response-error"></div>
+              <button type="button" th:onclick="join()" class="nk-btn" title="회원가입">Join SelLF</button>
+              <button type="button" th:onclick="issue()" class="nk-btn" title="발급받기">Issue SelLF</button>
+            </form>
+          </div>
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+    <script>
+      var pwdCheck = true;
+      $(document).ready(function() {
+        $('#userPassword, #pwd2').keyup(function() {
+          if($('#userPassword').val() != $('#pwd2').val()) {
+            $('#pwd-status').text('두 값이 다릅니다.')
+            pwdCheck = false;
+          }
+          else {
+            $('#pwd-status').text('')
+            pwdCheck = true;
+          }
+          valid.validatePassword($('#userPassword').val())
+        })
+      })
+
+      function join() {
+        const name = $("#userName").val()
+        const id = $("#userId").val()
+        const password = $("#userPassword").val()
+        const password2 = $("#pwd2").val()
+        const email = $("#userEmail").val()
+
+        if(password != password2) return
+        if(!!checkInfo(name, id, email, password)) return
+        if(!valid.validatePassword(password)) return
+        if(!valid.validateEmail(email)) return
+
+        var formData = $('#joinForm').serialize()
+        $.ajax({
+          type : 'POST',
+          url : '/join/submit.do',
+          data : formData,
+          dataType : 'json',
+          error: function(xhr, status, error) {
+            swal.fire('error', '다시 시도해주세요.', 'error');
+          },
+          success : function(data) {
+            if(data == -1) {
+              swal.fire('생성실패', '다시 시도해주세요.', 'warning');
+            }
+            else if(data == -999) {
+              $('#userId').css('border-color', 'red')
+              $('#userId').next().text('중복된 아이디입니다.').css('color', 'rgb(255 24 24)')
+              $('#userId').focus()
+            }
+            else {
+              swal.fire('success', '생성이 완료됐습니다.', 'success').then(result => {location.href='/login'});
+            }
+          }
+        });
+      }
+
+      function checkInfo(name, id) {
+        if(!name || name.length > 15) {
+          $('#userName').next().text('1 ~ 15글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#userName').focus()
+          return 1
+        }
+        $('#userName').next().text('')
+        if(!id || id.length > 15) {
+          $('#userId').next().text('1 ~ 15글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#userId').focus()
+          return 1
+        }
+        $('#userId').next().text('')
+      }
+
+      function issue() {
+        $.ajax({
+          type : 'POST',
+          url : '/join/issue.do',
+          data : {key : 'good'},
+          dataType : 'json',
+          error: function(xhr, status, error) {
+            swal.fire('error', '다시 시도해주세요.', 'error')
+          },
+          success : function(data) {
+            if(data.map.result != 'success') {
+              swal.fire('발급실패', data.map.message, 'warning')
+            }
+            else {
+              swal.fire('success', '로그인ID :'+data.map.userId+"\n패스워드 : "+data.map.password, 'info');
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

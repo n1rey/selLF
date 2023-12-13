@@ -3,22 +3,16 @@ package com.portfolio.sellf.domain.contact.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.portfolio.sellf.domain.contact.service.ContactService;
 
-@Validated
 @Controller
 @RequestMapping("/contact")
 public class ContactController {
-
-  @Value("${sellf.web.url}")
-  private String SELLF_WEB_URL;
 
   @Autowired
   private ContactService ContactService;

@@ -6,9 +6,9 @@
   <update id="updateUser" parameterType="com.portfolio.sellf.domain.user.join.vo.UserVo">
     UPDATE TB_USER SET 
       USER_NAME = #{userVo.userName}, 
-      USER_EMAIL = #{userVo.userEmail},
+      USER_EMAIL = #{userVo.userEmail}
       <if test="userVo.userPassword != null and userVo.userPassword != ''">
-        USER_PASSWORD = #{userVo.userPassword}
+        ,USER_PASSWORD = #{userVo.userPassword}
       </if>
       WHERE 1=1
       AND USER_ID = #{userVo.userId}

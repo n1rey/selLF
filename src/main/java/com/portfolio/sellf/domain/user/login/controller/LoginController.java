@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +15,6 @@ import com.portfolio.sellf.domain.user.login.service.LoginService;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-
-  @Value("${sellf.web.url}")
-  private String SELLF_WEB_URL;
 
   @Autowired
   private LoginService loginService;

@@ -86,8 +86,6 @@
 
         var formData = $('#modifyForm').serialize()
 
-        console.log(formData);
-        return
         $.ajax({
           type : 'POST',
           url : '/modify/submit.do',
@@ -101,7 +99,7 @@
               swal.fire('생성실패', '다시 시도해주세요.', 'warning')
             }
             else {
-              swal.fire('success', '수정이 완료됐습니다.', 'success').then(result =>{location.reload})
+              swal.fire('success', '수정이 완료됐습니다.', 'success').then(result =>{location.reload()})
             }
           }
         });

@@ -1,7 +1,6 @@
 package com.portfolio.sellf.domain.user.find.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,9 +11,6 @@ import com.portfolio.sellf.domain.user.join.vo.UserVo;
 @Controller
 @RequestMapping("/find")
 public class FindController {
-
-  @Value("${sellf.web.url}")
-  private String SELLF_WEB_URL;
 
   @Autowired
   private FindService findService;
