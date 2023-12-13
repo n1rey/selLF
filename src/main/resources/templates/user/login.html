@@ -40,13 +40,13 @@
             <form id="loginForm" class="nk-form nk-form-ajax" method="POST">
               <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30">
+              <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30" onkeyup="enterkey()">
               <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
-              <button type="button" th:onclick="login()" class="nk-btn">Login SelLF</button>
-              <button type="button" th:onclick="|location.href='@{/find}'|" class="nk-btn">Find SelLF</button>
-              <button type="button" th:onclick="|location.href='@{/join}'|" class="nk-btn">Join SelLF</button>
+              <button type="button" th:onclick="login()" class="nk-btn" title="로그인">Login</button>
+              <button type="button" th:onclick="|location.href='@{/find}'|" class="nk-btn" title="계정찾기">Find</button>
+              <button type="button" th:onclick="|location.href='@{/join}'|" class="nk-btn" title="회원가입">Join</button>
             </form>
           </div>
         </div>
@@ -78,6 +78,10 @@
             }
           }
         });
+      }
+
+      function enterkey() {
+        if(window.event.keyCode == 13) login()
       }
     </script>
   </body>

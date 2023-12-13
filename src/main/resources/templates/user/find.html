@@ -38,11 +38,11 @@
               <div class="nk-gap-1"></div>
               <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
-              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100">
+              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100" onkeyup="enterkey()">
               <div class="nk-gap-1"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
-              <button type="button" th:onclick="find()" class="nk-btn">Find Info</button>
+              <button type="button" th:onclick="find()" class="nk-btn" title="계정찾기">Find</button>
             </form>
           </div>
         </div>
@@ -87,7 +87,10 @@
             }
           }
         })
+      }
 
+      function enterkey() {
+        if(window.event.keyCode == 13) find()
       }
     </script>
   </body>

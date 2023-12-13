@@ -48,12 +48,12 @@
               <div class="nk-gap-1"></div>
               <input type="password" class="form-control required" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력하세요" maxlength="30">
               <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
-              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100">
+              <input type="text" class="form-control required" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" maxlength="100" onkeyup="enterkey()">
               <div class="nk-gap-1"></div>
               <div class="response-success"></div>
               <div class="response-error"></div>
-              <button type="button" th:onclick="join()" class="nk-btn" title="회원가입">Join SelLF</button>
-              <button type="button" th:onclick="issue()" class="nk-btn" title="발급받기">Issue SelLF</button>
+              <button type="button" th:onclick="join()" class="nk-btn" title="회원가입">Join</button>
+              <button type="button" th:onclick="issue()" class="nk-btn" title="발급받기">Issue</button>
             </form>
           </div>
         </div>
@@ -148,6 +148,10 @@
             }
           }
         });
+      }
+
+      function enterkey() {
+        if(window.event.keyCode == 13) join()
       }
     </script>
   </body>

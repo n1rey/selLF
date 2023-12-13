@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portfolio.sellf.domain.board.service.BoardService;
+import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.global.common.CommonUtil;
 
 @Controller
@@ -23,9 +24,12 @@ public class BoardController {
    * @author 한승현
    * @date 2023/12/13
    **/
-  @RequestMapping(value = {"/insert.do"}) 
+  @RequestMapping(value = {"", "/"}) 
   public String boardInsertPage(HttpServletRequest request, Model model) {
-    model.addAttribute("user", CommonUtil.getSessionUser(request));
+    UserVo user = CommonUtil.getSessionUser(request);
+    if(user == null) return "redirect:/";
+
+    model.addAttribute("user", user);
     return "/board/insertForm";
   }
 }
