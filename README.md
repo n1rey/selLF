@@ -27,17 +27,20 @@ java 1.8.0_291, Spring boot 2.6.2, PostgreSQL 15.5.1
 
 
 SQL
+
+테이블
+1. tb_user
 CREATE TABLE IF NOT EXISTS sellf.tb_user
 (
     user_no integer NOT NULL,
-    user_id character(20) COLLATE pg_catalog."default" NOT NULL,
-    user_password character(300) COLLATE pg_catalog."default" NOT NULL,
-    user_email character(50) COLLATE pg_catalog."default" NOT NULL,
-    user_name character(20) COLLATE pg_catalog."default" NOT NULL,
-    user_profile_image character(100) COLLATE pg_catalog."default",
+    user_id character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    user_password character varying(300) COLLATE pg_catalog."default" NOT NULL,
+    user_email character varying(50) COLLATE pg_catalog."default",
+    user_name character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    user_profile_image character varying(100) COLLATE pg_catalog."default",
     user_join_date date,
     user_drop_date timestamp(6) with time zone,
-    user_role character(10) COLLATE pg_catalog."default",
+    user_role character varying(10) COLLATE pg_catalog."default",
     user_login_date timestamp(6) with time zone,
     user_drop_yn "char" DEFAULT '0'::"char",
     user_join_time time(6) without time zone,
@@ -52,16 +55,16 @@ ALTER TABLE IF EXISTS sellf.tb_user
 
 GRANT ALL ON TABLE sellf.tb_user TO test;
 
-----------------------------------------
+2. tb_log
 CREATE TABLE IF NOT EXISTS sellf.tb_log
 (
     log_no integer NOT NULL,
-    log_type character(10) COLLATE pg_catalog."default" NOT NULL,
-    log_ip character(50) COLLATE pg_catalog."default" NOT NULL,
+    log_type character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    log_ip character varying(50) COLLATE pg_catalog."default" NOT NULL,
     log_info text COLLATE pg_catalog."default" NOT NULL,
     log_user_no integer,
     log_drop_yn "char" DEFAULT '0'::"char",
-    log_uri character(30) COLLATE pg_catalog."default",
+    log_uri character varying(30) COLLATE pg_catalog."default",
     log_date date NOT NULL,
     log_time time(6) without time zone NOT NULL,
     CONSTRAINT tb_log_pkey PRIMARY KEY (log_no)
@@ -71,3 +74,47 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS sellf.tb_log
     OWNER to test;
+
+3. tb_board
+CREATE TABLE IF NOT EXISTS sellf.tb_board
+(
+    board_no integer,
+    user_no integer,
+    board_title character varying(100) COLLATE pg_catalog."default",
+    board_content text COLLATE pg_catalog."default",
+    board_created_date date,
+    board_created_time time(6) without time zone,
+    board_drop_yn "char",
+    board_drop_date date,
+    board_drop_time time(6) without time zone,
+    board_hide_yn "char"
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS sellf.tb_board
+    OWNER to test;
+
+4. tb_reply
+CREATE TABLE IF NOT EXISTS sellf.tb_reply
+(
+    reply_no integer,
+    board_no integer,
+    user_no integer,
+    reply_group_no integer,
+    reply_upper_no integer,
+    reply_content character varying(100) COLLATE pg_catalog."default",
+    reply_created_date date,
+    reply_created_time time(6) without time zone,
+    reply_drop_yn "char",
+    reply_drop_date date,
+    reply_drop_time time(6) without time zone
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS sellf.tb_reply
+    OWNER to test;
+
+COMMENT ON TABLE sellf.tb_reply
+    IS '댓글, 대댓글테이블';
