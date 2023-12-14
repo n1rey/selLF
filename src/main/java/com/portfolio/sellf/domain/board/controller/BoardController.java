@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.portfolio.sellf.domain.board.service.BoardService;
 import com.portfolio.sellf.domain.board.vo.BoardVo;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
+import com.portfolio.sellf.global.common.CommandMap;
 import com.portfolio.sellf.global.common.CommonUtil;
 
 @Controller
@@ -23,45 +24,54 @@ public class BoardController {
 
     /**
    * <pre>
-   * 게시글 페이지
+   * 게시글 등록페이지
    *
    * @author 한승현
    * @date 2023/12/13
    **/
   @RequestMapping(value = {"/admin"}) 
-  public String boardInsertPage(HttpServletRequest request, Model model) {
+  public String boardInsertPage(HttpServletRequest request, Model model, CommandMap map) {
     UserVo user = CommonUtil.getSessionUser(request);
     if(user == null) return "redirect:/";
-
+    if(map.get("boardNo") != null) {
+      model.addAttribute("boardNo", map.get("boardNo").toString());
+      model.addAttribute("status", "update");
+    }
     model.addAttribute("user", user);
     return "/board/insertForm";
   }
 
     /**
    * <pre>
-   * 게시글 보기
+   * 게시글 페이지
    *
    * @author 한승현
    * @date 2023/12/13
    **/
   @RequestMapping(value = {"/view/{boardNo}"}) 
-  public String boardView(HttpServletRequest request, Model model, BoardVo board, @PathVariable int boardNo) {
-    //model.addAttribute("userNo", CommonUtil.getSessionUser(request).getUserNo());
-    //BoardVo boardVo = boardService.selectBoard(boardNo);
+  public String boardView(HttpServletRequest request, Model model, @PathVariable int boardNo) {
+    UserVo user = CommonUtil.getSessionUser(request);
+    if(user != null) {
+      model.addAttribute("userRole", user.getUserRole());
+    }
+    BoardVo boardVo = boardService.selectBoard(boardNo);
+    if(boardVo != null){
+      model.addAttribute("boardHideYn", boardVo.getBoardHideYn());
+    }
     model.addAttribute("boardNo", boardNo);
-    return "/board/view";
+    return "/board/viewForm";
   }
 
     /**
    * <pre>
-   * 게시글 보기
+   * 게시글 정보조회
    *
    * @author 한승현
-   * @date 2023/12/13
+   * @date 2023/12/14
    **/
   @ResponseBody
   @RequestMapping(value = {"/getBoard/{boardNo}"}) 
-  public BoardVo boardInfo(HttpServletRequest request, Model model, BoardVo board, @PathVariable int boardNo) {
+  public BoardVo boardInfo(HttpServletRequest request, Model model, @PathVariable int boardNo) {
     BoardVo boardVo = boardService.selectBoard(boardNo);
     return boardVo;
   }
@@ -71,7 +81,7 @@ public class BoardController {
    * 게시글 등록
    *
    * @author 한승현
-   * @date 2023/12/13
+   * @date 2023/12/14
    **/
   @ResponseBody
   @RequestMapping(value = {"/admin/insertBoard.do"}) 
@@ -85,26 +95,40 @@ public class BoardController {
    * 게시글 수정
    *
    * @author 한승현
-   * @date 2023/12/13
+   * @date 2023/12/14
    **/
   @ResponseBody
   @RequestMapping(value = {"/admin/updateBoard.do"}) 
-  public int updateBoard(HttpServletRequest request, Model model, BoardVo board) {
-    int result = 1;
+  public int updateBoard(HttpServletRequest request, Model model, BoardVo boardVo) {
+    int result = boardService.updateBoard(boardVo);
     return result;
   }
   
     /**
    * <pre>
-   * 게시글 삭제, 수정
+   * 게시글 삭제
    *
    * @author 한승현
-   * @date 2023/12/13
+   * @date 2023/12/14
+   **/
+  @RequestMapping(value = {"/admin/delete.do"}) 
+  public String deleteBoard(HttpServletRequest request, Model model, BoardVo boardVo) {
+    boardService.deleteBoard(boardVo);
+    return "redirect:/";
+  }
+  
+    /**
+   * <pre>
+   * 게시글 숨김
+   *
+   * @author 한승현
+   * @date 2023/12/14
    **/
   @ResponseBody
-  @RequestMapping(value = {"/admin/statusBoard.do"}) 
-  public int statusBoard(HttpServletRequest request, Model model, BoardVo board) {
-    int result = 1;
+  @RequestMapping(value = {"/admin/hide.do"}) 
+  public int updateHideBoard(HttpServletRequest request, Model model, CommandMap map) {
+    System.out.println(map.toString());
+    int result = boardService.updateHideBoard(map);
     return result;
   }
 }

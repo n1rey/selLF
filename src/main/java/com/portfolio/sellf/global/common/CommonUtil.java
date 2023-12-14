@@ -1,5 +1,7 @@
 package com.portfolio.sellf.global.common;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
@@ -36,5 +38,21 @@ public class CommonUtil {
 
   public static UserVo getSessionUser(HttpServletRequest request) {
     return (UserVo) request.getSession().getAttribute("user");
+  }
+
+  public static String GenSaveFileName(String extName) {
+    String fileName = "";
+    
+    Calendar calendar = Calendar.getInstance();
+		fileName += calendar.get(Calendar.YEAR);
+		fileName += calendar.get(Calendar.MONTH);
+		fileName += calendar.get(Calendar.DATE);
+		fileName += calendar.get(Calendar.HOUR);
+		fileName += calendar.get(Calendar.MINUTE);
+		fileName += calendar.get(Calendar.SECOND);
+		fileName += calendar.get(Calendar.MILLISECOND);
+		fileName += extName;
+		
+		return fileName;
   }
 }

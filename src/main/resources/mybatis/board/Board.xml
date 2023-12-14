@@ -28,16 +28,49 @@
     )
   </insert>
 
+  <!-- 게시글 조회 -->
   <select id="selectBoard" resultType="com.portfolio.sellf.domain.board.vo.BoardVo" parameterType="int">
     SELECT BOARD_NO,
       USER_NO,
       BOARD_TITLE,
       BOARD_CONTENT,
       BOARD_CREATED_DATE :: DATE,
-      BOARD_CREATED_TIME :: TIME
+      BOARD_CREATED_TIME :: TIME,
+      BOARD_HIDE_YN
     FROM TB_BOARD
     WHERE 1=1
     AND BOARD_NO = #{boardNo}
+    AND BOARD_DROP_YN != 'Y'
   </select>
+
+  <!-- 게시글 수정 -->
+  <update id="updateBoard" parameterType="boardVo">
+    UPDATE TB_BOARD SET 
+      BOARD_TITLE = #{boardVo.boardTitle},
+      BOARD_CONTENT = #{boardVo.boardContent}
+    WHERE 1=1
+    AND BOARD_NO = #{boardVo.boardNo}
+  </update>
+
+  <!-- 게시글 삭제 -->
+  <update id="deleteBoard" parameterType="boardVo">
+    UPDATE TB_BOARD SET 
+      BOARD_DROP_YN = 'Y'
+    WHERE 1=1
+    AND BOARD_NO = #{boardVo.boardNo}
+  </update>
+
+  <!-- 게시글 숨김 -->
+  <update id="updateHideBoard" parameterType="map">
+    UPDATE TB_BOARD SET
+      <if test='boardHideYn == "Y"'>
+        BOARD_HIDE_YN = 'N'
+      </if>
+      <if test='boardHideYn == "N"'>
+        BOARD_HIDE_YN = 'Y'
+      </if>
+    WHERE 1=1
+    AND BOARD_NO = ${boardNo}
+  </update>
 </mapper>
 

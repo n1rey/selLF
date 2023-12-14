@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.board.mapper.BoardMapper;
 import com.portfolio.sellf.domain.board.vo.BoardVo;
+import com.portfolio.sellf.global.common.CommandMap;
 
 @Service
 public class BoardService {
@@ -27,5 +28,18 @@ public class BoardService {
 
   public BoardVo selectBoard(int boardNo) {
     return boardMapper.selectBoard(boardNo);
+  }
+
+  public int updateBoard(BoardVo boardVo) {
+    return boardMapper.updateBoard(boardVo);
+  }
+
+  public void deleteBoard(BoardVo boardVo) {
+    boardMapper.deleteBoard(boardVo);
+  }
+
+  public int updateHideBoard(CommandMap map) {
+    int result = boardMapper.updateHideBoard(map.getMap());
+    return result;
   }
 }
