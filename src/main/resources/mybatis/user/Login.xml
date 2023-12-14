@@ -4,7 +4,8 @@
 
   <!-- 로그인 -->
   <select id="tryLogin" resultType="com.portfolio.sellf.domain.user.join.vo.UserVo">
-    SELECT USER_ID, 
+    SELECT USER_NO,
+      USER_ID, 
       USER_PASSWORD,
       USER_ROLE,
       USER_NAME,

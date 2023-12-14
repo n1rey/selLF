@@ -1,6 +1,7 @@
 package com.portfolio.sellf.domain.board.vo;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +15,10 @@ public class BoardVo {
   private String boardContent;
   private String boardUserName;
   private String boardDropYn;
-  private Timestamp boardCreatedDate;
-  private Timestamp boardDropDate;
+  private Date boardCreatedDate;
+  private Time boardCreatedTime;
+  private Date boardDropDate;
+  private Time boardDropTime;
   private String boardHideYn;
 
   @Override
@@ -28,7 +31,9 @@ public class BoardVo {
             ", boardUserName='" + boardUserName + '\'' +
             ", boardDropYn='" + boardDropYn + '\'' +
             ", boardCreatedDate=" + boardCreatedDate +
+            ", boardCreatedTime=" + boardCreatedTime +
             ", boardDropDate=" + boardDropDate +
+            ", boardDropTime=" + boardDropTime +
             ", boardHideYn=" + boardHideYn +
             '}';
   }

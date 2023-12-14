@@ -8,6 +8,8 @@
 -->
   <head>
     <th:block th:replace="@{/include/header}"></th:block>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
   </head>
   <body>
     <header class="nk-header nk-header-opaque">
@@ -20,10 +22,13 @@
         <div class="nk-gap-5 mnt-10"></div>
         <h2>Board Form</h2>
         <div class="row">
-            <form id="joinForm" style="width: 100%;" method="POST">
-              <textarea name="content" id="contents"></textarea>
+            <form id="boardForm" action="/board/admin/insertBoard.do" style="width: 100%;" method="POST">
+              <div id="editor"></div>
               <p></p>
-              <button type="button" th:onclick="issue()" class="nk-btn" title="등록하기">Insert Board</button>
+              <input type="hidden" id="userNo" value="${userVo.userNo}">
+              <input type="hidden" id="boardTitle">
+              <input type="hidden" id="boardContent">
+              <button type="button" th:onclick="promptTitle()" class="nk-btn" title="등록하기">Insert</button>
             </form>
         </div>
         <div class="nk-gap-5"></div>
@@ -31,13 +36,48 @@
       <!-- END: Contact Info -->
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script>
-      function join() {
-        var formData = $('#joinForm').serialize()
+      var content = '[[${content}]]' != '' ? '[[${content}]]' : 'portfolioSelLF'
+      var title = '[[${title}]]' != '' ? '[[${title}]]' : ''
+
+      var editor = new toastui.Editor({
+        el: document.querySelector('#editor'),
+        previewStyle: 'vertical',
+        height: '700px',
+        initialValue: content
+      });
+
+      function promptTitle() {
+        Swal.fire({
+          title: 'Project Title',
+          text: '프로젝트 제목을 입력하세요',
+          input: 'text',
+          inputValue: title,
+          inputPlaceholder: '제목 입력',
+          inputValidator: (result) => {
+            if(!result) {
+              return "제목은 필수 값입니다."
+            }
+          }
+        }).then((result)=>{
+          insert(result.value)
+        })
+      }
+      function insert(title) {
+        var boardContent = editor.getHTML()
+        var boardTitle = title
+        var userNo = '[[${user.userNo}]]'
+
+
         $.ajax({
           type : 'POST',
-          url : '/join/submit.do',
-          data : formData,
+          url : '/board/admin/insertBoard.do',
+          data : {
+            boardContent : boardContent,
+            boardTitle : boardTitle,
+            userNo : userNo,
+          },
           dataType : 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error');
@@ -47,7 +87,7 @@
               swal.fire('생성실패', '다시 시도해주세요.', 'warning');
             }
             else {
-              swal.fire('success', '생성이 완료됐습니다.', 'success').then(result => {location.href='/login'});
+              swal.fire('success', '생성이 완료됐습니다.', 'success').then((result) => {location.href='/board/view/'+data});
             }
           }
         });

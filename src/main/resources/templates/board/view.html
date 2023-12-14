@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: view.html
+    Version: 0.1
+    Description : 게시판 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+    <!-- <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css"/> -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <div th:replace="@{/include/head}"></div>
+      <script th:src="@{/resources/js/validation.js}"></script>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <h2 id="boardTitle"></h2>
+        <div id="viewer"></div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+    <!-- <script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script> -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+      // const viewer = new Viewer({
+      //   el: document.querySelector('#viewer'),
+      //   height: '600px',
+      //   initialValue: content
+      // });
+
+      $(document).ready(function() {
+        const viewer = toastui.Editor.factory({
+          el: document.querySelector("#viewer"),
+          viewer: true,
+          height: "500px",
+        });
+
+        $.ajax({
+          type : 'GET',
+          url : '/board/getBoard/'+'[[${boardNo}]]',
+          error:function(xhr, status, error) {
+            swal.fire('error', '다시 시도해주세요.', 'error');
+          },
+          success : function(data) {
+            $('#boardTitle').text(data.boardTitle)
+            viewer.setMarkdown(data.boardContent)
+          }
+          
+        })
+        // viewer.setMarkdown(content)
+      });
+    </script>
+  </body>
+</html>

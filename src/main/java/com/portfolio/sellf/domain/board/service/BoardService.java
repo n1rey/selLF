@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.board.mapper.BoardMapper;
+import com.portfolio.sellf.domain.board.vo.BoardVo;
 
 @Service
 public class BoardService {
@@ -16,10 +17,15 @@ public class BoardService {
   @Autowired
   private BoardMapper boardMapper;
 
-  /** 회원가입 **/
+  /** 게시글 등록 **/
   @Transactional
-  public int test() {
-    int userNo = boardMapper.test();
-    return userNo;
+  public int insertBoard(BoardVo boardVo) {
+    int result = boardMapper.insertBoard(boardVo);
+    if(result == 1) return boardVo.getBoardNo();
+    return -1;
+  }
+
+  public BoardVo selectBoard(int boardNo) {
+    return boardMapper.selectBoard(boardNo);
   }
 }

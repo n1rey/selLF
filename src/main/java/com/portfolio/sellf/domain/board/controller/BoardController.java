@@ -44,11 +44,26 @@ public class BoardController {
    * @author 한승현
    * @date 2023/12/13
    **/
-  @ResponseBody
   @RequestMapping(value = {"/view/{boardNo}"}) 
   public String boardView(HttpServletRequest request, Model model, BoardVo board, @PathVariable int boardNo) {
-    
+    //model.addAttribute("userNo", CommonUtil.getSessionUser(request).getUserNo());
+    //BoardVo boardVo = boardService.selectBoard(boardNo);
+    model.addAttribute("boardNo", boardNo);
     return "/board/view";
+  }
+
+    /**
+   * <pre>
+   * 게시글 보기
+   *
+   * @author 한승현
+   * @date 2023/12/13
+   **/
+  @ResponseBody
+  @RequestMapping(value = {"/getBoard/{boardNo}"}) 
+  public BoardVo boardInfo(HttpServletRequest request, Model model, BoardVo board, @PathVariable int boardNo) {
+    BoardVo boardVo = boardService.selectBoard(boardNo);
+    return boardVo;
   }
   
     /**
@@ -58,10 +73,11 @@ public class BoardController {
    * @author 한승현
    * @date 2023/12/13
    **/
+  @ResponseBody
   @RequestMapping(value = {"/admin/insertBoard.do"}) 
-  public String insertBoard(HttpServletRequest request, Model model, BoardVo board) {
-    int boardNo = 1;
-    return "redirect:/board/view/"+boardNo;
+  public int insertBoard(HttpServletRequest request, Model model, BoardVo boardVo) {
+    int boardNo = boardService.insertBoard(boardVo);
+    return boardNo;
   }
   
     /**
