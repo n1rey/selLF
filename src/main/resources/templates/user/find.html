@@ -77,13 +77,13 @@
           },
           success : function(data) {
             if(data == -1) {
-              swal.fire('발급실패', '존재하지않는 계정입니다.', 'warning')
+              swal.fire('발급 실패', '존재하지않는 계정입니다.', 'warning')
             }
             else if(data == -2) {
               swal.fire('error', '잠시 후 다시 시도해주세요.', 'error')
             }
             else {
-              swal.fire('success', '메일이 발송되었습니다.', 'success').then(result => {location.href='/login'})
+              swal.fire('', '메일이 발송되었습니다.', 'success').then(result => {location.href='/login'})
             }
           }
         })

@@ -109,7 +109,7 @@
               $('#userId').focus()
             }
             else {
-              swal.fire('success', '생성이 완료됐습니다.', 'success').then(result => {location.href='/login'});
+              swal.fire('생성 완료', '', 'success').then(result => {location.href='/login'});
             }
           }
         });
@@ -144,7 +144,7 @@
               swal.fire('발급실패', data.map.message, 'warning')
             }
             else {
-              swal.fire('success', '로그인ID :'+data.map.userId+"\n패스워드 : "+data.map.password, 'info');
+              swal.fire('', '로그인ID :'+data.map.userId+"\n패스워드 : "+data.map.password, 'info');
             }
           }
         });

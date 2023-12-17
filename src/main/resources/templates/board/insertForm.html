@@ -88,6 +88,12 @@
 
       //제목입력을 위한 prompt
       function promptTitle() {
+        var boardContent = editor.getHTML()
+        if(boardContent == '<p><br></p>') {
+          swal.fire('내용을 입력하세요','','warning')
+          return
+        }
+
         Swal.fire({
           title: 'Project Title',
           input: 'text',
@@ -104,18 +110,17 @@
           //ok버튼 클릭 시
           if(result.isConfirmed) {
             if(status == 'update') {
-              update(result.value)
+              update(result.value, boardContent)
             }
             else{
-              insert(result.value)
+              insert(result.value, boardContent)
             }
           }
         })
       }
 
       //인서트 로직
-      function insert(title) {
-        var boardContent = editor.getHTML()
+      function insert(title, boardContent) {
         var boardTitle = title
 
         $.ajax({
@@ -132,18 +137,17 @@
           },
           success : function(data) {
             if(data == -1) {
-              swal.fire('생성실패', '다시 시도해주세요.', 'warning');
+              swal.fire('생성 실패', '다시 시도해주세요.', 'warning');
             }
             else {
-              swal.fire('success', '생성이 완료됐습니다.', 'success').then((result) => {location.href='/board/view/'+data});
+              swal.fire('생성 완료', '', 'success').then((result) => {location.href='/board/view/'+data});
             }
           }
         });
       }
 
       //업데이트 로직
-      function update(title) {
-        var boardContent = editor.getHTML()
+      function update(title, boardContent) {
         var boardTitle = title
         var boardNo = '[[${boardNo}]]'
 
@@ -162,10 +166,10 @@
           },
           success : function(data) {
             if(data == -1) {
-              swal.fire('생성실패', '다시 시도해주세요.', 'warning');
+              swal.fire('생성 실패', '다시 시도해주세요.', 'warning');
             }
             else {
-              swal.fire('success', '수정이 완료됐습니다.', 'success').then((result) => {location.href='/board/view/'+boardNo});
+              swal.fire('수정 완료', '', 'success').then((result) => {location.href='/board/view/'+boardNo});
             }
           }
         });
