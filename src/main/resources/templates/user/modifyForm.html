@@ -87,10 +87,10 @@
         var formData = $('#modifyForm').serialize()
 
         $.ajax({
-          type : 'POST',
-          url : '/modify/submit.do',
-          data : formData,
-          dataType : 'json',
+          type: 'POST',
+          url: '/modify/submit.do',
+          data: formData,
+          dataType: 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error')
           },

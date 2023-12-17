@@ -67,10 +67,10 @@
         if(!valid.validateEmail(email)) return
         var formData = $('#findForm').serialize()
         $.ajax({
-          type : 'POST',
-          url : '/find/searchInfo.do',
-          data : formData,
-          dataType : 'json',
+          type: 'POST',
+          url: '/find/searchInfo.do',
+          data: formData,
+          dataType: 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error')
           },

@@ -92,10 +92,10 @@
 
         var formData = $('#joinForm').serialize()
         $.ajax({
-          type : 'POST',
-          url : '/join/submit.do',
-          data : formData,
-          dataType : 'json',
+          type: 'POST',
+          url: '/join/submit.do',
+          data: formData,
+          dataType: 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error');
           },
@@ -132,10 +132,10 @@
 
       function issue() {
         $.ajax({
-          type : 'POST',
-          url : '/join/issue.do',
-          data : {key : 'good'},
-          dataType : 'json',
+          type: 'POST',
+          url: '/join/issue.do',
+          data: {key : 'good'},
+          dataType: 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error')
           },

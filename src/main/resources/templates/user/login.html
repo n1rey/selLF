@@ -59,10 +59,10 @@
         if(!valid.validateLoginInfo()) return
         var formData = $('#loginForm').serialize()
         $.ajax({
-          type : 'POST',
-          url : '/login/login.do',
-          data : formData,
-          dataType : 'json',
+          type: 'POST',
+          url: '/login/login.do',
+          data: formData,
+          dataType: 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '에러가 발생했습니다. 잠시후 다시 시도해주세요.', 'error')
           },
