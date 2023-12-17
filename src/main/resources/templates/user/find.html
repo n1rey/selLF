@@ -63,10 +63,9 @@
         else {
           $('#userId').next().text('')
         }
+
         if(!valid.validateEmail(email)) return
-
         var formData = $('#findForm').serialize()
-
         $.ajax({
           type : 'POST',
           url : '/find/searchInfo.do',
