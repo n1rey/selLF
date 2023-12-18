@@ -37,25 +37,27 @@
         </ul>
       <!-- END: Filter -->
         <div class="nk-portfolio-list nk-isotope nk-isotope-2-cols nk-isotope-gap">
-          <div class="nk-isotope-item" data-filter="Design">
+
+          <div class="nk-isotope-item" data-filter="Design" th:each="board:${boardList}">
             <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
-              <a href="work-single-2.html" class="nk-portfolio-item-link"></a>
+              <a th:href="${'/board/view/' + board.boardNo}" class="nk-portfolio-item-link"></a>
               <div class="nk-portfolio-item-image">
-                <div th:style="'background-image: url('+@{/resources/images/examples/portfolio-2-sm.jpg}+');'"></div>
+                <div th:style="'background-image: url('+${'/file/print/image.do?filename='+board.boardThumbnail}+');'"></div>
               </div>
               <div class="nk-portfolio-item-info">
                 <div>
-                  <h2 class="portfolio-item-title h5">Mobile App</h2>
+                  <h2 class="portfolio-item-title h5" th:text="${board.boardTitle}"></h2>
                   <div class="portfolio-item-category">Design</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="nk-isotope-item" data-filter="Print">
+
+          <!-- <div class="nk-isotope-item" data-filter="Print">
             <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
               <a href="work-single-4.html" class="nk-portfolio-item-link"></a>
               <div class="nk-portfolio-item-image">
-                <div th:style="'background-image: url('+@{/resources/images/examples/portfolio-4-sm.jpg}+');'"></div>
+                <div th:style="'background-image: url('+@{/file/print/image.do?filename=b4528221bc6b48298e8b1dabae010cde.jpg}+');'"></div>
               </div>
               <div class="nk-portfolio-item-info">
                 <div>
@@ -120,7 +122,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="nk-gap-4"></div>
       </div>

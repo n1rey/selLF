@@ -20,6 +20,7 @@ public class BoardVo {
   private Date boardDropDate;
   private Time boardDropTime;
   private String boardHideYn;
+  private String boardThumbnail;
 
   @Override
   public String toString() {
@@ -35,6 +36,7 @@ public class BoardVo {
             ", boardDropDate=" + boardDropDate +
             ", boardDropTime=" + boardDropTime +
             ", boardHideYn=" + boardHideYn +
+            ", boardThumbnail=" + boardThumbnail +
             '}';
   }
 }

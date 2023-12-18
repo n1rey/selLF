@@ -3,10 +3,12 @@ package com.portfolio.sellf.domain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.portfolio.sellf.domain.board.service.BoardService;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.global.common.CommonUtil;
 
@@ -14,6 +16,8 @@ import com.portfolio.sellf.global.common.CommonUtil;
 @RequestMapping("/")
 public class IndexController {
 
+  @Autowired
+  private BoardService boardService;
     /**
    * <pre>
    * 메인페이지
@@ -27,6 +31,7 @@ public class IndexController {
     if(user != null) {
       model.addAttribute("userRole", user.getUserRole());
     }
+    model.addAttribute("boardList", boardService.selectAllBoard());
     return "/index";
   }
 

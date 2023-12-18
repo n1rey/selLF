@@ -12,6 +12,7 @@
       USER_NO,
       BOARD_TITLE,
       BOARD_CONTENT,
+      BOARD_THUMBNAIL,
       BOARD_CREATED_DATE,
       BOARD_CREATED_TIME,
       BOARD_DROP_YN,
@@ -21,6 +22,7 @@
       ,#{boardVo.userNo}
       ,#{boardVo.boardTitle}
       ,#{boardVo.boardContent}
+      ,#{boardVo.boardThumbnail}
       ,CURRENT_DATE
       ,CURRENT_TIME
       ,'N'
@@ -34,6 +36,7 @@
       USER_NO,
       BOARD_TITLE,
       BOARD_CONTENT,
+      COALESCE(BOARD_THUMBNAIL, 'default.jpg') AS BOARD_THUMBNAIL,
       BOARD_CREATED_DATE :: DATE,
       BOARD_CREATED_TIME :: TIME,
       BOARD_HIDE_YN
@@ -43,11 +46,28 @@
     AND BOARD_DROP_YN != 'Y'
   </select>
 
+  <!-- 게시글 리스트 -->
+  <select id="selectAllBoard" resultType="com.portfolio.sellf.domain.board.vo.BoardVo">
+    SELECT BOARD_NO,
+      USER_NO,
+      BOARD_TITLE,
+      BOARD_CONTENT,
+      COALESCE(BOARD_THUMBNAIL, 'default.jpg') AS BOARD_THUMBNAIL,
+      BOARD_CREATED_DATE :: DATE,
+      BOARD_CREATED_TIME :: TIME,
+      BOARD_HIDE_YN
+    FROM TB_BOARD
+    WHERE 1=1
+    AND BOARD_DROP_YN != 'Y'
+    ORDER BY BOARD_NO
+  </select>
+
   <!-- 게시글 수정 -->
   <update id="updateBoard" parameterType="boardVo">
     UPDATE TB_BOARD SET 
       BOARD_TITLE = #{boardVo.boardTitle},
-      BOARD_CONTENT = #{boardVo.boardContent}
+      BOARD_CONTENT = #{boardVo.boardContent},
+      BOARD_THUMBNAIL = #{boardVo.boardThumbnail}
     WHERE 1=1
     AND BOARD_NO = #{boardVo.boardNo}
   </update>

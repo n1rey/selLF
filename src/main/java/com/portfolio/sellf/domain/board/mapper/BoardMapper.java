@@ -1,5 +1,6 @@
 package com.portfolio.sellf.domain.board.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -26,4 +27,6 @@ public interface BoardMapper {
 
   /** 게시글 숨김**/
   int updateHideBoard(Map<String, Object> map);
+
+  List<BoardVo> selectAllBoard();
 }

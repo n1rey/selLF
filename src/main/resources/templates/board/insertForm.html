@@ -20,13 +20,14 @@
     <div class="nk-main bg-white">
       <div class="container">
         <div class="nk-gap-5 mnt-10"></div>
-        <h2>Board Form</h2>
+
         <div class="row">
-            <form id="boardForm" action="/board/admin/insertBoard.do" style="width: 100%;" method="POST">
+          <form id="boardForm" action="/board/admin/insertBoard.do" style="width: 100%;" method="POST">
+              <input type="text" class="form-control required" id="boardTitle" name="boardTitle" placeholder="제목을 입력하세요" maxlength="100" >
+              <div class="nk-gap-1"></div>
               <div id="editor"></div>
               <p></p>
               <input type="hidden" id="userNo" value="${userVo.userNo}">
-              <input type="hidden" id="boardTitle">
               <input type="hidden" id="boardContent">
               <button th:if="${status != 'update'}" type="button" th:onclick="promptTitle()" class="nk-btn" title="등록하기">Insert</button>
               <button th:if="${status == 'update'}" type="button" th:onclick="promptTitle()" class="nk-btn" title="수정하기">Update</button>
@@ -39,7 +40,6 @@
     </div>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script>
-      var title
       var status = '[[${status}]]'
       var userNo = '[[${user.userNo}]]'
 
@@ -48,13 +48,13 @@
         var boardNo = '[[${boardNo}]]';
         if(!!boardNo) {
           $.ajax({
-            type : 'GET',
-            url : '/board/getBoard/'+boardNo,
-            error:function(xhr, status, error) {
+            type: 'GET',
+            url: '/board/getBoard/'+boardNo,
+            error: function(xhr, status, error) {
               console.log('error')
             },
-            success : function(data) {
-              title = data.boardTitle
+            success: function(data) {
+              $('#boardTitle').val(data.boardTitle)
               editor.setHTML(data.boardContent)
             }
           })
@@ -90,48 +90,61 @@
       function promptTitle() {
         var boardContent = editor.getHTML()
         if(boardContent == '<p><br></p>') {
-          swal.fire('내용을 입력하세요','','warning')
+          swal.fire('내용을 입력하세요', '', 'warning')
           return
         }
 
         Swal.fire({
-          title: 'Project Title',
-          input: 'text',
-          inputValue: title,
-          inputPlaceholder: '제목 입력',
+          title: 'Project Thumbnail',
+          input: 'file',
           showCancelButton: true,
           allowOutsideClick: false,
-          inputValidator: (result) => {
-            if(!!!result) {
-              return "제목은 필수 값입니다."
-            }
+          inputAttributes: {
+            "accept": "image/*",
+            "aria-label": "Upload your profile picture"
           }
-        }).then((result)=>{
+        })
+        .then(async (result)=>{
           //ok버튼 클릭 시
           if(result.isConfirmed) {
-            if(status == 'update') {
-              update(result.value, boardContent)
-            }
-            else{
-              insert(result.value, boardContent)
+            var filename;
+            if(result.value) {
+              try {
+                const formData = new FormData()
+                formData.append('image', result.value)
+                const response = await fetch('/file/upload/image.do', {
+                    method : 'POST',
+                    body : formData,
+                });
+                filename = await response.text()
+              } catch (error) {
+                console.error('업로드 실패 : ', error)
+              }
+              if(status == 'update') {
+                update(filename, boardContent)
+              }
+              else{
+                insert(filename, boardContent)
+              }
             }
           }
         })
       }
 
       //인서트 로직
-      function insert(title, boardContent) {
-        var boardTitle = title
+      function insert(filename, boardContent) {
+        var boardTitle = $('#boardTitle').val()
 
         $.ajax({
-          type : 'POST',
-          url : '/board/admin/insertBoard.do',
-          data : {
-            boardContent : boardContent,
-            boardTitle : boardTitle,
-            userNo : userNo,
+          type: 'POST',
+          url: '/board/admin/insertBoard.do',
+          data: {
+            userNo: userNo,
+            boardTitle: boardTitle,
+            boardContent: boardContent,
+            boardThumbnail: filename,
           },
-          dataType : 'json',
+          dataType: 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error');
           },
@@ -140,7 +153,7 @@
               swal.fire('생성 실패', '다시 시도해주세요.', 'warning');
             }
             else {
-              swal.fire('생성 완료', '', 'success').then((result) => {location.href='/board/view/'+data});
+              swal.fire('생성 완료', '', 'success').then((result) => {location.href = '/board/view/'+data});
             }
           }
         });
@@ -152,24 +165,25 @@
         var boardNo = '[[${boardNo}]]'
 
         $.ajax({
-          type : 'POST',
-          url : '/board/admin/updateBoard.do',
-          data : {
-            boardContent : boardContent,
-            boardTitle : boardTitle,
-            userNo : userNo,
-            boardNo : boardNo
+          type: 'POST',
+          url: '/board/admin/updateBoard.do',
+          data: {
+            boardNo: boardNo,
+            userNo: userNo,
+            boardTitle: boardTitle,
+            boardContent: boardContent,
+            boardThumbnail: filename,
           },
-          dataType : 'json',
+          dataType: 'json',
           error: function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error');
           },
-          success : function(data) {
+          success: function(data) {
             if(data == -1) {
               swal.fire('생성 실패', '다시 시도해주세요.', 'warning');
             }
             else {
-              swal.fire('수정 완료', '', 'success').then((result) => {location.href='/board/view/'+boardNo});
+              swal.fire('수정 완료', '', 'success').then((result) => {location.href = '/board/view/'+boardNo});
             }
           }
         });

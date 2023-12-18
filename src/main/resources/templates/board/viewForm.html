@@ -59,14 +59,14 @@
         });
 
         $.ajax({
-          type : 'GET',
-          url : '/board/getBoard/'+boardNo,
+          type: 'GET',
+          url: '/board/getBoard/'+boardNo,
           error:function(xhr, status, error) {
             swal.fire('error', '다시 시도해주세요.', 'error')
           },
           success : function(data) {
             if(!data) {
-              swal.fire('','삭제되거나 존재하지 않는 게시글입니다.','warning').then( () => {location.href='/'})
+              swal.fire('', '삭제되거나 존재하지 않는 게시글입니다.', 'warning').then(() => {location.href = '/'})
               return
             }
             $('#boardTitle').text(data.boardTitle)

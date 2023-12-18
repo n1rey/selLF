@@ -1,5 +1,7 @@
 package com.portfolio.sellf.domain.board.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,10 @@ public class BoardService {
 
   public BoardVo selectBoard(int boardNo) {
     return boardMapper.selectBoard(boardNo);
+  }
+
+  public List<BoardVo> selectAllBoard() {
+    return boardMapper.selectAllBoard();
   }
 
   public int updateBoard(BoardVo boardVo) {
