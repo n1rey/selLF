@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portfolio.sellf.domain.board.service.BoardService;
-import com.portfolio.sellf.domain.user.join.vo.UserVo;
-import com.portfolio.sellf.global.common.CommonUtil;
 
 @Controller
 @RequestMapping("/")
@@ -27,10 +25,6 @@ public class IndexController {
    **/
   @RequestMapping(value = {"", "/"}) 
   public String mainPage(HttpServletRequest request, Model model) {
-    UserVo user = CommonUtil.getSessionUser(request);
-    if(user != null) {
-      model.addAttribute("userRole", user.getUserRole());
-    }
     model.addAttribute("boardList", boardService.selectAllBoard());
     return "/index";
   }
@@ -60,6 +54,6 @@ public class IndexController {
     HttpSession session = httpServletRequest.getSession();
     session.invalidate();
     httpServletRequest.getSession().invalidate();
-    return "/index";
+    return "redirect:/";
   }
 }

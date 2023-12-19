@@ -57,6 +57,23 @@
             </li>
           </ul>
         </li>
+        <li th:if="${session.role == 'admin'}" class=" nk-drop-item">
+          <a href="#"> Admin </a>
+          <ul class="dropdown">
+            <li>
+              <a href="/contact"> Code </a>
+            </li>
+            <li>
+              <a href="blog-single.html"> Log </a>
+            </li>
+            <li>
+              <a href="blog-single.html"> Resources </a>
+            </li>
+            <li>
+              <a href="blog-single.html"> Users </a>
+            </li>
+          </ul>
+        </li>
         <li th:if="${session.user == null}" class=" nk-drop-item">
           <a href="/login"> Login </a>
           <ul class="dropdown">

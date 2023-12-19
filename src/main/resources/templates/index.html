@@ -33,7 +33,7 @@
           <li data-filter="Branding">Branding</li>
           <li data-filter="Print">Print</li>
           <li data-filter="Design">Design</li>
-          <li th:if="${userRole == 'admin'}" id="writeBtn">Write</li>
+          <li th:if="${session.role == 'admin'}" id="writeBtn">Write</li>
         </ul>
       <!-- END: Filter -->
         <div class="nk-portfolio-list nk-isotope nk-isotope-2-cols nk-isotope-gap">
