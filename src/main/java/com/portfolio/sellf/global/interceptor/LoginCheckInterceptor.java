@@ -28,7 +28,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
     logger.info("==========================preInterceptor============================");
     UserVo user = CommonUtil.getSessionUser(request);
     String referer = request.getHeader("Referer");
+    System.out.println(request.getRequestURI());
 
+    
     if(request.getRequestURI().equals("/login") && !CommonUtil.checkNull(referer)) {
       String ip = CommonUtil.getIp(request);
       logger.info("비정상 접근 시도 사용자 : "+user.getUserId()+" IP : "+ ip);

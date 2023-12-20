@@ -6,10 +6,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 public class FileService {
@@ -17,6 +22,8 @@ public class FileService {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private final String uploadDir = Paths.get("D:", "test", "upload").toString();
+
+
   /** 파일 업로드 **/
   public String uploadImage(MultipartFile image) {
     if(image.isEmpty()) {
@@ -37,8 +44,11 @@ public class FileService {
 
     try {
       // 파일 저장 (write to disk)
+      // resize
       File uploadFile = new File(fileFullPath);
-      image.transferTo(uploadFile);
+      BufferedImage thumbnail = Thumbnails.of(image.getInputStream()).size(600, 500).asBufferedImage();
+      ImageIO.write(thumbnail, extension, uploadFile);
+
       return saveFilename;
     } catch (IOException e) {
       // 예외 처리는 따로 해주는 게 좋습니다.
@@ -47,6 +57,25 @@ public class FileService {
   }
 
   public byte[] printEditorImage(String filename) {
+    String fileFullPath = Paths.get(uploadDir, filename).toString();
+
+    // 파일이 없는 경우 예외 throw
+    File uploadedFile = new File(fileFullPath);
+    if (uploadedFile.exists() == false) {
+      throw new RuntimeException();
+    }
+
+    try {
+      // 이미지 파일을 byte[]로 변환 후 반환
+      byte[] imageBytes = Files.readAllBytes(uploadedFile.toPath());
+      return imageBytes;
+
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public byte[] printThumbnailImage(String filename) {
     String fileFullPath = Paths.get(uploadDir, filename).toString();
 
     // 파일이 없는 경우 예외 throw
