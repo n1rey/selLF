@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: resource.html
+    Version: 0.1
+    Description : 리소스 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <th:block th:replace="@{/include/head}"></th:block>
+      <script th:src="@{/resources/js/validation.js}"></script>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Login Info</h2>
+            <div class="nk-gap mnt-3"></div>
+            <p>로그인 없이 사이트를 구경하실 수 있습니다.
+              <br/> 로그인 시 좋아요, 댓글이 가능합니다.
+              <br/> 일회용 계정을 발급받아 사용하실 수 있습니다.
+            </p>
+            <ul class="nk-contact-info">
+              <li><strong style="color:red">참고사항</strong></li>
+              <li>1. 미접속 후 30일이 지나면 로그인 정보가 삭제됩니다.</li>
+              <li>2. 일회용 계정은 1시간 뒤 만료됩니다.</li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          
+          <div class="col-lg-7">
+            <form id="loginForm" class="nk-form nk-form-ajax" method="POST">
+              <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
+              <div class="nk-gap-1"></div>
+              <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30" onkeyup="enterkey()">
+              <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
+              <div class="response-success"></div>
+              <div class="response-error"></div>
+              <button type="button" th:onclick="login()" class="nk-btn" title="로그인">Login</button>
+              <button type="button" th:onclick="|location.href='@{/find}'|" class="nk-btn" title="계정찾기">Find</button>
+              <button type="button" th:onclick="|location.href='@{/join}'|" class="nk-btn" title="회원가입">Join</button>
+            </form>
+          </div>
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+    <script>
+      function login() {
+        if(!valid.validateLoginInfo()) return
+        var formData = $('#loginForm').serialize()
+        $.ajax({
+          type: 'POST',
+          url: '/login/login.do',
+          data: formData,
+          dataType: 'json',
+          error: function(xhr, status, error) {
+            swal.fire('error', '에러가 발생했습니다. 잠시후 다시 시도해주세요.', 'error')
+          },
+          success : function(data) {
+            if(data == 1) {
+              location.href = '/'
+            }
+            else {
+              swal.fire('로그인 실패', '존재하지 않는 아이디이거나 비밀번호가 일치하지 않습니다.', 'warning')
+            }
+          }
+        });
+      }
+
+      function enterkey() {
+        if(window.event.keyCode == 13) login()
+      }
+    </script>
+  </body>
+</html>

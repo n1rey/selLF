@@ -53,6 +53,7 @@ public class JoinService {
     return joinMapper.checkId(map.getMap());
   }
 
+  /** 계정발급 전 확인 단계 **/
   public CommandMap beforeIssueUser(CommandMap map, HttpServletRequest request) {
     LogVo logVo = new LogVo();
     String type = "issue";
@@ -91,6 +92,7 @@ public class JoinService {
     }
   }
 
+  /** 계정발급 **/
   public CommandMap afterIssueUser(CommandMap map) {
     UserVo userVo = createRandomUser();
     String password = RandomInfo.randomPassword();
@@ -102,6 +104,7 @@ public class JoinService {
     return map;
   }
 
+  /** 계정생성  **/
   public UserVo createRandomUser() {
     UserVo userVo = new UserVo();
     String id = "sellf"+RandomInfo.randomId(10);

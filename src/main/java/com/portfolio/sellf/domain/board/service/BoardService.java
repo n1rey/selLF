@@ -28,22 +28,27 @@ public class BoardService {
     return -1;
   }
 
+  /** 게시글 보기 **/
   public BoardVo selectBoard(int boardNo) {
     return boardMapper.selectBoard(boardNo);
   }
 
+  /** 게시글 리스트 **/
   public List<BoardVo> selectAllBoard() {
     return boardMapper.selectAllBoard();
   }
 
+  /** 게시글 수정 **/
   public int updateBoard(BoardVo boardVo) {
     return boardMapper.updateBoard(boardVo);
   }
 
+  /** 게시글 삭제 **/
   public void deleteBoard(BoardVo boardVo) {
     boardMapper.deleteBoard(boardVo);
   }
 
+  /** 게시글 숨김 **/
   public int updateHideBoard(CommandMap map) {
     int result = boardMapper.updateHideBoard(map.getMap());
     return result;
