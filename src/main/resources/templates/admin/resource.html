@@ -21,21 +21,37 @@
         <div class="row vertical-gap">
           <div class="col-lg-5">
             <!-- START: Info -->
-            <h2>Login Info</h2>
+            <h2>Memory Info</h2>
             <div class="nk-gap mnt-3"></div>
-            <p>로그인 없이 사이트를 구경하실 수 있습니다.
-              <br/> 로그인 시 좋아요, 댓글이 가능합니다.
-              <br/> 일회용 계정을 발급받아 사용하실 수 있습니다.
-            </p>
             <ul class="nk-contact-info">
-              <li><strong style="color:red">참고사항</strong></li>
-              <li>1. 미접속 후 30일이 지나면 로그인 정보가 삭제됩니다.</li>
-              <li>2. 일회용 계정은 1시간 뒤 만료됩니다.</li>
+              <li th:text="'메모리 사용량  :  ' + ${memory[1]}"></li>
+              <li th:text="'메모리 용량  :  ' + ${memory[2]}"></li>
+              <li th:text="'메모리 사용  :  ' + ${memory[0]} + '%'"></li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>CPU Info</h2>
+            <div class="nk-gap mnt-3"></div>
+            <ul class="nk-contact-info">
+              <li th:text="'CPU사용량  :  ' + ${cpu[0]} + '%'"></li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Disk Info</h2>
+            <div class="nk-gap mnt-3"></div>
+            <ul class="nk-contact-info">
+              <li th:text="'디스크 사용량  :  ' + ${disk[0]}"></li>
+              <li th:text="'디스크 용량  :  ' + ${disk[1]}"></li>
+              <li th:text="'디스크 사용  :  ' + ${disk[2]} + '%'"></li>
             </ul>
             <!-- END: Info -->
           </div>
           
-          <div class="col-lg-7">
+          <!-- <div class="col-lg-7">
             <form id="loginForm" class="nk-form nk-form-ajax" method="POST">
               <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
               <div class="nk-gap-1"></div>
@@ -47,7 +63,7 @@
               <button type="button" th:onclick="|location.href='@{/find}'|" class="nk-btn" title="계정찾기">Find</button>
               <button type="button" th:onclick="|location.href='@{/join}'|" class="nk-btn" title="회원가입">Join</button>
             </form>
-          </div>
+          </div> -->
         </div>
         <div class="nk-gap-5"></div>
       </div>
