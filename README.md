@@ -118,3 +118,23 @@ ALTER TABLE IF EXISTS sellf.tb_reply
 
 COMMENT ON TABLE sellf.tb_reply
     IS '댓글, 대댓글테이블';
+
+
+5. tb_code
+CREATE TABLE IF NOT EXISTS sellf.tb_code
+(
+    code_no integer NOT NULL,
+    user_no integer,
+    code_id character varying(30) COLLATE pg_catalog."default",
+    code_description character varying(500) COLLATE pg_catalog."default",
+    code_content character varying(500) COLLATE pg_catalog."default",
+    code_created_date date,
+    code_created_time time(6) without time zone,
+    code_use_yn "char" DEFAULT 'Y'::"char",
+    CONSTRAINT tb_code_pkey PRIMARY KEY (code_no)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS sellf.tb_code
+    OWNER to test;

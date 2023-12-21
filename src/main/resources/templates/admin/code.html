@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: code.html
+    Version: 0.1
+    Description : 공통코드 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+    <style>
+      .radio {
+        margin-left: 20px;
+        color: #858585;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <div th:replace="@{/include/head}"></div>
+      <script th:src="@{/resources/js/validation.js}"></script>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Code Info</h2>
+            <div class="nk-gap mnt-3"></div>
+            
+            <ul class="nk-contact-info">
+              <li><strong style="color: #10c9c3;">코드목록</strong></li>
+              <li th:each="code:${codeList}" th:onclick="clickCode([[${code}]])" th:text="'codeId : '+${code.codeId}"></li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          
+          <div class="col-lg-7">
+            <input type="hidden" id="codeNo" name="codeNo">
+            <form id="codeForm" class="nk-form nk-form-ajax" method="POST">
+              <input type="hidden" id="userNo" name="userNo" th:value="${userNo}">
+              <input type="hidden">
+              <input type="text" class="form-control" id="codeId" name="codeId" placeholder="코드를 입력하세요." maxlength="30">
+              <div class="nk-gap-1"></div>
+              <input type="text" class="form-control" id="codeDescription" name="codeDescription" placeholder="설명을 입력하세요." maxlength="500">
+              <div class="nk-gap-1"></div>
+              <input type="text" class="form-control" id="codeContent" name="codeContent" placeholder="내용을 입력하세요" maxlength="200">
+              <div class="nk-gap-1"></div>
+              <div style="width:auto; float:left; color:#858585;">사용여부 :</div>
+              <div>
+                <input type="radio" class="radio" id="codeUseYn" name="codeUseYn" value="Y" checked> Y
+                <input type="radio" class="radio" id="codeUseYn" name="codeUseYn" value="N"> N
+              </div>
+              <br/>
+              <button type="button" th:onclick="insert()" class="nk-btn" title="추가하기">Insert</button>
+              <button type="button" th:onclick="update()" class="nk-btn" title="수정하기">Update</button>
+            </form>
+          </div>
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+    <script>
+      function insert() {
+        if(!!checkInfo()) return
+
+        var formData = $('#codeForm').serialize()
+        $.ajax({
+          type: 'POST',
+          url: '/admin/code/insert.do',
+          data: formData,
+          dataType: 'json',
+          error: function(xhr, status, error) {
+            swal.fire('error', '다시 시도해주세요.', 'error');
+          },
+          success : function(data) {
+            if(data == -1) {
+              swal.fire('생성실패', '다시 시도해주세요.', 'warning');
+            }
+            else if(data == -999) {
+              $('#codeId').css('border-color', 'red')
+              $('#codeId').next().text('중복된 아이디입니다.').css('color', 'rgb(255 24 24)')
+              $('#codeId').focus()
+            }
+            else {
+              swal.fire('생성 완료', '', 'success').then(result => {location.reload()});
+            }
+          }
+        });
+      }
+
+      function update() {
+        if(!!checkInfo()) return
+        var codeNo = $('#codeNo')
+        if(!!!codeNo) {
+          swal.fire('코드를 선택하지 않았습니다.', '등록으로 변경하시겠습니까?', 'warning').then(result => {console.log(result)});
+        }
+        var formData = $('#codeForm').serialize()
+        $.ajax({
+          type: 'POST',
+          url: '/admin/code/insert.do',
+          data: formData,
+          dataType: 'json',
+          error: function(xhr, status, error) {
+            swal.fire('error', '다시 시도해주세요.', 'error');
+          },
+          success : function(data) {
+            if(data == -1) {
+              swal.fire('생성실패', '다시 시도해주세요.', 'warning');
+            }
+            else if(data == -999) {
+              $('#codeId').css('border-color', 'red')
+              $('#codeId').next().text('중복된 아이디입니다.').css('color', 'rgb(255 24 24)')
+              $('#codeId').focus()
+            }
+            else {
+              swal.fire('생성 완료', '', 'success').then(result => {location.reload()});
+            }
+          }
+        });
+      }
+
+      function checkInfo() {
+        var codeId = $('#codeId').val()
+        var codeContent = $('#codeContent').val()
+
+        if(!codeId || codeId.length > 30) {
+          $('#codeId').next().text('1 ~ 30글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#codeId').focus()
+          return 1
+        }
+        $('#codeId').next().text('')
+        if(!codeContent || codeContent.length > 200) {
+          $('#codeContent').next().text('1 ~ 200글자 사이로 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#codeContent').focus()
+          return 1
+        }
+        $('#codeContent').next().text('')
+      }
+
+
+      function enterkey() {
+        if(window.event.keyCode == 13) submit()
+      }
+
+      function clickCode(data) {
+        $('#codeNo').val(data.codeNo)
+        $('#codeId').val(data.codeId)
+        $('#codeDescription').val(data.codeDescription)
+        $('#codeContent').val(data.codeContent)
+        $('input:radio[name="codeUseYn"]:input[value="'+data.codeUseYn+'"]').prop('checked', true)
+      }
+    </script>
+  </body>
+</html>
