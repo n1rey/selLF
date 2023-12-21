@@ -87,7 +87,8 @@ CREATE TABLE IF NOT EXISTS sellf.tb_board
     board_drop_yn "char",
     board_drop_date date,
     board_drop_time time(6) without time zone,
-    board_hide_yn "char"
+    board_hide_yn "char",
+    board_thumbnail character varying(200) COLLATE pg_catalog."default"
 )
 
 TABLESPACE pg_default;
