@@ -1,4 +1,4 @@
-package com.portfolio.sellf.global.common;
+package com.portfolio.sellf.global.common.util;
 
 import java.util.Enumeration;
 

@@ -1,21 +1,17 @@
 package com.portfolio.sellf.domain.user.find.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.user.find.mapper.FindMapper;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
-import com.portfolio.sellf.global.common.Encryption;
-import com.portfolio.sellf.global.common.RandomInfo;
-import com.portfolio.sellf.global.common.SendMail;
+import com.portfolio.sellf.global.common.util.Encryption;
+import com.portfolio.sellf.global.common.util.RandomInfo;
+import com.portfolio.sellf.global.common.util.SendMail;
 
 @Service
 public class FindService {
-
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @Autowired
   private FindMapper findMapper;
@@ -37,6 +33,4 @@ public class FindService {
     }
     return result;
   }
-
-
 }

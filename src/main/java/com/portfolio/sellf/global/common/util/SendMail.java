@@ -1,4 +1,4 @@
-package com.portfolio.sellf.global.common;
+package com.portfolio.sellf.global.common.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -13,16 +13,14 @@ import javafx.event.ActionEvent;
 @Component
 public class SendMail {
 
-	private static JavaMailSender mailSender;
-	
-	@Autowired
-	public void MailUtil(JavaMailSender mailSender) {
-		this.mailSender = mailSender;
-	}
-
+  private static JavaMailSender mailSender;
+  
+  @Autowired
+  public void MailUtil(JavaMailSender mailSender) {
+    this.mailSender = mailSender;
+  }
   
   public static void sendMail(UserVo user, String type) {
-
     try {
       SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 
@@ -51,12 +49,8 @@ public class SendMail {
         }
       };
       thread.start();
-
-
-
-    } catch (Exception e) {
+    }catch(Exception e) {
       e.printStackTrace();
     }
   }
-	
 }

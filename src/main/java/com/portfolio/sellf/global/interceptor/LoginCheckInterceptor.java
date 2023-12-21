@@ -2,7 +2,6 @@ package com.portfolio.sellf.global.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +10,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
-import com.portfolio.sellf.global.common.CommonUtil;
 import com.portfolio.sellf.global.common.log.service.LogService;
 import com.portfolio.sellf.global.common.log.vo.LogVo;
-
+import com.portfolio.sellf.global.common.util.CommonUtil;
 
 public class LoginCheckInterceptor implements HandlerInterceptor{
 
@@ -56,7 +54,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
       response.sendRedirect(request.getContextPath()+"/");
       return false;
     }
-    
     return true;
   }
 
@@ -66,6 +63,5 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
-
   }
 }

@@ -49,7 +49,7 @@ public class FileController {
    * 리사이즈이미지 불러오기
    *
    * @author 한승현
-   * @date 2023/12/14
+   * @date 2023/12/20
    **/
   @ResponseBody
   @RequestMapping(value = {"/print/resizeImage.do"}) 

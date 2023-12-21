@@ -1,4 +1,4 @@
-package com.portfolio.sellf.global.common;
+package com.portfolio.sellf.global.common.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

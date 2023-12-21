@@ -9,8 +9,6 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,8 +16,6 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 public class FileService {
-
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private final String uploadDir = Paths.get("D:", "test", "upload").toString();
   private final String resizeDir = Paths.get("D:", "test", "resize").toString();
@@ -60,12 +56,13 @@ public class FileService {
 
       return saveFilename;
 
-    } catch (IOException e) {
+    }catch(IOException e) {
       // 예외 처리는 따로 해주는 게 좋습니다.
       throw new RuntimeException(e);
     }
   }
 
+  /** 원본 이미지 **/
   public byte[] printEditorImage(String filename) {
     String fileFullPath = Paths.get(uploadDir, filename).toString();
 
@@ -80,11 +77,11 @@ public class FileService {
       byte[] imageBytes = Files.readAllBytes(uploadedFile.toPath());
       return imageBytes;
 
-    } catch (IOException e) {
+    }catch(IOException e) {
       throw new RuntimeException(e);
     }
   }
-
+  /** 리사이즈 이미지 **/
   public byte[] printResizeImage(String filename) {
     String fileFullPath = Paths.get(resizeDir, "resize_"+filename).toString();
 
@@ -100,7 +97,7 @@ public class FileService {
       byte[] imageBytes = Files.readAllBytes(uploadedFile.toPath());
       return imageBytes;
 
-    } catch (IOException e) {
+    }catch(IOException e) {
       throw new RuntimeException(e);
     }
   }

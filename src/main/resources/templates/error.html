@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: error.html
+    Version: 0.1
+    Description : 에러 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <th:block th:replace="@{/include/head}"></th:block>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="nk-gap-5 mnt-4"></div>
+            <h2 class="display-4">Error !!</h2>
+            <h2 class="display-4">에러가 발생했습니다.</h2>
+            <a href="/">홈으로</a>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="nk-gap-4"></div>
+      </div>
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+  </body>
+</html>

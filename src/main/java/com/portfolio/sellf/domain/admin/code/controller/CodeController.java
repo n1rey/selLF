@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.portfolio.sellf.domain.admin.code.service.CodeService;
 import com.portfolio.sellf.domain.admin.code.vo.CodeVo;
-import com.portfolio.sellf.global.common.CommandMap;
-import com.portfolio.sellf.global.common.CommonUtil;
+import com.portfolio.sellf.global.common.util.CommandMap;
+import com.portfolio.sellf.global.common.util.CommonUtil;
 
 @Controller
 @RequestMapping("/admin/code")
@@ -45,5 +45,31 @@ public class CodeController {
   @RequestMapping(value = "/insert.do") 
   public int insertCode(HttpServletRequest request, Model model, CodeVo codeVo) {
     return codeService.insertCode(codeVo);
+  }
+
+    /**
+   * <pre>
+   * 코드수정
+   *
+   * @author 한승현
+   * @date 2023/12/21
+   **/
+  @ResponseBody
+  @RequestMapping(value = "/update.do") 
+  public int updateCode(HttpServletRequest request, Model model, CodeVo codeVo) {
+    return codeService.updateCode(codeVo);
+  }
+
+    /**
+   * <pre>
+   * 코드삭제
+   *
+   * @author 한승현
+   * @date 2023/12/21
+   **/
+  @ResponseBody
+  @RequestMapping(value = "/delete.do") 
+  public int deleteCode(HttpServletRequest request, Model model, CodeVo codeVo) {
+    return codeService.deleteCode(codeVo);
   }
 }

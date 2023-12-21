@@ -44,13 +44,28 @@
 
   <!-- 코드 수정 -->
   <update id="updateCode" parameterType="codeVo">
-    UPDATE TB_CODE SET 
+    UPDATE TB_CODE SET
       CODE_ID = #{codeVo.codeId},
       CODE_DESCRIPTION = #{codeVo.codeDescription},
-      CODE_CONTENT = #{codeVo.codeContent}
+      CODE_CONTENT = #{codeVo.codeContent},
       CODE_USE_YN = #{codeVo.codeUseYn}
     WHERE 1=1
     AND CODE_NO = #{codeVo.codeNo}
   </update>
+
+  <!-- 코드 삭제 -->
+  <delete id="deleteCode" parameterType="codeVo">
+    DELETE FROM TB_CODE
+    WHERE 1=1
+    AND CODE_NO = #{codeVo.codeNo}
+  </delete>
+
+  <!-- 코드 중복체크 -->
+  <select id="checkCodeId" parameterType="codeVo" resultType="int">
+    SELECT COUNT(*)
+    FROM TB_CODE
+    WHERE 1=1
+    AND CODE_ID = #{codeVo.codeId}
+  </select>
 </mapper>
 

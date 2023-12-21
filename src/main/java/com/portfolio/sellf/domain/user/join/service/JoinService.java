@@ -4,25 +4,21 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.user.join.mapper.JoinMapper;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
-import com.portfolio.sellf.global.common.CommandMap;
-import com.portfolio.sellf.global.common.CommonUtil;
-import com.portfolio.sellf.global.common.Encryption;
-import com.portfolio.sellf.global.common.RandomInfo;
 import com.portfolio.sellf.global.common.log.service.LogService;
 import com.portfolio.sellf.global.common.log.vo.LogVo;
+import com.portfolio.sellf.global.common.util.CommandMap;
+import com.portfolio.sellf.global.common.util.CommonUtil;
+import com.portfolio.sellf.global.common.util.Encryption;
+import com.portfolio.sellf.global.common.util.RandomInfo;
 
 @Service
 public class JoinService {
-
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @Autowired
   private JoinMapper joinMapper;
@@ -75,7 +71,7 @@ public class JoinService {
       map.put("LOG_TYPE", type);
       map.put("LOG_IP", ip);
       map.put("LOG_URI", uri);
-      map.put("TIME","1");
+      map.put("TIME", "1");
       List<LogVo> logList = logService.selectLog(map.getMap());
       if(logList.size() > 0) {
         map.put("result", "fail");
@@ -107,7 +103,7 @@ public class JoinService {
   /** 계정생성  **/
   public UserVo createRandomUser() {
     UserVo userVo = new UserVo();
-    String id = "sellf"+RandomInfo.randomId(10);
+    String id = "sellf" + RandomInfo.randomId(10);
     userVo.setUserId(id);
     userVo.setUserName("게스트");
     userVo.setUserRole("guest");

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.domain.user.login.mapper.LoginMapper;
-import com.portfolio.sellf.global.common.Encryption;
+import com.portfolio.sellf.global.common.util.Encryption;
 
 @Service
 public class LoginService {

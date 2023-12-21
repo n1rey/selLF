@@ -2,20 +2,16 @@ package com.portfolio.sellf.domain.board.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.board.mapper.BoardMapper;
 import com.portfolio.sellf.domain.board.vo.BoardVo;
-import com.portfolio.sellf.global.common.CommandMap;
+import com.portfolio.sellf.global.common.util.CommandMap;
 
 @Service
 public class BoardService {
-
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @Autowired
   private BoardMapper boardMapper;

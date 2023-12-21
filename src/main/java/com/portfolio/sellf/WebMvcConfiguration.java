@@ -8,7 +8,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.portfolio.sellf.global.common.CommandMapArgumentResolver;
+import com.portfolio.sellf.global.common.util.CommandMapArgumentResolver;
 import com.portfolio.sellf.global.interceptor.LoginCheckInterceptor;
 
 @Configuration

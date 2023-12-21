@@ -1,7 +1,6 @@
 package com.portfolio.sellf.domain.admin.code.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,4 +15,10 @@ public interface CodeMapper {
   List<CodeVo> selectCode();
 
   int insertCode(@Param("codeVo") CodeVo codeVo);
+
+  int updateCode(@Param("codeVo") CodeVo codeVo);
+
+  int deleteCode(@Param("codeVo") CodeVo codeVo);
+
+  int checkCodeId(@Param("codeVo") CodeVo codeVo);
 }

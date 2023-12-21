@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portfolio.sellf.domain.admin.resource.service.ResourceService;
-import com.portfolio.sellf.global.common.CommandMap;
+import com.portfolio.sellf.global.common.util.CommandMap;
 
 @Controller
 @RequestMapping("/admin/resource")

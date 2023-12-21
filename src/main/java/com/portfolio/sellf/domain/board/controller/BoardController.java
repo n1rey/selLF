@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.portfolio.sellf.domain.board.service.BoardService;
 import com.portfolio.sellf.domain.board.vo.BoardVo;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
-import com.portfolio.sellf.global.common.CommandMap;
-import com.portfolio.sellf.global.common.CommonUtil;
+import com.portfolio.sellf.global.common.util.CommandMap;
+import com.portfolio.sellf.global.common.util.CommonUtil;
 
 @Controller
 @RequestMapping("/board")
