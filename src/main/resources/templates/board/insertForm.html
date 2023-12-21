@@ -77,7 +77,7 @@
                   body : formData,
               });
               const filename = await response.text();
-              const imageUrl = '/file/print/image.do?filename='+filename
+              const imageUrl = '/file/print/resizeImage.do?filename='+filename
               callback(imageUrl, 'image alt attribute')
             } catch (error) {
               console.error('업로드 실패 : ', error)
@@ -120,12 +120,12 @@
               } catch (error) {
                 console.error('업로드 실패 : ', error)
               }
-              if(status == 'update') {
-                update(filename, boardContent)
-              }
-              else{
-                insert(filename, boardContent)
-              }
+            }
+            if(status == 'update') {
+              update(filename, boardContent)
+            }
+            else{
+              insert(filename, boardContent)
             }
           }
         })
@@ -134,7 +134,8 @@
       //인서트 로직
       function insert(filename, boardContent) {
         var boardTitle = $('#boardTitle').val()
-
+        if(!filename) filename = 'default';
+        
         $.ajax({
           type: 'POST',
           url: '/board/admin/insertBoard.do',
@@ -160,8 +161,8 @@
       }
 
       //업데이트 로직
-      function update(title, boardContent) {
-        var boardTitle = title
+      function update(filename, boardContent) {
+        var boardTitle = $('#boardTitle').val()
         var boardNo = '[[${boardNo}]]'
 
         $.ajax({

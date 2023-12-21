@@ -40,6 +40,20 @@ public class FileController {
   @ResponseBody
   @RequestMapping(value = {"/print/image.do"}) 
   public byte[] printImage(@RequestParam final String filename) {
+    // return fileService.printThumbnailImage(filename);
     return fileService.printEditorImage(filename);
+  }
+
+    /**
+   * <pre>
+   * 리사이즈이미지 불러오기
+   *
+   * @author 한승현
+   * @date 2023/12/14
+   **/
+  @ResponseBody
+  @RequestMapping(value = {"/print/resizeImage.do"}) 
+  public byte[] printResizeImage(@RequestParam final String filename) {
+    return fileService.printResizeImage(filename);
   }
 }

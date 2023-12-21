@@ -59,15 +59,17 @@
     FROM TB_BOARD
     WHERE 1=1
     AND BOARD_DROP_YN != 'Y'
-    ORDER BY BOARD_NO
+    ORDER BY BOARD_NO DESC
   </select>
 
   <!-- 게시글 수정 -->
   <update id="updateBoard" parameterType="boardVo">
     UPDATE TB_BOARD SET 
       BOARD_TITLE = #{boardVo.boardTitle},
-      BOARD_CONTENT = #{boardVo.boardContent},
-      BOARD_THUMBNAIL = #{boardVo.boardThumbnail}
+      BOARD_CONTENT = #{boardVo.boardContent}
+      <if test="boardVo.boardThumbnail != null">
+        ,BOARD_THUMBNAIL = #{boardVo.boardThumbnail}
+      </if>
     WHERE 1=1
     AND BOARD_NO = #{boardVo.boardNo}
   </update>

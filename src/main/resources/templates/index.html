@@ -30,8 +30,8 @@
         <!-- START: Filter -->
         <ul class="nk-isotope-filter nk-isotope-filter-active text-left">
           <li class="active" data-filter="*">All</li>
-          <li data-filter="Branding">Branding</li>
-          <li data-filter="Print">Print</li>
+          <li data-filter="Branding"></li>
+          <li data-filter="Print">Egovframwork</li>
           <li data-filter="Design">Design</li>
           <li th:if="${session.role == 'admin'}" id="writeBtn">Write</li>
         </ul>
@@ -42,12 +42,13 @@
             <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
               <a th:href="${'/board/view/' + board.boardNo}" class="nk-portfolio-item-link"></a>
               <div class="nk-portfolio-item-image">
-                <div th:style="'background-image: url('+${'/file/print/image.do?filename='+board.boardThumbnail}+');'"></div>
+                <div th:style="'background-image: url('+${'/file/print/resizeImage.do?filename='+board.boardThumbnail}+');'"></div>
               </div>
               <div class="nk-portfolio-item-info">
                 <div>
                   <h2 class="portfolio-item-title h5" th:text="${board.boardTitle}"></h2>
-                  <div class="portfolio-item-category">Design</div>
+                  <div class="portfolio-item-title" th:text="${board.boardCreatedDate}"></div>
+                  <div class="portfolio-item-category" style="display:none">Design</div>
                 </div>
               </div>
             </div>
