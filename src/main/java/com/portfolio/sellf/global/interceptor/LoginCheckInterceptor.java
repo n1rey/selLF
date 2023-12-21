@@ -28,8 +28,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
     logger.info("==========================preInterceptor============================");
     UserVo user = CommonUtil.getSessionUser(request);
     String referer = request.getHeader("Referer");
-    System.out.println(request.getSession().getAttribute("user")+"==============================================");
-    System.out.println(request.getSession().getAttribute("role")+"==============================================");
 
     if(request.getRequestURI().equals("/login") && !CommonUtil.checkNull(referer)) {
       String ip = CommonUtil.getIp(request);

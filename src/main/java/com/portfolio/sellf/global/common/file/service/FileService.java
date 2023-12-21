@@ -86,7 +86,6 @@ public class FileService {
   }
 
   public byte[] printResizeImage(String filename) {
-    System.out.println(filename);
     String fileFullPath = Paths.get(resizeDir, "resize_"+filename).toString();
 
     // 파일이 없는 경우 예외 throw

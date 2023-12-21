@@ -40,7 +40,6 @@ public class ContactController {
   public String contactSendMail(HttpServletRequest request, 
     @RequestParam(value = "name", required = false) String name,
     @RequestParam(value = "email", required = false) String email) {
-    System.out.println(name+email);
     return "redirect:/contact";
   }
 }

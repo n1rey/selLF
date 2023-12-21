@@ -127,7 +127,6 @@ public class BoardController {
   @ResponseBody
   @RequestMapping(value = {"/admin/hide.do"}) 
   public int updateHideBoard(HttpServletRequest request, Model model, CommandMap map) {
-    System.out.println(map.toString());
     int result = boardService.updateHideBoard(map);
     return result;
   }
