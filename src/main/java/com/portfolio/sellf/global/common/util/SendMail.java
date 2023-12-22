@@ -40,7 +40,8 @@ public class SendMail {
       }else if(type.equals("schedule")){//스케쥴러
         simpleMailMessage.setTo("tmdgus4720@naver.com");
         simpleMailMessage.setSubject("[selLF] 스케쥴러 메일");
-        simpleMailMessage.setText("총 접속 수 : "+user.getUserProfileImage()+" 명 입니다. \n비정상 시도 횃수 : "+user.getUserId()+"번 입니다.");
+
+        simpleMailMessage.setText("총 접속 수 : "+user.getUserProfileImage()+" 명 입니다. \n비정상 시도 횟수 : "+user.getUserId()+"번 입니다.");
       }
 
       Thread thread = new Thread(){
