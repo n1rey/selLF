@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.portfolio.sellf.domain.contact.service.ContactService;
+import com.portfolio.sellf.global.common.util.CommandMap;
 
 @Controller
 @RequestMapping("/contact")
@@ -26,7 +27,7 @@ public class ContactController {
   @RequestMapping(value = {"", "/"}) 
   public String contactMainPage() {
     
-    return "/user/contact";
+    return "/contact/contact";
   }
 
     /**
@@ -37,9 +38,7 @@ public class ContactController {
    * @date 2023/11/29
    **/
   @PostMapping("/sendMail")
-  public String contactSendMail(HttpServletRequest request, 
-    @RequestParam(value = "name", required = false) String name,
-    @RequestParam(value = "email", required = false) String email) {
+  public String contactSendMail(HttpServletRequest request, CommandMap map) {
     return "redirect:/contact";
   }
 }

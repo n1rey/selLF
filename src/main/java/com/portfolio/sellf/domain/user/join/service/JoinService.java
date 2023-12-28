@@ -44,7 +44,7 @@ public class JoinService {
     return userNo;
   }
 
-  /**아이디 중복체크**/
+  /** 아이디 중복체크 **/
   public int checkId(CommandMap map) {
     return joinMapper.checkId(map.getMap());
   }
@@ -100,7 +100,7 @@ public class JoinService {
     return map;
   }
 
-  /** 계정생성  **/
+  /** 계정생성 **/
   public UserVo createRandomUser() {
     UserVo userVo = new UserVo();
     String id = "sellf" + RandomInfo.randomId(10);
@@ -109,5 +109,19 @@ public class JoinService {
     userVo.setUserRole("guest");
 
     return userVo;
+  }
+
+  /** 게스트 계정삭제 **/
+  public int deleteGuestInfo() {
+    int result = joinMapper.selectGuestCnt();
+    joinMapper.deleteGuestInfo();
+    return result;
+  }
+
+  /** 휴면계정처리 **/
+  public int humanUserInfo() {
+    int result = joinMapper.selectHumanCnt();
+    joinMapper.updateHumanInfo();
+    return result;
   }
 }

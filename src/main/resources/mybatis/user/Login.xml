@@ -14,7 +14,15 @@
     FROM TB_USER 
     WHERE 1=1
     AND USER_DROP_YN = '0'
+    AND USER_HUMAN_YN = '0'
     AND USER_ID = #{userVo.userId}
   </select>
-</mapper>
 
+  <!-- 로그인 -->
+  <update id="successLogin">
+    UPDATE TB_USER SET
+    USER_LOGIN_DATE = CURRENT_DATE
+    WHERE 1=1
+    AND USER_ID = #{userVo.userId}
+  </update>
+</mapper>

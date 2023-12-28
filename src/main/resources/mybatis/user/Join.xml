@@ -30,20 +30,57 @@
     )
   </insert>
 
-  <!--아이디 중복검사-->
+  <!-- 아이디 중복검사 -->
   <select id="checkId" resultType="int" parameterType="map">
     SELECT COUNT(*) FROM TB_USER WHERE USER_ID = #{userid}
   </select>
 
-  <!--게스트 아이디 삭제-->
-  <delete id="deleteGuest">
+  <!-- 게스트 아이디 삭제 -->
+  <update id="deleteGuestInfo">
     <![CDATA[
-      DELETE FROM TB_USER
+      UPDATE TB_USER SET
+      USER_NAME = '삭제된 게스트',
+      USER_PASSWORD = '',
+      USER_DROP_YN = '1'
       WHERE 1=1
       AND USER_JOIN_DATE <= CURRENT_DATE
       AND USER_JOIN_TIME <= CURRENT_TIME - INTERVAL '1HOUR'
       AND USER_ROLE = 'guest'
     ]]>
-  </delete>
-</mapper>
+  </update>
 
+  <!-- 게스트 수 -->
+  <select id="selectGuestCnt" resultType="int">
+    <![CDATA[
+      SELECT COUNT(*)
+      FROM TB_USER
+      WHERE 1=1
+      AND USER_JOIN_DATE <= CURRENT_DATE
+      AND USER_JOIN_TIME <= CURRENT_TIME - INTERVAL '1HOUR'
+      AND USER_ROLE = 'guest'
+    ]]>
+  </select>
+
+    <!-- 휴면유저 수 -->
+  <select id="selectHumanCnt" resultType="int">
+    <![CDATA[
+      SELECT COUNT(*)
+      FROM TB_USER
+      WHERE 1=1
+      AND USER_LOGIN_DATE <= CURRENT_DATE - INTERVAL '30DAY'
+      AND USER_ROLE = 'user'
+    ]]>
+  </select>
+
+    <!-- 휴면처리 -->
+  <update id="updateHumanInfo">
+    <![CDATA[
+      UPDATE TB_USER SET
+      USER_PASSWORD = '',
+      USER_HUMAN_YN = '1'
+      WHERE 1=1
+      AND USER_LOGIN_DATE <= CURRENT_DATE - INTERVAL '30DAY'
+      AND USER_ROLE = 'user'
+    ]]>
+  </update>
+</mapper>

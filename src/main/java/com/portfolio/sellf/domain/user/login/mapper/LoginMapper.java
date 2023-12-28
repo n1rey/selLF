@@ -12,4 +12,7 @@ public interface LoginMapper {
 
   /** 로그인 **/
   UserVo tryLogin(@Param("userVo") UserVo user);
+
+  /** 로그인 업데이트 **/
+  void successLogin(@Param("userVo") UserVo user);
 }

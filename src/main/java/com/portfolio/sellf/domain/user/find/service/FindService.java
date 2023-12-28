@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portfolio.sellf.domain.user.find.mapper.FindMapper;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
+import com.portfolio.sellf.global.common.util.CommandMap;
 import com.portfolio.sellf.global.common.util.Encryption;
 import com.portfolio.sellf.global.common.util.RandomInfo;
 import com.portfolio.sellf.global.common.util.SendMail;
@@ -25,7 +26,10 @@ public class FindService {
     if(userInfo != null) {
       String password = RandomInfo.randomPassword();
       user.setUserPassword(password);
-      SendMail.sendMail(user, "find");
+      CommandMap map = new CommandMap();
+      map.put("userEmail", user.getUserEmail());
+      map.put("userPassword", password);
+      SendMail.sendMail(map, "find");
       password = Encryption.encodeSha(password);
       user.setUserPassword(password);
       findMapper.updatePassword(user);

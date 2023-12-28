@@ -14,4 +14,3 @@
       AND USER_ID = #{userVo.userId}
   </update>
 </mapper>
-

@@ -44,6 +44,7 @@ public class LoginController {
     int flag = -1;
     UserVo result = loginService.tryLogin(user);
     if(result != null) {
+      loginService.successLogin(user);
       httpServletRequest.getSession().invalidate();
       HttpSession session = httpServletRequest.getSession(true);
       session.setAttribute("user", result);

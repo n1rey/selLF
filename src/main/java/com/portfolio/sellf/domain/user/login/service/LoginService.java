@@ -26,4 +26,10 @@ public class LoginService {
     }
     return userVo;
   }
+
+  /** 로그인 업데이트 **/
+  @Transactional
+  public void successLogin(UserVo user) {
+    loginMapper.successLogin(user);
+  }
 }
