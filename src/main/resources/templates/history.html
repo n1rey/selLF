@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: history.html
+    Version: 0.1
+    Description : 히스토리 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+    <style>
+      div h1 {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <div th:replace="@{/include/head}"></div>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>History:</h2>
+            <div class="nk-gap mnt-3"></div>
+            <p>
+              내용
+            </p>
+            <!-- END: Info -->
+          </div>
+          
+          <div class="col-lg-7">
+            <h1 style="margin: 0;">2021</h1>
+            <strong>내용</strong><br/>
+
+          </div>
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+  </body>
+</html>
