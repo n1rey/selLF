@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.portfolio.sellf.domain.admin.code.service.CodeService;
 import com.portfolio.sellf.domain.board.service.BoardService;
 
 @Controller
@@ -16,6 +17,9 @@ public class IndexController {
 
   @Autowired
   private BoardService boardService;
+
+  @Autowired
+  private CodeService codeService;
     /**
    * <pre>
    * 메인페이지
@@ -26,6 +30,7 @@ public class IndexController {
   @RequestMapping(value = {"", "/"}) 
   public String mainPage(HttpServletRequest request, Model model) {
     model.addAttribute("boardList", boardService.selectAllBoard());
+    model.addAttribute("categoryList", codeService.getCode("project_category").split(","));
     return "/index";
   }
 

@@ -17,6 +17,7 @@
       BOARD_CREATED_TIME,
       BOARD_DROP_YN,
       BOARD_HIDE_YN
+      BOARD_CATEGORY
     ) VALUES (
       #{boardVo.boardNo}
       ,#{boardVo.userNo}
@@ -27,6 +28,7 @@
       ,CURRENT_TIME
       ,'N'
       ,'N'
+      ,,#{boardVo.boardCategory}
     )
   </insert>
 
@@ -36,6 +38,7 @@
       USER_NO,
       BOARD_TITLE,
       BOARD_CONTENT,
+      BOARD_CATEGORY,
       COALESCE(BOARD_THUMBNAIL, 'default.jpg') AS BOARD_THUMBNAIL,
       BOARD_CREATED_DATE :: DATE,
       BOARD_CREATED_TIME :: TIME,
@@ -52,6 +55,7 @@
       USER_NO,
       BOARD_TITLE,
       BOARD_CONTENT,
+      BOARD_CATEGORY,
       COALESCE(BOARD_THUMBNAIL, 'default.jpg') AS BOARD_THUMBNAIL,
       BOARD_CREATED_DATE :: DATE,
       BOARD_CREATED_TIME :: TIME,
@@ -69,6 +73,9 @@
       BOARD_CONTENT = #{boardVo.boardContent}
       <if test="boardVo.boardThumbnail != null">
         ,BOARD_THUMBNAIL = #{boardVo.boardThumbnail}
+      </if>
+      <if test="boardVo.boardCategory != null">
+        ,BOARD_CATEGORY = #{boardVo.boardCategory}
       </if>
     WHERE 1=1
     AND BOARD_NO = #{boardVo.boardNo}

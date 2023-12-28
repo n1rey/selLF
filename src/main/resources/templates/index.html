@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://thymeleaf.org">
+  
 <!--
     Name: index.html
     Version: 0.1
@@ -30,15 +31,13 @@
         <!-- START: Filter -->
         <ul class="nk-isotope-filter nk-isotope-filter-active text-left">
           <li class="active" data-filter="*">All</li>
-          <li data-filter="Branding">Spring</li>
-          <li data-filter="Print">Egovframwork</li>
-          <li data-filter="Design">Design</li>
+          <li th:data-filter="${category}" th:each="category:${categoryList}" th:text="${category}"></li>
           <li th:if="${session.role == 'admin'}" id="writeBtn">Write</li>
         </ul>
       <!-- END: Filter -->
         <div class="nk-portfolio-list nk-isotope nk-isotope-2-cols nk-isotope-gap">
 
-          <div class="nk-isotope-item" data-filter="Design" th:each="board:${boardList}">
+          <div class="nk-isotope-item" th:data-filter="${board.boardCategory}" th:each="board:${boardList}">
             <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
               <a th:href="${'/board/view/' + board.boardNo}" class="nk-portfolio-item-link"></a>
               <div class="nk-portfolio-item-image">
@@ -48,82 +47,11 @@
                 <div>
                   <h2 class="portfolio-item-title h5" th:text="${board.boardTitle}"></h2>
                   <div class="portfolio-item-title" th:text="${board.boardCreatedDate}"></div>
-                  <div class="portfolio-item-category" style="display:none">Design</div>
+                  <div class="portfolio-item-category" th:text="${board.boardCategory}" ></div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- <div class="nk-isotope-item" data-filter="Print">
-            <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
-              <a href="work-single-4.html" class="nk-portfolio-item-link"></a>
-              <div class="nk-portfolio-item-image">
-                <div th:style="'background-image: url('+@{/file/print/image.do?filename=b4528221bc6b48298e8b1dabae010cde.jpg}+');'"></div>
-              </div>
-              <div class="nk-portfolio-item-info">
-                <div>
-                  <h2 class="portfolio-item-title h5">Glass Bottle</h2>
-                  <div class="portfolio-item-category">Print</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="nk-isotope-item" data-filter="Branding">
-            <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
-              <a href="work-single-3.html" class="nk-portfolio-item-link"></a>
-              <div class="nk-portfolio-item-image">
-                <div th:style="'background-image: url('+@{/resources/images/examples/portfolio-8-sm.jpg}+');'"></div>
-              </div>
-              <div class="nk-portfolio-item-info">
-                <div>
-                  <h2 class="portfolio-item-title h5">Shampoo Bottle</h2>
-                  <div class="portfolio-item-category">Branding</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="nk-isotope-item" data-filter="Branding">
-            <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
-              <a href="work-single-3.html" class="nk-portfolio-item-link"></a>
-              <div class="nk-portfolio-item-image">
-                <div th:style="'background-image: url('+@{/resources/images/examples/portfolio-3-sm.jpg}+');'"></div>
-              </div>
-              <div class="nk-portfolio-item-info">
-                <div>
-                  <h2 class="portfolio-item-title h5">Hardcover Book</h2>
-                  <div class="portfolio-item-category">Branding</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="nk-isotope-item" data-filter="Design">
-            <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
-              <a href="work-single-3.html" class="nk-portfolio-item-link"></a>
-              <div class="nk-portfolio-item-image">
-                <div th:style="'background-image: url('+@{/resources/images/examples/portfolio-7-sm.jpg}+');'"></div>
-              </div>
-              <div class="nk-portfolio-item-info">
-                <div>
-                  <h2 class="portfolio-item-title h5">Honey Mockup</h2>
-                  <div class="portfolio-item-category">Design</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="nk-isotope-item" data-filter="Print">
-            <div class="nk-portfolio-item nk-portfolio-item-info-style-4">
-              <a href="work-single-3.html" class="nk-portfolio-item-link"></a>
-                <div class="nk-portfolio-item-image">
-                  <div th:style="'background-image: url('+@{/resources/images/examples/portfolio-11-sm.jpg}+');'"></div>
-                </div>
-                <div class="nk-portfolio-item-info">
-                <div>
-                  <h2 class="portfolio-item-title h5">Cardboard Boxes</h2>
-                  <div class="portfolio-item-category">Print</div>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
         <div class="nk-gap-4"></div>
       </div>

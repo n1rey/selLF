@@ -29,7 +29,7 @@
   </insert>
 
   <!-- 코드 조회 -->
-  <select id="selectCode" resultType="codeVo">
+  <select id="selectCodeList" resultType="codeVo">
     SELECT CODE_NO,
       USER_NO,
       CODE_ID,
@@ -40,6 +40,16 @@
       CODE_USE_YN
     FROM TB_CODE
     ORDER BY CODE_NO
+  </select>
+
+  <!-- 코드 조회 -->
+  <select id="selectCode" resultType="string">
+    SELECT
+      CODE_CONTENT
+    FROM TB_CODE
+    WHERE 1=1
+    AND CODE_ID = #{id}
+    AND CODE_
   </select>
 
   <!-- 코드 수정 -->

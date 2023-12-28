@@ -10,6 +10,13 @@
     <th:block th:replace="@{/include/header}"></th:block>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <style>
+      label {
+        font-size: 18px;
+        line-height: 2rem;
+        padding: 0.2em 0.4em;
+      }
+    </style>
   </head>
   <body>
     <header class="nk-header nk-header-opaque">
@@ -29,6 +36,11 @@
               <p></p>
               <input type="hidden" id="userNo" value="${userVo.userNo}">
               <input type="hidden" id="boardContent">
+              <div style="margin-bottom: 10px;">
+                <label th:each="category:${categoryList}">
+                  <input type="radio" name="boardCategory" th:text="${category}" th:id="${category}" th:value="${category}" checked>
+                </label>
+              </div>
               <button th:if="${status != 'update'}" type="button" th:onclick="promptTitle()" class="nk-btn" title="등록하기">Insert</button>
               <button th:if="${status == 'update'}" type="button" th:onclick="promptTitle()" class="nk-btn" title="수정하기">Update</button>
             </form>
@@ -56,6 +68,7 @@
             success: function(data) {
               $('#boardTitle').val(data.boardTitle)
               editor.setHTML(data.boardContent)
+              $('#'+data.boardCategory).prop('checked', true)
             }
           })
         }
@@ -174,6 +187,7 @@
             boardTitle: boardTitle,
             boardContent: boardContent,
             boardThumbnail: filename,
+            boardCategory: $('input[name=boardCategory]:checked').val()
           },
           dataType: 'json',
           error: function(xhr, status, error) {

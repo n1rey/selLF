@@ -12,7 +12,9 @@ import com.portfolio.sellf.domain.admin.code.vo.CodeVo;
 @Repository
 public interface CodeMapper {
 
-  List<CodeVo> selectCode();
+  List<CodeVo> selectCodeList();
+
+  String selectCode(String id);
 
   int insertCode(@Param("codeVo") CodeVo codeVo);
 

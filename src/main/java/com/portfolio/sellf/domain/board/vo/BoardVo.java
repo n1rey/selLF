@@ -13,6 +13,7 @@ public class BoardVo {
   private int userNo;
   private String boardTitle;
   private String boardContent;
+  private String boardCategory;
   private String boardUserName;
   private String boardDropYn;
   private Date boardCreatedDate;
@@ -29,6 +30,7 @@ public class BoardVo {
             ", userNo=" + userNo +
             ", boardTitle='" + boardTitle + '\'' +
             ", boardContent='" + boardContent + '\'' +
+            ", boardCategory='" + boardCategory + '\'' +
             ", boardUserName='" + boardUserName + '\'' +
             ", boardDropYn='" + boardDropYn + '\'' +
             ", boardCreatedDate=" + boardCreatedDate +

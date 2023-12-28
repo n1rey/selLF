@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.portfolio.sellf.domain.admin.code.service.CodeService;
 import com.portfolio.sellf.domain.board.service.BoardService;
 import com.portfolio.sellf.domain.board.vo.BoardVo;
 import com.portfolio.sellf.domain.user.join.vo.UserVo;
@@ -21,6 +22,9 @@ public class BoardController {
 
   @Autowired
   private BoardService boardService;
+
+  @Autowired
+  private CodeService codeService;
 
     /**
    * <pre>
@@ -38,6 +42,7 @@ public class BoardController {
       model.addAttribute("status", "update");
     }
     model.addAttribute("user", user);
+    model.addAttribute("categoryList", codeService.getCode("project_category").split(","));
     return "/board/insertForm";
   }
 

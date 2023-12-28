@@ -16,7 +16,12 @@ public class CodeService {
 
   /** 코드 조회 **/
   public List<CodeVo> getCodeList() {
-    return codeMapper.selectCode();
+    return codeMapper.selectCodeList();
+  }
+
+  /** 코드 조회 **/
+  public String getCode(String id) {
+    return codeMapper.selectCode(id);
   }
 
   /** 코드 추가 **/
