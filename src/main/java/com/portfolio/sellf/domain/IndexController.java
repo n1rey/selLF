@@ -31,7 +31,7 @@ public class IndexController {
   @RequestMapping(value = {"", "/"}) 
   public String mainPage(HttpServletRequest request, Model model) {
     model.addAttribute("boardList", boardService.selectAllBoard());
-    model.addAttribute("categoryList", codeService.getCode("project_category").split(","));
+    model.addAttribute("categoryList", codeService.getCode("projectCategory").split(","));
     return "/index";
   }
 

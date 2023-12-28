@@ -42,7 +42,7 @@ public class BoardController {
       model.addAttribute("status", "update");
     }
     model.addAttribute("user", user);
-    model.addAttribute("categoryList", codeService.getCode("project_category").split(","));
+    model.addAttribute("categoryList", codeService.getCode("projectCategory").split(","));
     return "/board/insertForm";
   }
 
