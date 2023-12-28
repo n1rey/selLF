@@ -26,10 +26,6 @@ public class UserScheduling {
     @Autowired
     LogService logService;
 
-    /**
-  * Cron 표현식을 사용한 작업 예약
-  * 초(0-59) 분(0-59) 시간(0-23) 일(1-31) 월(1-12) 요일(0-7)
-  */
   @Scheduled(cron = "0 * * * * *") //매분마다 스케줄러가 돌도록.
   public void guestUserDeleteScheduling() {
     // LogVo logVo = new LogVo();
@@ -40,10 +36,6 @@ public class UserScheduling {
     logger.info("==========guestUserDeleteScheduling==========");
   }
 
-    /**
-  * Cron 표현식을 사용한 작업 예약
-  * 초(0-59) 분(0-59) 시간(0-23) 일(1-31) 월(1-12) 요일(0-7)
-  */
   @Scheduled(cron = "0 0 8 * * *") //매일 8시마다 스케줄러가 돌도록.
   public void humanUserDeleteScheduling() {
     LogVo logVo = new LogVo();
