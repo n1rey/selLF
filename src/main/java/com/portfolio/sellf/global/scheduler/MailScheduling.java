@@ -27,7 +27,7 @@ public class MailScheduling {
   * Cron 표현식을 사용한 작업 예약
   * 초(0-59) 분(0-59) 시간(0-23) 일(1-31) 월(1-12) 요일(0-7)
   */
-  @Scheduled(cron = "0 58 13 * * *") //매일 오전 10시마다 스케줄러가 돌도록.
+  @Scheduled(cron = "0 0 10 * * *") //매일 오전 10시마다 스케줄러가 돌도록.
   public void mailScheduling() {
     CommandMap map = new CommandMap();
     map.put("LOG_TYPE", "caution");
