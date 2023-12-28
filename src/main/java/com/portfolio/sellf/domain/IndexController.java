@@ -40,12 +40,24 @@ public class IndexController {
    * about페이지
    *
    * @author 한승현
-   * @date 2023/12/01
+   * @date 2023/12/28
    **/
   @RequestMapping(value = {"/about"}) 
   public String aboutPage(HttpServletRequest request, Model model) {
-    model.addAttribute("projectCnt", codeService.getCode("projectCnt"));
+    // model.addAttribute("projectCnt", codeService.getCode("projectCnt"));
     return "/about-me";
+  }
+
+    /**
+   * <pre>
+   * history페이지
+   *
+   * @author 한승현
+   * @date 2023/12/28
+   **/
+  @RequestMapping(value = {"/history"}) 
+  public String historyPage(HttpServletRequest request, Model model) {
+    return "/history";
   }
 
     /**

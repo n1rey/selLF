@@ -53,6 +53,18 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 
       response.sendRedirect(request.getContextPath()+"/");
       return false;
+    }else if(request.getRequestURI().startsWith("/admin")) {
+      if(user == null || user.getUserRole() != "admin") {
+        String ip = CommonUtil.getIp(request);
+        LogVo logVo = new LogVo();
+        logVo.setLogInfo("비정상 접근 시도");
+        logVo.setLogIp(ip);
+        logVo.setLogUri(request.getRequestURI());
+        logVo.setLogType("caution");
+        
+        response.sendRedirect(request.getContextPath()+"/");
+        return false;
+      }
     }
     return true;
   }
