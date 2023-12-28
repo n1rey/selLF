@@ -20,6 +20,7 @@ public class IndexController {
 
   @Autowired
   private CodeService codeService;
+
     /**
    * <pre>
    * 메인페이지
@@ -36,14 +37,14 @@ public class IndexController {
 
     /**
    * <pre>
-   * 테스트
+   * about페이지
    *
    * @author 한승현
    * @date 2023/12/01
    **/
   @RequestMapping(value = {"/about"}) 
-  public String aboutPage() {
-    System.out.println("aboutPage입니다.");
+  public String aboutPage(HttpServletRequest request, Model model) {
+    model.addAttribute("projectCnt", codeService.getCode("projectCnt"));
     return "/about-me";
   }
 

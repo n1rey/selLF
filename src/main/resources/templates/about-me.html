@@ -27,7 +27,7 @@
                 </div>
             </div>
             <!-- START: Features -->
-            <div class="nk-box bg-main text-white">
+            <!-- <div class="nk-box bg-main text-white">
                 <div class="nk-gap-5 mnt-6"></div>
                 <div class="container">
                     <div class="row vertical-gap">
@@ -37,7 +37,7 @@
                                     <span class="pe-7s-portfolio"></span>
                                 </div>
                                 <div class="nk-ibox-cont">
-                                    <div class="nk-ibox-title">548</div>
+                                    <div class="nk-ibox-title" th:text="${projectCnt}"></div>
                                     <div class="nk-ibox-text">Projects Completed</div>
                                 </div>
                             </div>
@@ -48,8 +48,8 @@
                                     <span class="pe-7s-clock"></span>
                                 </div>
                                 <div class="nk-ibox-cont">
-                                    <div class="nk-ibox-title">1465</div>
-                                    <div class="nk-ibox-text">Working Hours</div>
+                                    <div class="nk-ibox-title" id="workMonth"></div>
+                                    <div class="nk-ibox-text">Working Months</div>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="nk-gap-5 mnt-6"></div>
-            </div>
+            </div> -->
             <!-- END: Features -->
             <!-- START: Our Info Tabs -->
             <div class="nk-box bg-white">
@@ -90,13 +90,13 @@
                             <div class="nk-tabs text-center">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab">My History</a>
+                                        <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab">소개</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">My Mission</a>
+                                        <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">가치관</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#tabs-1-3" role="tab" data-toggle="tab">My Principles</a>
+                                        <a class="nav-link" href="#tabs-1-3" role="tab" data-toggle="tab">목표</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
@@ -143,11 +143,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2">
-                            <h2>Need a Project?</h2>
+                            <h2>Need a Contact?</h2>
                             <div class="nk-gap-1 mnt-15"></div>
-                            <p>Let us know what you're looking for in an agency. We'll take a look and see if this could be the start of something beautiful.</p>
+                            <p>궁금하신 내용이나 연락이 필요하신분이 계시다면 연락해주세요!</p>
                             <div class="nk-gap mnt-9"></div>
-                            <a href="page-contact-us.html" class="nk-btn nk-btn-long">Let's Talk</a>
+                            <a href="/" class="nk-btn nk-btn-long">Let's Contact</a>
                         </div>
                     </div>
                 </div>
@@ -156,5 +156,12 @@
             <!-- END: Need a Project? -->
           <th:block th:replace="@{/include/footer}"></th:block>
         </div>
+        <script>
+            let date1 = new Date()
+            let date2 = new Date('5/10/2021')
+            const yearDiff = Math.abs(date1.getFullYear() - date2.getFullYear())
+            const monthDiff = yearDiff * 12 + Math.abs(date1.getMonth() - date2.getMonth())
+            $('#workMonth').text(monthDiff)
+        </script>
     </body>
 </html>

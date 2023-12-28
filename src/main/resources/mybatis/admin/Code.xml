@@ -49,7 +49,7 @@
     FROM TB_CODE
     WHERE 1=1
     AND CODE_ID = #{id}
-    AND CODE_
+    AND CODE_USE_YN = '1'
   </select>
 
   <!-- 코드 수정 -->
