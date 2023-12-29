@@ -25,7 +25,13 @@
       "type": "image/png"
     }
   ],
-  "shortcuts": [],
   "lang": "ko",
-  "id": "selLF"
+  "id": "selLF",
+  "shortcuts": [
+    {
+      "name": "",
+      "url": "/",
+      "description": ""
+    }
+  ]
 }

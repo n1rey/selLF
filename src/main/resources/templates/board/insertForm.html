@@ -147,7 +147,6 @@
       //인서트 로직
       function insert(filename, boardContent) {
         var boardTitle = $('#boardTitle').val()
-        if(!filename) filename = 'default';
         
         $.ajax({
           type: 'POST',
@@ -157,6 +156,7 @@
             boardTitle: boardTitle,
             boardContent: boardContent,
             boardThumbnail: filename,
+            boardCategory: $('input[name=boardCategory]:checked').val()
           },
           dataType: 'json',
           error: function(xhr, status, error) {
