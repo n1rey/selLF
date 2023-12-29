@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +21,14 @@ import net.coobird.thumbnailator.Thumbnails;
 @Service
 public class FileService {
 
-  private final String uploadDir = Paths.get("D:", "test", "upload").toString();
-  private final String resizeDir = Paths.get("D:", "test", "resize").toString();
+  @Value("${uploadDir}")
+  private String uploadDir;
+
+  @Value("${resizeDir}")
+  private String resizeDir;
+  
+  // private final String uploadDir = Paths.get("D:", "test", "upload").toString();
+  // private final String resizeDir = Paths.get("D:", "test", "resize").toString();
 
 
   /** 파일 업로드 **/

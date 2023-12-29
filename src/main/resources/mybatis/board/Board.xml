@@ -16,7 +16,7 @@
       BOARD_CREATED_DATE,
       BOARD_CREATED_TIME,
       BOARD_DROP_YN,
-      BOARD_HIDE_YN
+      BOARD_HIDE_YN,
       BOARD_CATEGORY
     ) VALUES (
       #{boardVo.boardNo}
@@ -28,7 +28,7 @@
       ,CURRENT_TIME
       ,'N'
       ,'N'
-      ,,#{boardVo.boardCategory}
+      ,#{boardVo.boardCategory}
     )
   </insert>
 
