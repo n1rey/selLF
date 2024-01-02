@@ -1,4 +1,4 @@
-// This is the "Offline page" service worker
+;// This is the "Offline page" service worker
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
@@ -19,7 +19,7 @@ self.addEventListener("activate", () => {
 
 /** 서비스 워커가 설치 됐을 때 발생 **/
 self.addEventListener('install', async (event) => {
-  console.log('Service worker install event')
+  console.log('Service worker install event');
   event.waitUntil(
     caches.open(CACHE)
       .then((cache) => cache.add(offlineFallbackPage))
@@ -55,6 +55,7 @@ self.addEventListener('fetch', (event) => {
 
 /** 푸시 서비스가 메시지를 받았을 때 **/
 self.addEventListener("push", (event) => {
+  console.log(event.data)
   const payload = JSON.parse(event.data.text());
   event.waitUntil(
     registration.showNotification(payload.title, {

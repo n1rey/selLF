@@ -57,21 +57,16 @@
                         <!-- START: Form -->
                         <form action="/contact/sendMail" class="nk-form nk-form-ajax">
                             <div class="row vertical-gap">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control required" name="userName" placeholder="Your Name">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control required" name="userEmail" placeholder="Your Email">
-                                </div>
                             </div>
                             <div class="nk-gap-1"></div>
                             <input type="text" class="form-control required" name="title" placeholder="Title">
                             <div class="nk-gap-1"></div>
-                            <textarea class="form-control required" name="message" rows="8" placeholder="Comment" aria-required="true"></textarea>
+                            <textarea class="form-control required" name="body" rows="8" placeholder="Comment" aria-required="true"></textarea>
                             <div class="nk-gap-1"></div>
                             <div class="nk-form-response-success"></div>
                             <div class="nk-form-response-error"></div>
                             <button class="nk-btn">Send Message</button>
+                            <button type="button" class="nk-btn" th:onclick="push()">Send Message</button>
                         </form>
                         <!-- END: Form -->
                     </div>
@@ -83,5 +78,31 @@
         </div>
       <script th:src="@{/resources/js/piroll.min.js}"></script>
       <script th:src="@{/resources/js/piroll-init.js}"></script>
+      <script>
+        function push() {
+          // console.log('messaging : ',messaging)
+          // console.log('app : ',app)
+          
+          // return
+          var formData = $('#loginForm').serialize()
+          $.ajax({
+            type: 'POST',
+            url: '/api/v1/norifivation',
+            data: formData,
+            dataType: 'json',
+            error: function(xhr, status, error) {
+              swal.fire('error', '에러가 발생했습니다. 잠시후 다시 시도해주세요.', 'error')
+            },
+            success : function(data) {
+              if(data == 1) {
+                location.href = '/'
+              }
+              else {
+                swal.fire('로그인 실패', '존재하지 않는 아이디이거나 비밀번호가 일치하지 않습니다.', 'warning')
+              }
+            }
+          });
+        }
+      </script>
     </body>
 </html>
