@@ -21,40 +21,48 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
+
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>2.2.1</version>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.bgee.log4jdbc-log4j2</groupId>
       <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
       <version>1.16</version>
     </dependency>
+
     <dependency>
       <groupId>org.mariadb.jdbc</groupId>
       <artifactId>mariadb-java-client</artifactId>
@@ -97,28 +105,33 @@
       <groupId>org.webjars</groupId>
       <artifactId>webjars-locator-core</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>jquery</artifactId>
       <version>3.6.0</version>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
     <dependency>
         <groupId>org.webjars</groupId>
         <artifactId>bootstrap</artifactId>
         <version>5.1.3</version>
     </dependency>
+
     <!--인터셉터를 위한 라이브러리 -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
     </dependency>
+
     <!-- 메일발송을 위한 라이브러리 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
-    <!-- <dependency>
+    <!-- 스프링 시큐리티 미사용으로 인한 주석처리
+      <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
@@ -136,6 +149,13 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- 푸시 알림-->
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>9.1.1</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -149,9 +169,7 @@
       <artifactId>postgresql</artifactId>
       <version>42.2.22</version>
     </dependency>
-    <!--          -->
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -170,9 +188,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.0</version>
-        <configuration>
-
-        </configuration>
       </plugin>
     </plugins>
   </build>
