@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.portfolio.sellf.domain.admin.code.service.CodeService;
 import com.portfolio.sellf.domain.board.service.BoardService;
+import com.portfolio.sellf.global.common.util.CommandMap;
 
 @Controller
 @RequestMapping("/")

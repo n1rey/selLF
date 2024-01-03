@@ -38,6 +38,7 @@
           <li class="active" data-filter="*">All</li>
           <li th:data-filter="${category}" th:each="category:${categoryList}" th:text="${category}"></li>
           <li th:if="${session.role == 'admin'}" id="writeBtn">Write</li>
+          <li th:onclick="push()" id="pushBtn">push</li>
         </ul>
       <!-- END: Filter -->
         <div class="nk-portfolio-list nk-isotope nk-isotope-2-cols nk-isotope-gap">
@@ -67,6 +68,42 @@
       $('#writeBtn').on('click', function() {
         location.href = "/board/admin"
       })
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+
+      function push() {
+        const permission = Notification.permission
+        if(permission === 'granted') {
+          Toast.fire({
+            icon: "warning",
+            title: "알림허용이 되어있습니다."
+          });
+        }
+        else {
+          Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+              $.ajax({
+                    type: 'POST',
+                    url: '/token/save.do',
+                    data: {tokenId:currentToken},
+                    dataType: 'json',
+                    success : function(data) {
+                      console.log('token save success')
+                    }
+              });
+            }
+          })
+        }
+      }
     </script>
   </body>
 </html>

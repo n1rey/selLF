@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: push.html
+    Version: 0.1
+    Description : 푸시 페이지
+    Author: 한승현
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque">
+      <div th:replace="@{/include/head}"></div>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Push List</h2>
+            <div class="nk-gap mnt-3"></div>
+            <ul class="nk-contact-info">
+              <li><strong style="color: #10c9c3;">토큰 리스트</strong></li>
+              <li th:each="token, i :${tokenList}" th:onclick="clickToken([[${token}]])" th:text="${i.count}+' 번째 토큰'"></li>
+            </ul>
+            <!-- END: Info -->
+          </div>
+          
+          <div class="col-lg-7">
+            <input type="text" class="form-control" id="token" placeholder="토큰을 입력하세요." maxlength="500">
+            <div class="nk-gap-1"></div>
+            <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요." maxlength="500">
+            <div class="nk-gap-1"></div>
+            <input type="text" class="form-control" id="body" placeholder="내용을 입력하세요" maxlength="200">
+            <div class="nk-gap-1"></div>
+            <br/>
+            <button type="button" th:onclick="push()" class="nk-btn" title="보내기">Push</button>
+          </div>
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+    <script>
+      function push() {
+        var title = $('#title').val()
+        var body = $('#body').val()
+        var token = $('#token').val()
+
+        if(!!checkInfo(title, body)) return
+
+        $.ajax({
+          type: 'POST',
+          url: '/admin/push/send.do',
+          data: {
+            title : title,
+            body : body,
+            token : token,
+          },
+          dataType: 'json',
+          success : function(data) {
+            swal.fire('푸시 완료', '', 'success').then(result => {location.reload()});
+          }
+        });
+      }
+
+      function checkInfo(title, body) {
+        if(!title) {
+          $('#title').next().text('제목을 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#title').focus()
+          return 1
+        }
+        $('#title').next().text('')
+        if(!body) {
+          $('#body').next().text('내용을 입력해주세요.').css('color', 'rgb(255 24 24)')
+          $('#body').focus()
+          return 1
+        }
+        $('#body').next().text('')
+      }
+
+      function clickToken(token) {
+        $('#token').val(token)
+      }
+    </script>
+  </body>
+</html>

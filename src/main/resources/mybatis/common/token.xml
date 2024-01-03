@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portfolio.sellf.global.common.firebase.mapper.FCMMapper">
+
+  <!-- 로그추가 -->
+  <insert id="insertToken" useGeneratedKeys="true" keyProperty="tokenVo.tokenNo">
+    INSERT INTO TB_TOKEN (
+      TOKEN_ID
+      ,USER_ID
+      ,CREATE_DATE
+      ,CREATE_TIME
+    ) VALUES (
+      #{tokenVo.tokenId}
+      ,#{tokenVo.userId}
+      ,CURRENT_DATE
+      ,CURRENT_TIME
+    )
+  </insert>
+
+  <!--로그 검색-->
+  <select id="selectTokenList" resultType="string">
+    SELECT TOKEN_ID
+    FROM TB_TOKEN
+    WHERE 1=1
+    <if test="LOG_TYPE != null">
+      AND LOG_TYPE = #{LOG_TYPE}
+    </if>
+    <if test="LOG_IP != null">
+      AND LOG_IP = #{LOG_IP}
+    </if>
+    <if test="LOG_USER_NO != null">
+      AND LOG_USER_NO = #{LOG_USER_NO}
+    </if>
+    <if test="LOG_URI != null">
+      AND LOG_URI = #{LOG_URI}
+    </if>
+    <if test="TIME != null">
+      AND LOG_DATE = CURRENT_DATE
+      AND LOG_TIME BETWEEN CURRENT_TIME - INTERVAL '${TIME}HOUR' AND CURRENT_TIME
+    </if>
+  </select>
+</mapper>
+

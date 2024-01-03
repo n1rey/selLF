@@ -1,33 +1,42 @@
 package com.portfolio.sellf.global.common.firebase.service;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.List;
 
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import com.portfolio.sellf.global.common.firebase.vo.FCMVo;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.RequestBody;
+import com.portfolio.sellf.global.common.firebase.mapper.FCMMapper;
+import com.portfolio.sellf.global.common.firebase.vo.TokenVo;
+import com.portfolio.sellf.global.common.util.CommandMap;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class FCMService {
-  private final FirebaseMessaging firebaseMessaging;
-  private final String API_URL = "https://fcm.googleapis.com/v1/projects/sellf-e6068/messages:send";
 
-  public String sendNotificationByToken(FCMVo fcmVo) {
+  private final FirebaseMessaging firebaseMessaging;
+
+  @Autowired
+  private FCMMapper fcmMapper;
+
+  public int insertToken(TokenVo tokenVo) {
+    return fcmMapper.insertToken(tokenVo);
+  }
+
+  public List<String> selectTokenList() {
+    return fcmMapper.selectTokenList();
+  }
+
+  public String sendNotificationByToken(CommandMap commandMap) {
     try {
-      pushAlarm(fcmVo);
+      pushAlarm(commandMap);
       return "알림을 성공적으로 전송했습니다.";
     } catch (Exception e) {
       e.printStackTrace();
@@ -35,44 +44,21 @@ public class FCMService {
     }
   }
 
-  private void pushAlarm(FCMVo fcmVo) throws FirebaseMessagingException, IOException {
-    Message message = getMessage(fcmVo);
+  private void pushAlarm(CommandMap commandMap) throws FirebaseMessagingException, IOException, FirebaseAuthException {
+    Message message = getMessage(commandMap);
     sendMessage(message);
   }
 
-  private Message getMessage(FCMVo fcmVo) throws IOException {
-    Notification notification = Notification.builder().setTitle(fcmVo.getTitle()).setBody(fcmVo.getBody()).build();
+  private Message getMessage(CommandMap commandMap) throws IOException, FirebaseAuthException {
+    Notification notification = Notification.builder().setTitle(commandMap.get("title").toString()).setBody(commandMap.get("body").toString()).build();
     Message.Builder builder = Message.builder();
-    Message message = builder.setToken(getAccessToken()).setNotification(notification).build();
+
+    Message message = builder.setToken(commandMap.get("token").toString()).setNotification(notification).build();
     return message;
   }
 
   public String sendMessage(Message message) throws FirebaseMessagingException {
+    System.out.println("=========================================================================================");
     return this.firebaseMessaging.send(message);
   }
-
-
-  private String getAccessToken() throws IOException {
-    // firebase로 부터 access token을 가져온다.
-    GoogleCredentials googleCredentials = GoogleCredentials
-            .fromStream(new ClassPathResource("firebase/serviceAccountKey.json").getInputStream())
-            .createScoped(Arrays.asList("https://www.googleapis.com/auth/cloud-platform"));
-    googleCredentials.refreshIfExpired();
-    String token = googleCredentials.getAccessToken().getTokenValue();
-
-    return token;
-  }
-
-  @Transactional
-  public void saveNotification(String token) {
-      User user = userRepository.findByEmail(SecurityProvider.getLoginUserEmail())
-              .orElseThrow(() -> new CustomException(ErrorCode.RETRY_LOGIN));
-      Notification notification = Notification.builder()
-              .token(token)
-              .build();
-      notification.confirmUser(user);
-      notificationRepository.save(notification);
-    }
-  }
-
 }

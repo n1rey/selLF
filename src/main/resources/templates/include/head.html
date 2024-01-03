@@ -2,6 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="SelLF Minimal Portfolio.">
+
 <title>SelLF | Minimal Portfolio</title>
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500%7cNunito+Sans:400,600,700%7cPT+Serif:400,400i" rel="stylesheet" type="text/css">
 <!-- Bootstrap -->
@@ -85,25 +86,50 @@
         <script th:src="@{/resources/js/demo.js}"></script>
 
         <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+
+        <script>
+          const VAPID_KEY = '[[${@environment.getProperty("firebase.vapid.key")}]]'
+          const API_KEY = '[[${@environment.getProperty("firebase.api.key")}]]'
+          const AUTH_DOMAIN = '[[${@environment.getProperty("firebase.auth.domain")}]]'
+          const PROJECT_ID = '[[${@environment.getProperty("firebase.project.id")}]]'
+          const STORAGE_BUCKET = '[[${@environment.getProperty("firebase.storage.bucket")}]]'
+          const MESSAGING_SENDER_ID = '[[${@environment.getProperty("firebase.messaging.sender.id")}]]'
+          const APP_ID = '[[${@environment.getProperty("firebase.app.id")}]]'
+          const MEASUREMENT_ID = '[[${@environment.getProperty("firebase.measurement.id")}]]'
+        </script>
         <script type="module">
           // Import the functions you need from the SDKs you need
           import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
           import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-          // TODO: Add SDKs for Firebase products that you want to use
-          // https://firebase.google.com/docs/web/setup#available-libraries
-          // Your web app's Firebase configuration
-          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
+
           const firebaseConfig = {
-            apiKey: "AIzaSyDIuEYh0UGPBtHc1kIVgKQqkCiSYdPWK8A",
-            authDomain: "sellf-e6068.firebaseapp.com",
-            projectId: "sellf-e6068",
-            storageBucket: "sellf-e6068.appspot.com",
-            messagingSenderId: "1004773529654",
-            appId: "1:1004773529654:web:7b437f90498a4a6128e097",
-            measurementId: "G-C5PYCLDN3H"
+            apiKey: API_KEY,
+            authDomain: AUTH_DOMAIN,
+            projectId: PROJECT_ID,
+            storageBucket: STORAGE_BUCKET,
+            messagingSenderId: MESSAGING_SENDER_ID,
+            appId: APP_ID,
+            measurementId: MEASUREMENT_ID
           };
           // Initialize Firebase
           const app = initializeApp(firebaseConfig);
           const analytics = getAnalytics(app);
+          const FCMmessaging = getMessaging();
+          const FCMToken = getToken(FCMmessaging, {vapidKey: VAPID_KEY}).then((currentToken) => {
+            if(currentToken) {
+              $.ajax({
+                type: 'POST',
+                url: '/token/show.do',
+                data: {token:currentToken},
+                dataType: 'json',
+                success : function(data) {
+                  console.log('token save success')
+                }
+              });
+            }
+          });
         </script>
         <!-- END: Scripts -->
