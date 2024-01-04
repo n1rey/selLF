@@ -3,12 +3,12 @@
 <mapper namespace="com.portfolio.sellf.global.common.firebase.mapper.FCMMapper">
 
   <!-- 로그추가 -->
-  <insert id="insertToken" useGeneratedKeys="true" keyProperty="tokenVo.tokenNo">
+  <insert id="insertToken">
     INSERT INTO TB_TOKEN (
       TOKEN_ID
       ,USER_ID
-      ,CREATE_DATE
-      ,CREATE_TIME
+      ,TOKEN_CREATE_DATE
+      ,TOKEN_CREATE_TIME
     ) VALUES (
       #{tokenVo.tokenId}
       ,#{tokenVo.userId}

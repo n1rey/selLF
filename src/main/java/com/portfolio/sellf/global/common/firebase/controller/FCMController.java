@@ -35,7 +35,7 @@ public class FCMController {
     tokenVo.setTokenId(commandMap.get("tokenId").toString());
     UserVo user = CommonUtil.getSessionUser(request);
     if(user != null) {
-      tokenVo.setTokenId(user.getUserId());
+      tokenVo.setUserId(user.getUserId());
     }
     System.out.println("========================="+tokenVo.toString());
     System.out.println("========================="+commandMap.toString());

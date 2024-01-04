@@ -38,6 +38,7 @@
             <div class="nk-gap-1"></div>
             <br/>
             <button type="button" th:onclick="push()" class="nk-btn" title="보내기">Push</button>
+            <button type="button" th:onclick="insert()" class="nk-btn" title="저장">Insert</button>
           </div>
         </div>
         <div class="nk-gap-5"></div>
@@ -85,6 +86,19 @@
 
       function clickToken(token) {
         $('#token').val(token)
+      }
+
+      function insert() {
+        var token = $('#token').val()
+        $.ajax({
+          type: 'POST',
+          url: '/token/save.do',
+          data: {tokenId:token},
+          dataType: 'json',
+          success : function(data) {
+            swal.fire('생성 완료', '', 'success').then(result => {location.reload()});
+          }
+      });
       }
     </script>
   </body>
