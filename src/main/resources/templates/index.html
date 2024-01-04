@@ -64,6 +64,7 @@
       <!-- END: Portfolio -->
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
+    
     <script>
       $('#writeBtn').on('click', function() {
         location.href = "/board/admin"
@@ -81,28 +82,40 @@
       });
 
       function push() {
-        const permission = Notification.permission
-        if(permission === 'granted') {
-          Toast.fire({
-            icon: "warning",
-            title: "알림허용이 되어있습니다."
-          });
-        }
-        else {
-          Notification.requestPermission().then((permission) => {
-            if (permission === 'granted') {
-              $.ajax({
+        messaging.getToken({vapidKey : VAPID_KEY}).then((currentToken) => {
+          if(currentToken) {
+            $.ajax({
+              type: 'POST',
+              url: '/token/show.do',
+              data: {tokenId:currentToken},
+              dataType: 'json',
+              success : function(data) {
+                Toast.fire({
+                  icon: "warning",
+                  title: "알림허용이 되어있습니다."
+                });
+              }
+            });
+          }
+          else {
+            Notification.requestPermission().then((permission) => {
+              if (permission === 'granted') {
+                $.ajax({
                     type: 'POST',
                     url: '/token/save.do',
                     data: {tokenId:currentToken},
                     dataType: 'json',
                     success : function(data) {
-                      console.log('token save success')
+                      Toast.fire({
+                        icon: "success",
+                        title: "알림허용이 되었습니다."
+                      });
                     }
-              });
-            }
-          })
-        }
+                });
+              }
+            })
+          }
+        })
       }
     </script>
   </body>

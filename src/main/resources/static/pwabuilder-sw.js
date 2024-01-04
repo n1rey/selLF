@@ -52,20 +52,3 @@ self.addEventListener('fetch', (event) => {
     })());
   }
 });
-
-/** 푸시 서비스가 메시지를 받았을 때 **/
-self.addEventListener("push", (event) => {
-  console.log(event.data)
-  const payload = JSON.parse(event.data.text());
-  event.waitUntil(
-    registration.showNotification(payload.title, {
-      body: payload.body,
-      data: { link: payload.link },
-    })
-  );
-});
-
-/** 유저가 푸시 알림을 클릭했을 때 발생 **/
-self.addEventListener("notificationclick", (event) => {
-  clients.openWindow(event.notification.data.link);
-});

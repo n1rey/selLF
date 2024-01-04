@@ -86,8 +86,11 @@
         <script th:src="@{/resources/js/demo.js}"></script>
 
         <!-- Firebase -->
-        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+        <!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script> -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-messaging.js"></script>
+        
 
         <script>
           const VAPID_KEY = '[[${@environment.getProperty("firebase.vapid.key")}]]'
@@ -98,12 +101,14 @@
           const MESSAGING_SENDER_ID = '[[${@environment.getProperty("firebase.messaging.sender.id")}]]'
           const APP_ID = '[[${@environment.getProperty("firebase.app.id")}]]'
           const MEASUREMENT_ID = '[[${@environment.getProperty("firebase.measurement.id")}]]'
+          var FcmToken = '';
         </script>
-        <script type="module">
+
+        <script>
           // Import the functions you need from the SDKs you need
-          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-          import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-          import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
+          // import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+          // import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+          // import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
 
           const firebaseConfig = {
             apiKey: API_KEY,
@@ -114,22 +119,17 @@
             appId: APP_ID,
             measurementId: MEASUREMENT_ID
           };
+
           // Initialize Firebase
-          const app = initializeApp(firebaseConfig);
-          const analytics = getAnalytics(app);
-          const FCMmessaging = getMessaging();
-          const FCMToken = getToken(FCMmessaging, {vapidKey: VAPID_KEY}).then((currentToken) => {
-            if(currentToken) {
-              $.ajax({
-                type: 'POST',
-                url: '/token/show.do',
-                data: {token:currentToken},
-                dataType: 'json',
-                success : function(data) {
-                  console.log('token save success')
-                }
-              });
-            }
-          });
+          const app = firebase.initializeApp(firebaseConfig);
+          const messaging = firebase.messaging()
+          // const analytics = getAnalytics(app);
+          // const FCMmessaging = getMessaging();
+          // var token;
+          // const FCMToken = await getToken(FCMmessaging, {vapidKey: VAPID_KEY}).then((currentToken) => {
+          //   if(currentToken) {
+          //     FcmToken = currentToken;
+          //   }
+          // });
         </script>
         <!-- END: Scripts -->

@@ -38,6 +38,8 @@ public class FCMController {
       tokenVo.setTokenId(user.getUserId());
     }
     System.out.println("========================="+tokenVo.toString());
+    System.out.println("========================="+commandMap.toString());
+
     return fcmService.insertToken(tokenVo);
   }
 
@@ -50,8 +52,9 @@ public class FCMController {
    **/
   @ResponseBody
   @RequestMapping(value = "/show.do") 
-  public void tokenShow(HttpServletRequest request, CommandMap commandMap) {
+  public String tokenShow(HttpServletRequest request, CommandMap commandMap) {
     System.out.println("========================="+commandMap.toString());
+    return "1";
   }
 
     /**

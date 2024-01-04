@@ -3,10 +3,10 @@
   "description": "selLF",
   "dir": "ltr",
   "display": "standalone",
-  "name": "pwa",
+  "name": "selLF",
   "orientation": "any",
   "scope": "/",
-  "short_name": "pwa",
+  "short_name": "selLF",
   "start_url": "/",
   "theme_color": "#ffffff",
   "categories": [
