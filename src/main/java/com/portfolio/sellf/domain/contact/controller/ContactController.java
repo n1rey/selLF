@@ -16,7 +16,7 @@ import com.portfolio.sellf.global.common.util.CommandMap;
 public class ContactController {
 
   @Autowired
-  private ContactService ContactService;
+  private ContactService contactService;
     /**
    * <pre>
    * 소통 메인페이지
@@ -39,6 +39,7 @@ public class ContactController {
    **/
   @PostMapping("/sendMail")
   public String contactSendMail(HttpServletRequest request, CommandMap map) {
+    contactService.sendContact(map);
     return "redirect:/contact";
   }
 }

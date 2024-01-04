@@ -58,7 +58,7 @@ public class FileService {
       // 파일 저장 (write to disk)
       // resize
       File resizeFile = new File(fileResizeFullPath);
-      BufferedImage thumbnail = Thumbnails.of(resizeImage.getInputStream()).size(600, 500).asBufferedImage();
+      BufferedImage thumbnail = Thumbnails.of(resizeImage.getInputStream()).size(400, 310).asBufferedImage();
       ImageIO.write(thumbnail, extension, resizeFile);
 
       File uploadFile = new File(fileFullPath);

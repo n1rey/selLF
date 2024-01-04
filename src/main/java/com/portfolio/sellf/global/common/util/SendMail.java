@@ -42,7 +42,7 @@ public class SendMail {
         for(int i = 0; i < admin.length; i++) {
           simpleMailMessage.setTo(admin[i]);
           simpleMailMessage.setSubject("[selLF] "+map.get("title"));
-          simpleMailMessage.setText("보낸 사람 : "+map.get("userName") +" 보낸 이메일 : "+map.get("userEmail")+"\n 내용 : "+map.get("message"));
+          simpleMailMessage.setText("보낸 사람 : "+map.get("userName") +" 보낸 이메일 : "+map.get("userEmail")+"\n 내용 : "+map.get("comment"));
           if(i < admin.length-1) runSendMail(simpleMailMessage);
         }
       }else if(type.equals("schedule")){//스케쥴러
