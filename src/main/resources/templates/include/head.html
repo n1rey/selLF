@@ -45,77 +45,77 @@
     ga('send', 'pageview');
 </script> -->
 
-        <!-- START: Scripts -->
+  <!-- START: Scripts -->
 
-        <!-- Sticky Kit -->
-        <script th:src="@{/resources/plugins/sticky-kit/dist/sticky-kit.min.js}"></script>
-        
-        <!-- 필수 START -->
-        <script th:src="@{/resources/plugins/gsap/src/minified/TweenMax.min.js}"></script>
-        <script th:src="@{/resources/plugins/gsap/src/minified/plugins/ScrollToPlugin.min.js}"></script>
+  <!-- Sticky Kit -->
+  <script th:src="@{/resources/plugins/sticky-kit/dist/sticky-kit.min.js}"></script>
+  
+  <!-- 필수 START -->
+  <script th:src="@{/resources/plugins/gsap/src/minified/TweenMax.min.js}"></script>
+  <script th:src="@{/resources/plugins/gsap/src/minified/plugins/ScrollToPlugin.min.js}"></script>
 
-        <!-- Isotope -->
-        <script th:src="@{/resources/plugins/isotope/dist/isotope.pkgd.min.js}"></script>
-        
-        <!-- Photoswipe -->
-        <script th:src="@{/resources/plugins/photoswipe/dist/photoswipe.min.js}"></script>
-        <script th:src="@{/resources/plugins/photoswipe/dist/photoswipe-ui-default.min.js}"></script>
-        <!-- NanoSroller -->
-        <script th:src="@{/resources/plugins/nanoscroller/bin/javascripts/jquery.nanoscroller.min.js}"></script>
+  <!-- Isotope -->
+  <script th:src="@{/resources/plugins/isotope/dist/isotope.pkgd.min.js}"></script>
+  
+  <!-- Photoswipe -->
+  <script th:src="@{/resources/plugins/photoswipe/dist/photoswipe.min.js}"></script>
+  <script th:src="@{/resources/plugins/photoswipe/dist/photoswipe-ui-default.min.js}"></script>
+  <!-- NanoSroller -->
+  <script th:src="@{/resources/plugins/nanoscroller/bin/javascripts/jquery.nanoscroller.min.js}"></script>
 
-        <!-- Firebase -->
-        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-messaging.js"></script>
-        <!-- 필수 END -->
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-messaging.js"></script>
+  <!-- 필수 END -->
 
-        <!-- 불필요 START -->
-          <!-- <script data-cfasync="false" th:src="@{/resources/js/email-decode.min.js}"></script> -->
-          <!-- Bootstrap -->
-          <!-- <script th:src="@{/resources/plugins/tether/dist/js/tether.min.js}"></script> -->
-          <!-- <script th:src="@{/resources/plugins/bootstrap/dist/js/bootstrap.min.js}"></script> -->
-          <!-- Jarallax -->
-          <!-- <script th:src="@{/resources/plugins/jarallax/dist/jarallax.min.js}"></script> -->
-          <!-- <script th:src="@{/resources/plugins/jarallax/dist/jarallax-video.min.js}"></script> -->
-          <!-- Jquery Form -->
-          <!-- <script th:src="@{/resources/plugins/jquery-form/dist/jquery.form.min.js}"></script> -->
-          <!-- Hammer.js -->
-          <!-- <script th:src="@{/resources/plugins/hammer.js/hammer.min.js}"></script> -->
-          <!-- Social Likes -->
-          <!-- <script th:src="@{/resources/plugins/social-likes/dist/social-likes.min.js}"></script> -->
-          <!-- Keymaster -->
-          <!-- <script th:src="@{/resources/plugins/keymaster/keymaster.js}"></script> -->
-          <!-- Demo -->
-          <!-- <script th:src="@{/resources/js/demo.js}"></script> -->
-          <!-- Jquery Validation -->
-          <!-- <script th:src="@{/resources/plugins/jquery-validation/dist/jquery.validate.min.js}"></script> -->
-          <!-- nK Share -->
-          <!-- <script th:src="@{/resources/plugins/nk-share.js}"></script> -->
-        <!-- 불필요 END -->
+  <!-- 불필요 START -->
+    <!-- <script data-cfasync="false" th:src="@{/resources/js/email-decode.min.js}"></script> -->
+    <!-- Bootstrap -->
+    <!-- <script th:src="@{/resources/plugins/tether/dist/js/tether.min.js}"></script> -->
+    <!-- <script th:src="@{/resources/plugins/bootstrap/dist/js/bootstrap.min.js}"></script> -->
+    <!-- Jarallax -->
+    <!-- <script th:src="@{/resources/plugins/jarallax/dist/jarallax.min.js}"></script> -->
+    <!-- <script th:src="@{/resources/plugins/jarallax/dist/jarallax-video.min.js}"></script> -->
+    <!-- Jquery Form -->
+    <!-- <script th:src="@{/resources/plugins/jquery-form/dist/jquery.form.min.js}"></script> -->
+    <!-- Hammer.js -->
+    <!-- <script th:src="@{/resources/plugins/hammer.js/hammer.min.js}"></script> -->
+    <!-- Social Likes -->
+    <!-- <script th:src="@{/resources/plugins/social-likes/dist/social-likes.min.js}"></script> -->
+    <!-- Keymaster -->
+    <!-- <script th:src="@{/resources/plugins/keymaster/keymaster.js}"></script> -->
+    <!-- Demo -->
+    <!-- <script th:src="@{/resources/js/demo.js}"></script> -->
+    <!-- Jquery Validation -->
+    <!-- <script th:src="@{/resources/plugins/jquery-validation/dist/jquery.validate.min.js}"></script> -->
+    <!-- nK Share -->
+    <!-- <script th:src="@{/resources/plugins/nk-share.js}"></script> -->
+  <!-- 불필요 END -->
 
-        <script>
-          const VAPID_KEY = '[[${@environment.getProperty("firebase.vapid.key")}]]'
-          const API_KEY = '[[${@environment.getProperty("firebase.api.key")}]]'
-          const AUTH_DOMAIN = '[[${@environment.getProperty("firebase.auth.domain")}]]'
-          const PROJECT_ID = '[[${@environment.getProperty("firebase.project.id")}]]'
-          const STORAGE_BUCKET = '[[${@environment.getProperty("firebase.storage.bucket")}]]'
-          const MESSAGING_SENDER_ID = '[[${@environment.getProperty("firebase.messaging.sender.id")}]]'
-          const APP_ID = '[[${@environment.getProperty("firebase.app.id")}]]'
-          const MEASUREMENT_ID = '[[${@environment.getProperty("firebase.measurement.id")}]]'
-        </script>
+  <script>
+    const VAPID_KEY = '[[${@environment.getProperty("firebase.vapid.key")}]]'
+    const API_KEY = '[[${@environment.getProperty("firebase.api.key")}]]'
+    const AUTH_DOMAIN = '[[${@environment.getProperty("firebase.auth.domain")}]]'
+    const PROJECT_ID = '[[${@environment.getProperty("firebase.project.id")}]]'
+    const STORAGE_BUCKET = '[[${@environment.getProperty("firebase.storage.bucket")}]]'
+    const MESSAGING_SENDER_ID = '[[${@environment.getProperty("firebase.messaging.sender.id")}]]'
+    const APP_ID = '[[${@environment.getProperty("firebase.app.id")}]]'
+    const MEASUREMENT_ID = '[[${@environment.getProperty("firebase.measurement.id")}]]'
+  </script>
 
-        <script>
-          const firebaseConfig = {
-            apiKey: API_KEY,
-            authDomain: AUTH_DOMAIN,
-            projectId: PROJECT_ID,
-            storageBucket: STORAGE_BUCKET,
-            messagingSenderId: MESSAGING_SENDER_ID,
-            appId: APP_ID,
-            measurementId: MEASUREMENT_ID
-          };
+  <script>
+    const firebaseConfig = {
+      apiKey: API_KEY,
+      authDomain: AUTH_DOMAIN,
+      projectId: PROJECT_ID,
+      storageBucket: STORAGE_BUCKET,
+      messagingSenderId: MESSAGING_SENDER_ID,
+      appId: APP_ID,
+      measurementId: MEASUREMENT_ID
+    };
 
-          // Initialize Firebase
-          const app = firebase.initializeApp(firebaseConfig);
-          const messaging = firebase.messaging()
-        </script>
-        <!-- END: Scripts -->
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging()
+  </script>
+  <!-- END: Scripts -->
