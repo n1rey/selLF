@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.portfolio.sellf.global.common.firebase.mapper.FCMMapper">
 
-  <!-- 로그추가 -->
+  <!-- 토큰 추가 -->
   <insert id="insertToken">
     INSERT INTO TB_TOKEN (
       TOKEN_ID
@@ -17,27 +17,57 @@
     )
   </insert>
 
-  <!--로그 검색-->
-  <select id="selectTokenList" resultType="string">
-    SELECT TOKEN_ID
-    FROM TB_TOKEN
-    WHERE 1=1
-    <if test="LOG_TYPE != null">
-      AND LOG_TYPE = #{LOG_TYPE}
-    </if>
-    <if test="LOG_IP != null">
-      AND LOG_IP = #{LOG_IP}
-    </if>
-    <if test="LOG_USER_NO != null">
-      AND LOG_USER_NO = #{LOG_USER_NO}
-    </if>
-    <if test="LOG_URI != null">
-      AND LOG_URI = #{LOG_URI}
-    </if>
-    <if test="TIME != null">
-      AND LOG_DATE = CURRENT_DATE
-      AND LOG_TIME BETWEEN CURRENT_TIME - INTERVAL '${TIME}HOUR' AND CURRENT_TIME
+  <!-- 푸시 승인 리스트-->
+  <select id="selectUserList" resultType="string" parameterType="map">
+    SELECT
+      USER_ID
+    FROM
+      TB_TOKEN
+    WHERE
+      1=1
+    GROUP BY USER_ID
+  </select>
+
+  <!-- 유저 토큰 검색-->
+  <select id="selectUserTokenList" resultType="string" parameterType="map">
+    SELECT
+      TOKEN_ID
+    FROM
+      TB_TOKEN
+    WHERE
+      1=1
+    <if test="userId != null">
+      AND USER_ID = #{userId}
     </if>
   </select>
+
+  <!-- 토큰 여부 체크-->
+  <select id="checkToken" resultType="tokenVo" parameterType="map">
+    SELECT
+      TOKEN_ID
+      ,CASE WHEN USER_ID IS NULL THEN '' ELSE USER_ID END AS USER_ID
+    FROM
+      TB_TOKEN
+    WHERE
+      1=1
+    <if test="tokenId != null">
+      AND TOKEN_ID = #{tokenId}
+    </if>
+  </select>
+
+  <delete id="deleteToken">
+    DELETE FROM TB_TOKEN
+    WHERE 1=1
+    AND TOKEN_ID = #{token}
+  </delete>
+
+  <update id="updateToken">
+    UPDATE TB_TOKEN SET
+      USER_ID = #{tokenVo.userId}
+    WHERE
+      1=1
+    AND
+      TOKEN_ID = #{tokenVo.tokenId}
+  </update>
 </mapper>
 

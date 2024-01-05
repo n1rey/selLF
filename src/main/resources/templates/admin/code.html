@@ -66,6 +66,7 @@
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
     <script>
+      //insert클릭 시
       function insertCode() {
         if(!!checkInfo()) return
 
@@ -94,6 +95,7 @@
         });
       }
 
+      //삭제버튼 클릭 시
       function deleteCode() {
         var codeNo = $('#codeNo').val()
         $.ajax({
@@ -115,12 +117,13 @@
         });
       }
 
+      //업데이트 시
       function updateCode() {
         var flag = true
         if(!!checkInfo()) return
         var codeNo = $('#codeNo').val()
 
-        if(!!!codeNo) {
+        if(!!!codeNo) { //코드를 선택하지 않은 경우
           Swal.fire({
             title: "코드를 선택하지 않았습니다.",
             text: "등록으로 변경하시겠습니까?",
@@ -166,6 +169,7 @@
         });
       }
 
+      //값 밸리데이션
       function checkInfo() {
         var codeId = $('#codeId').val()
         var codeContent = $('#codeContent').val()
@@ -184,10 +188,12 @@
         $('#codeContent').next().text('')
       }
 
+      //엔터 키 입력시
       function enterkey() {
         if(window.event.keyCode == 13) submit()
       }
 
+      //코드 클릭 시
       function clickCode(data) {
         $('#codeNo').val(data.codeNo)
         $('#codeId').val(data.codeId)

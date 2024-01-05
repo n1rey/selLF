@@ -73,6 +73,8 @@
       $('#writeBtn').on('click', function() {
         location.href = "/board/admin"
       })
+      
+      //토스트창 초기화
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -85,9 +87,11 @@
         }
       });
 
+      //푸시버튼 클릭 시
       function push() {
         messaging.getToken({vapidKey : VAPID_KEY}).then((currentToken) => {
           if(currentToken) {
+            //기존 토큰이 존재 할 경우
             $.ajax({
               type: 'POST',
               url: '/token/show.do',
@@ -102,12 +106,15 @@
             });
           }
           else {
-            Notification.requestPermission().then((permission) => {
-              if (permission === 'granted') {
-                $.ajax({
+            //기존 토큰 미존재 승인여부
+            messaging.requestPermission().then(() => {
+              return messaging.getToken()
+            })
+            .then(async (token) => {
+              $.ajax({
                     type: 'POST',
                     url: '/token/save.do',
-                    data: {tokenId:currentToken},
+                    data: {tokenId:token},
                     dataType: 'json',
                     success : function(data) {
                       Toast.fire({
@@ -115,9 +122,24 @@
                         title: "알림허용이 되었습니다."
                       });
                     }
-                });
-              }
+              });
             })
+            // Notification.requestPermission().then((permission) => {
+            //   if (permission === 'granted') {
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: '/token/save.do',
+            //         data: {tokenId:currentToken},
+            //         dataType: 'json',
+            //         success : function(data) {
+            //           Toast.fire({
+            //             icon: "success",
+            //             title: "알림허용이 되었습니다."
+            //           });
+            //         }
+            //     });
+            //   }
+            // })
           }
         })
       }

@@ -4,15 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.portfolio.sellf.domain.user.join.vo.UserVo;
 import com.portfolio.sellf.global.common.firebase.service.FCMService;
-import com.portfolio.sellf.global.common.firebase.vo.TokenVo;
 import com.portfolio.sellf.global.common.util.CommandMap;
-import com.portfolio.sellf.global.common.util.CommonUtil;
 
 @Controller
 @RequestMapping("/token")
@@ -31,16 +27,9 @@ public class FCMController {
   @ResponseBody
   @RequestMapping(value = "/save.do") 
   public int tokenSave(HttpServletRequest request, CommandMap commandMap) {
-    TokenVo tokenVo = new TokenVo();
-    tokenVo.setTokenId(commandMap.get("tokenId").toString());
-    UserVo user = CommonUtil.getSessionUser(request);
-    if(user != null) {
-      tokenVo.setUserId(user.getUserId());
-    }
-    System.out.println("========================="+tokenVo.toString());
     System.out.println("========================="+commandMap.toString());
 
-    return fcmService.insertToken(tokenVo);
+    return fcmService.insertToken(fcmService.makeTokenVo(commandMap, request));
   }
 
     /**
@@ -53,7 +42,10 @@ public class FCMController {
   @ResponseBody
   @RequestMapping(value = "/show.do") 
   public String tokenShow(HttpServletRequest request, CommandMap commandMap) {
-    System.out.println("========================="+commandMap.toString());
+    if(fcmService.checkToken(commandMap, request).size() == 0) {
+      fcmService.insertToken(fcmService.makeTokenVo(commandMap, request));
+    }
+    System.out.println("=========================================="+commandMap.toString());
     return "1";
   }
 

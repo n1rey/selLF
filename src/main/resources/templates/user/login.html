@@ -68,7 +68,19 @@
           },
           success : function(data) {
             if(data == 1) {
-              location.href = '/'
+              messaging.getToken({vapidKey : VAPID_KEY}).then((currentToken) => {
+                if(currentToken) {
+                  $.ajax({
+                    type: 'POST',
+                    url: '/token/show.do',
+                    data: {tokenId:currentToken},
+                    dataType: 'json',
+                    success : function(data) {
+                      location.href = '/'
+                    }
+                  });
+                }
+              })
             }
             else {
               swal.fire('로그인 실패', '존재하지 않는 아이디이거나 비밀번호가 일치하지 않습니다.', 'warning')

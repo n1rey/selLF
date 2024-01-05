@@ -23,13 +23,15 @@
             <h2>Push List</h2>
             <div class="nk-gap mnt-3"></div>
             <ul class="nk-contact-info">
-              <li><strong style="color: #10c9c3;">토큰 리스트</strong></li>
-              <li th:each="token, i :${tokenList}" th:onclick="clickToken([[${token}]])" th:text="${i.count}+' 번째 토큰'"></li>
+              <li><strong style="color: #10c9c3;">푸시허용 리스트</strong></li>
+              <li th:each="user :${userList}" th:onclick="clickUser([[${user}]])" th:text="'ID : '+${user}"></li>
             </ul>
             <!-- END: Info -->
           </div>
           
           <div class="col-lg-7">
+            <input type="text" class="form-control" id="userId" placeholder="유저를 입력하세요." maxlength="500">
+            <div class="nk-gap-1"></div>
             <input type="text" class="form-control" id="token" placeholder="토큰을 입력하세요." maxlength="500">
             <div class="nk-gap-1"></div>
             <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요." maxlength="500">
@@ -47,28 +49,61 @@
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
     <script>
+      //push버튼 클릭 시
       function push() {
         var title = $('#title').val()
         var body = $('#body').val()
+        var userId = $('#userId').val()
         var token = $('#token').val()
-
+        var data = {}
+        var url = '/admin/push/send.do'
         if(!!checkInfo(title, body)) return
 
-        $.ajax({
-          type: 'POST',
-          url: '/admin/push/send.do',
-          data: {
+        if(!token && !userId) {
+          swal.fire({
+            icon: "warning",
+            title: "유저 또는 토큰값을 입력하세요."
+          });
+          return
+        }
+
+        if(!token) { //유저 전송 시
+          data = {
+            title : title,
+            body : body,
+            userId : userId,
+          }
+        }
+        else { //토큰 전송 시
+          url = '/admin/push/sendToken.do'
+          data = {
             title : title,
             body : body,
             token : token,
-          },
+          }
+        }
+
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: data,
           dataType: 'json',
           success : function(data) {
-            swal.fire('푸시 완료', '', 'success').then(result => {location.reload()});
+            if(data == '2') {
+              swal.fire('푸시 실패', '', 'error').then(result => {location.reload()});
+            }
+            else {
+              swal.fire('푸시 완료', data, 'success').then(result => {location.reload()});
+            }
+          },
+          error : function(request,status,error) {
+            //만료 토큰이 존재하면 error로 떨어짐.
+            swal.fire('푸시 완료', request.responseText, 'success').then(result => {location.reload()});
           }
         });
       }
 
+      //push전 validation
       function checkInfo(title, body) {
         if(!title) {
           $('#title').next().text('제목을 입력해주세요.').css('color', 'rgb(255 24 24)')
@@ -84,10 +119,12 @@
         $('#body').next().text('')
       }
 
-      function clickToken(token) {
-        $('#token').val(token)
+      // 유저리스트 유저 클릭 시
+      function clickUser(token) {
+        $('#userId').val(token)
       }
 
+      //insert버튼 클릭 시
       function insert() {
         var token = $('#token').val()
         $.ajax({
@@ -98,7 +135,7 @@
           success : function(data) {
             swal.fire('생성 완료', '', 'success').then(result => {location.reload()});
           }
-      });
+        });
       }
     </script>
   </body>

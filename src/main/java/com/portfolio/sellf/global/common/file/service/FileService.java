@@ -4,15 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Properties;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,15 +24,12 @@ public class FileService {
   @Value("${resizeDir}")
   private String resizeDir;
   
-  // private final String uploadDir = Paths.get("D:", "test", "upload").toString();
-  // private final String resizeDir = Paths.get("D:", "test", "resize").toString();
-
-
   /** 파일 업로드 **/
   public String uploadImage(MultipartFile image) {
     if(image.isEmpty()) {
       return "";
     }
+    
     final MultipartFile resizeImage = image;
     String orgFilename = image.getOriginalFilename();                                         // 원본 파일명
     String uuid = UUID.randomUUID().toString().replaceAll("-", "");           // 32자리 랜덤 문자열
@@ -56,19 +50,20 @@ public class FileService {
 
     try {
       // 파일 저장 (write to disk)
+
       // resize
       File resizeFile = new File(fileResizeFullPath);
       BufferedImage thumbnail = Thumbnails.of(resizeImage.getInputStream()).size(400, 310).asBufferedImage();
       ImageIO.write(thumbnail, extension, resizeFile);
 
+      //원본
       File uploadFile = new File(fileFullPath);
       image.transferTo(uploadFile);
 
       return saveFilename;
 
     }catch(IOException e) {
-      // 예외 처리는 따로 해주는 게 좋습니다.
-      throw new RuntimeException(e);
+      return e.toString();
     }
   }
 
@@ -91,6 +86,7 @@ public class FileService {
       throw new RuntimeException(e);
     }
   }
+
   /** 리사이즈 이미지 **/
   public byte[] printResizeImage(String filename) {
     String fileFullPath = Paths.get(resizeDir, "resize_"+filename).toString();
@@ -106,7 +102,6 @@ public class FileService {
       // 이미지 파일을 byte[]로 변환 후 반환
       byte[] imageBytes = Files.readAllBytes(uploadedFile.toPath());
       return imageBytes;
-
     }catch(IOException e) {
       throw new RuntimeException(e);
     }
