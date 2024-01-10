@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<!--
+    Name: code.html
+    Version: 0.1
+    Description : 로그 페이지
+    Author: 변예린
+-->
+  <head>
+    <th:block th:replace="@{/include/header}"></th:block>
+    <style>
+      .radio {
+        margin-left: 20px;
+        color: #858585;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nk-header nk-header-opaque"> 
+      <div th:replace="@{/include/head}"></div>
+      <script th:src="@{/resources/js/validation.js}"></script>
+    </header>
+    <th:block th:replace="@{/include/mobile_body}"></th:block>
+    <div class="nk-main bg-white">
+      <div class="container">
+        <div class="nk-gap-5 mnt-10"></div>
+        <div class="row vertical-gap">
+          <div class="col-lg-5">
+            <!-- START: Info -->
+            <h2>Log List</h2>
+            <div class="nk-gap mnt-3"></div>
+            
+            <strong style="color: #10c9c3;">로그목록</strong>
+            <ul class="nk-contact-info" th:each="log:${logList}">
+              <li th:text="'Log_Ip : '+${log.logIp}"></li>
+              <li th:text="'Log_Type : '+${log.logType}"></li>
+            </ul>
+
+            <!-- <ul class="nk-contact-info">
+              <li><strong style="color: #10c9c3;">로그목록</strong></li>
+              <li th:each="log:${logList}" th:text="'Log_Ip : '+${log.logIp}"></li>
+            </ul> -->
+            <!-- END: Info -->
+          </div>
+
+        </div>
+        <div class="nk-gap-5"></div>
+      </div>
+      <!-- END: Contact Info -->
+      <th:block th:replace="@{/include/footer}"></th:block>
+    </div>
+    <script>
+
+    </script>
+  </body>
+</html>
