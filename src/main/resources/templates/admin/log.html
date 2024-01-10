@@ -16,7 +16,7 @@
     </style>
   </head>
   <body>
-    <header class="nk-header nk-header-opaque">
+    <header class="nk-header nk-header-opaque"> 
       <div th:replace="@{/include/head}"></div>
       <script th:src="@{/resources/js/validation.js}"></script>
     </header>
@@ -35,7 +35,7 @@
               <li th:text="'Log_Ip : '+${log.logIp}"></li>
               <li th:text="'Log_Type : '+${log.logType}"></li>
             </ul>
-            
+
             <!-- <ul class="nk-contact-info">
               <li><strong style="color: #10c9c3;">로그목록</strong></li>
               <li th:each="log:${logList}" th:text="'Log_Ip : '+${log.logIp}"></li>
