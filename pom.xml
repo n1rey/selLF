@@ -149,7 +149,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- 푸시 알림-->
+    <!-- firebase -->
     <dependency>
       <groupId>com.google.firebase</groupId>
       <artifactId>firebase-admin</artifactId>

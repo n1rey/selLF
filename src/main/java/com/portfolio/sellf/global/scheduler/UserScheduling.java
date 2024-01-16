@@ -28,11 +28,11 @@ public class UserScheduling {
 
   @Scheduled(cron = "0 * * * * *") //매분마다 스케줄러가 돌도록.
   public void guestUserDeleteScheduling() {
-    // LogVo logVo = new LogVo();
-    // logVo.setLogType("schedule");
-    // logVo.setLogInfo("삭제된 게스트 수 : "+ joinService.deleteGuestInfo()+"명");
-    // logVo.setLogIp("0");
-    // logService.insertLog(logVo);
+    LogVo logVo = new LogVo();
+    logVo.setLogType("schedule");
+    logVo.setLogInfo("삭제된 게스트 수 : "+ joinService.deleteGuestInfo()+"명");
+    logVo.setLogIp("0");
+    logService.insertLog(logVo);
     logger.info("==========guestUserDeleteScheduling==========");
   }
 

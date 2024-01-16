@@ -31,7 +31,6 @@ public class MailScheduling {
   public void mailScheduling() {
     CommandMap map = new CommandMap();
     map.put("LOG_TYPE", "caution");
-    map.put("TIME", 10);
     map.put("caution", logService.selectLog(map.getMap()).size());
     map.put("LOG_TYPE", "issue");
     map.put("issue", logService.selectLog(map.getMap()).size());
