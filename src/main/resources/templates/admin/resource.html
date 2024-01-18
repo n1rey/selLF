@@ -12,7 +12,7 @@
   <body>
     <header class="nk-header nk-header-opaque">
       <th:block th:replace="@{/include/head}"></th:block>
-      <script th:src="@{/resources/js/validation.js}"></script>
+      <script src="https://d3js.org/d3.v5.min.js"></script>
     </header>
     <th:block th:replace="@{/include/mobile_body}"></th:block>
     <div class="nk-main bg-white">
@@ -23,47 +23,36 @@
             <!-- START: Info -->
             <h2>Memory Info</h2>
             <div class="nk-gap mnt-3"></div>
-            <ul class="nk-contact-info">
+            <div id="mem-chart"></div>
+            <!-- <ul class="nk-contact-info">
               <li th:text="'메모리 사용량  :  ' + ${memory[1]}"></li>
               <li th:text="'메모리 용량  :  ' + ${memory[2]}"></li>
               <li th:text="'메모리 사용  :  ' + ${memory[0]} + '%'"></li>
-            </ul>
+            </ul> -->
             <!-- END: Info -->
           </div>
           <div class="col-lg-5">
             <!-- START: Info -->
             <h2>CPU Info</h2>
             <div class="nk-gap mnt-3"></div>
-            <ul class="nk-contact-info">
+            <div id="cpu-chart"></div>
+            <!-- <ul class="nk-contact-info">
               <li th:text="'CPU사용량  :  ' + ${cpu[0]} + '%'"></li>
-            </ul>
+            </ul> -->
             <!-- END: Info -->
           </div>
           <div class="col-lg-5">
             <!-- START: Info -->
             <h2>Disk Info</h2>
             <div class="nk-gap mnt-3"></div>
-            <ul class="nk-contact-info">
+            <div id="disk-chart"></div>
+            <!-- <ul class="nk-contact-info">
               <li th:text="'디스크 사용량  :  ' + ${disk[0]}"></li>
               <li th:text="'디스크 용량  :  ' + ${disk[1]}"></li>
               <li th:text="'디스크 사용  :  ' + ${disk[2]} + '%'"></li>
-            </ul>
+            </ul> -->
             <!-- END: Info -->
           </div>
-          
-          <!-- <div class="col-lg-7">
-            <form id="loginForm" class="nk-form nk-form-ajax" method="POST">
-              <input type="text" class="form-control required" id="userId" name="userId" placeholder="아이디를 입력하세요." maxlength="15">
-              <div class="nk-gap-1"></div>
-              <input type="password" class="form-control required" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요" maxlength="30" onkeyup="enterkey()">
-              <div class="nk-gap-1" id="pwd-status" style="color: rgb(255 24 24); font-size: small;"></div>
-              <div class="response-success"></div>
-              <div class="response-error"></div>
-              <button type="button" th:onclick="login()" class="nk-btn" title="로그인">Login</button>
-              <button type="button" th:onclick="|location.href='@{/find}'|" class="nk-btn" title="계정찾기">Find</button>
-              <button type="button" th:onclick="|location.href='@{/join}'|" class="nk-btn" title="회원가입">Join</button>
-            </form>
-          </div> -->
         </div>
         <div class="nk-gap-5"></div>
       </div>
@@ -71,28 +60,65 @@
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
     <script>
-      function login() {
-        if(!valid.validateLoginInfo()) return
-        var formData = $('#loginForm').serialize()
-        $.ajax({
-          type: 'POST',
-          url: '/login/login.do',
-          data: formData,
-          dataType: 'json',
-          error: function(xhr, status, error) {
-            swal.fire('error', '에러가 발생했습니다. 잠시후 다시 시도해주세요.', 'error')
-          },
-          success : function(data) {
-            if(data == 1) {
-              location.href = '/'
-            }
-            else {
-              swal.fire('로그인 실패', '존재하지 않는 아이디이거나 비밀번호가 일치하지 않습니다.', 'warning')
-            }
-          }
-        });
+      makeChart('mem', '[[${memory[0]}]]')
+      makeChart('disk', '[[${disk[2]}]]')
+      makeChart('cpu', '[[${cpu[0]}]]')
+      function makeChart(type, percent) {
+        let tagId;
+        if(type === 'mem') {
+          tagId = '#mem-chart'
+        }
+        else if(type === 'disk') {
+          tagId = '#disk-chart'
+        }
+        else if(type === 'cpu') {
+          tagId = '#cpu-chart'
+        }
+        else {
+          return
+        }
+        console.log(tagId, percent)
+        // 도넛 차트 크기 및 설정
+        const width = 300;
+        const height = 300;
+        const radius = Math.min(width, height) / 2;
+  
+        // 색상 정의
+        const color = d3.scaleOrdinal(["#556892", "#d9d9d9"]);
+  
+        // 도넛 차트 생성
+        const svg = d3.select(tagId)
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", `translate(${width / 2},${height / 2})`);
+  
+        // 데이터 바인딩
+        const data = [percent, 100 - percent];
+  
+        // 파이 차트 생성
+        const pie = d3.pie();
+        const arc = d3.arc()
+          .innerRadius(radius - 60)
+          .outerRadius(radius);
+  
+        // 도넛 차트에 그래픽 요소 추가
+        svg.selectAll("path")
+          .data(pie(data))
+          .enter()
+          .append("path")
+          .attr("d", arc)
+          .attr("fill", (d, i) => color(i));
+  
+        // 퍼센트 텍스트 추가
+        svg.append("text")
+          .attr("text-anchor", "middle")
+          .attr("dy", ".3em")
+          .text(`${percent}%`)
+          .style("font-size", "24px");
       }
-
+        
       function enterkey() {
         if(window.event.keyCode == 13) login()
       }
