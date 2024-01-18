@@ -24,11 +24,6 @@
             <h2>Memory Info</h2>
             <div class="nk-gap mnt-3"></div>
             <div id="mem-chart"></div>
-            <!-- <ul class="nk-contact-info">
-              <li th:text="'메모리 사용량  :  ' + ${memory[1]}"></li>
-              <li th:text="'메모리 용량  :  ' + ${memory[2]}"></li>
-              <li th:text="'메모리 사용  :  ' + ${memory[0]} + '%'"></li>
-            </ul> -->
             <!-- END: Info -->
           </div>
           <div class="col-lg-5">
@@ -36,9 +31,6 @@
             <h2>CPU Info</h2>
             <div class="nk-gap mnt-3"></div>
             <div id="cpu-chart"></div>
-            <!-- <ul class="nk-contact-info">
-              <li th:text="'CPU사용량  :  ' + ${cpu[0]} + '%'"></li>
-            </ul> -->
             <!-- END: Info -->
           </div>
           <div class="col-lg-5">
@@ -46,11 +38,6 @@
             <h2>Disk Info</h2>
             <div class="nk-gap mnt-3"></div>
             <div id="disk-chart"></div>
-            <!-- <ul class="nk-contact-info">
-              <li th:text="'디스크 사용량  :  ' + ${disk[0]}"></li>
-              <li th:text="'디스크 용량  :  ' + ${disk[1]}"></li>
-              <li th:text="'디스크 사용  :  ' + ${disk[2]} + '%'"></li>
-            </ul> -->
             <!-- END: Info -->
           </div>
         </div>
@@ -74,10 +61,7 @@
         else if(type === 'cpu') {
           tagId = '#cpu-chart'
         }
-        else {
-          return
-        }
-        console.log(tagId, percent)
+
         // 도넛 차트 크기 및 설정
         const width = 300;
         const height = 300;
