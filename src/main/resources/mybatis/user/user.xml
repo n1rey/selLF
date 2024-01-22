@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portfolio.sellf.domain.admin.user.mapper.UserMapper">
+
+  <!-- 회원가입 -->
+  <insert id="insertUser" useGeneratedKeys="true" keyProperty="userVo.userNo">
+    <selectKey keyColumn="USER_NO" keyProperty="userVo.userNo" resultType="int" order="BEFORE">
+      SELECT COALESCE(MAX(USER_NO), 0)+1 AS USER_NO FROM TB_USER
+    </selectKey>
+    INSERT INTO TB_USER (
+      USER_NO
+      ,USER_ID
+      ,USER_PASSWORD
+      ,USER_EMAIL
+      ,USER_NAME
+      ,USER_PROFILE_IMAGE
+      ,USER_JOIN_DATE
+      ,USER_JOIN_TIME
+      ,USER_ROLE
+    ) VALUES (
+      #{userVo.userNo}
+      ,#{userVo.userId}
+      ,#{userVo.userPassword}
+      ,#{userVo.userEmail}
+      ,#{userVo.userName}
+      ,#{userVo.userProfileImage}
+      ,CURRENT_DATE
+      ,CURRENT_TIME
+      ,#{userVo.userRole}
+    )
+  </insert>
+
+  <!-- 아이디 중복검사 -->
+  <select id="checkId" resultType="int" parameterType="map">
+    SELECT COUNT(*) FROM TB_USER WHERE USER_ID = #{userid}
+  </select>
+
+  <!-- 게스트 아이디 삭제 -->
+  <update id="deleteGuestInfo">
+    <![CDATA[
+      UPDATE TB_USER SET
+      USER_NAME = '삭제된 게스트',
+      USER_PASSWORD = '',
+      USER_DROP_YN = '1'
+      WHERE 1=1
+      AND USER_JOIN_DATE <= CURRENT_DATE
+      AND USER_JOIN_TIME <= CURRENT_TIME - INTERVAL '1HOUR'
+      AND USER_ROLE = 'guest'
+    ]]>
+  </update>
+
+  <!-- 게스트 수 -->
+  <select id="selectGuestCnt" resultType="int">
+    <![CDATA[
+      SELECT COUNT(*)
+      FROM TB_USER
+      WHERE 1=1
+      AND USER_JOIN_DATE <= CURRENT_DATE
+      AND USER_JOIN_TIME <= CURRENT_TIME - INTERVAL '1HOUR'
+      AND USER_ROLE = 'guest'
+    ]]>
+  </select>
+
+    <!-- 휴면유저 수 -->
+  <select id="selectHumanCnt" resultType="int">
+    <![CDATA[
+      SELECT COUNT(*)
+      FROM TB_USER
+      WHERE 1=1
+      AND USER_LOGIN_DATE <= CURRENT_DATE - INTERVAL '30DAY'
+      AND USER_ROLE = 'user'
+    ]]>
+  </select>
+
+    <!-- 휴면처리 -->
+  <update id="updateHumanInfo">
+    <![CDATA[
+      UPDATE TB_USER SET
+      USER_PASSWORD = '',
+      USER_HUMAN_YN = '1'
+      WHERE 1=1
+      AND USER_LOGIN_DATE <= CURRENT_DATE - INTERVAL '30DAY'
+      AND USER_ROLE = 'user'
+    ]]>
+  </update>
+
+  <!-- 회원 목록 조회 -->
+  <select id="selectUser" resultType="com.portfolio.sellf.domain.user.join.vo.UserVo" parameterType="map">
+    SELECT *
+    FROM TB_USER 
+    WHERE USER_NO = #{userNo}
+  </select>
+
+  <!-- 회원 조회-->
+  <select id="selectAllUser" resultType="com.portfolio.sellf.domain.user.join.vo.UserVo" parameterType="map">
+    SELECT *
+    FROM TB_USER 
+    ORDER BY USER_NO DESC
+  </select>
+
+</mapper>

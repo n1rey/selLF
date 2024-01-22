@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portfolio.sellf.domain.user.hide.mapper.HideMapper">
+  <!-- 회원 숨김 -->
+  <update id="hideUser" parameterType="map">
+    UPDATE TB_USER SET
+      <if test='userDropYn == "Y"'>
+        USER_DROP_YN = 'N'
+      </if>
+      <if test='userDropYn == "N"'>
+        USER_DROP_YN = 'Y'
+      </if>
+    WHERE 1=1
+    AND USER_ID = ${userId}
+  </update>
+</mapper>
