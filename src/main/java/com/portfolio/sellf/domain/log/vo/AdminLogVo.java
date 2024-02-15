@@ -13,8 +13,8 @@ public class AdminLogVo {
   private String logType;
   private String logIp;
   private String logInfo;
-  private Date log_date;
-  private Time log_time;
+  private Date logDate;
+  private Time logTime;
   private int logUserNo;
   private int logDropYn;
   private String logUri;
@@ -26,8 +26,8 @@ public class AdminLogVo {
             ", logType='" + logType + '\'' +
             ", logIp='" + logIp + '\'' +
             ", logInfo='" + logInfo + '\'' +
-            ", log_date='" + log_date + '\'' +
-            ", log_time='" + log_time + '\'' +
+            ", log_date='" + logDate + '\'' +
+            ", log_time='" + logTime + '\'' +
             ", logUserNo='" + logUserNo + '\'' +
             ", logDropYn='" + logDropYn + '\'' +
             ", logURI='" + logUri + '\'' +

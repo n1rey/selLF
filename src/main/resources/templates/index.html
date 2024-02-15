@@ -22,6 +22,7 @@
     <!-- 필터용 -->
     <script th:src="@{/resources/plugins/flickity/dist/flickity.pkgd.min.js}"></script>
     <link rel="stylesheet" th:href="@{/resources/plugins/flickity/dist/flickity.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/custom.css}">
   </header>
   <th:block th:replace="@{/include/mobile_body}"></th:block>
     <div class="nk-main bg-white">
@@ -54,9 +55,15 @@
                 <div th:style="'background-image: url('+${'/file/print/resizeImage.do?filename='+board.boardThumbnail}+');'"></div>
               </div>
               <div class="nk-portfolio-item-info">
-                <div>
+                <div class="info-top">
                   <h2 class="portfolio-item-title h5" th:text="${board.boardTitle}"></h2>
-                  <div class="portfolio-item-title" th:text="${board.boardCreatedDate}"></div>
+                  <p class="date" th:text="${board.boardCreatedDate}"></p>
+                </div>
+                <div class="info-bottom">
+                  <p class="view">
+                    조회수
+                    <span>123</span>
+                  </p>
                   <div class="portfolio-item-category" th:text="${board.boardCategory}" ></div>
                 </div>
               </div>

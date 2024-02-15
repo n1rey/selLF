@@ -17,34 +17,65 @@
   <body>
     <header class="nk-header nk-header-opaque">
       <div th:replace="@{/include/head}"></div>
+      <link rel="stylesheet" th:href="@{/resources/css/custom.css}">
+      <!-- swiper -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+      <!-- Swiper JS -->
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     </header>
     <th:block th:replace="@{/include/mobile_body}"></th:block>
     <div class="nk-main bg-white">
       <div class="container">
         <div class="nk-gap-5 mnt-10"></div>
-        <div class="row vertical-gap">
-          <div class="col-lg-5">
-            <!-- START: Info -->
-            <h2>History:</h2>
-            <div class="nk-gap mnt-3"></div>
-            <p>
-            </p>
-            <!-- END: Info -->
-          </div>
-          
-          <div class="col-lg-7">
-            <h1 style="margin: 0;">2021</h1>
-            <strong>1 Project</strong><br/>
-
-            <h1>2022</h1>
-            <strong>11 Project</strong><br/>
-            <strong>내부서비스 RAPORAPO개발</strong><br/>
-            <strong>우리은행 프로젝트</strong><br/>
-            <strong>외교부 프로젝트</strong>
-
-            <h1>2023</h1>
-            <strong>11 프로젝트</strong><br/>
-            
+        <div>
+          <h2>History</h2>
+          <div class="swiper history-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <h1>2023</h1>
+                <strong>11 프로젝트</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2022</h1>
+                <strong>11 Project</strong><br/>
+                <strong>내부서비스 RAPORAPO개발</strong><br/>
+                <strong>우리은행 프로젝트</strong><br/>
+                <strong>외교부 프로젝트</strong>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+              <div class="swiper-slide">
+                <h1>2021</h1>
+                <strong>1 Project</strong><br/>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
         <div class="nk-gap-5"></div>
@@ -52,5 +83,15 @@
       <!-- END: Contact Info -->
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
+    <script>
+      var swiper = new Swiper(".history-swiper", {
+        slidesPerView: "auto",
+        // 페이지네이션
+        // pagination: {
+        //   el: ".swiper-pagination",
+        //   clickable: true,
+        // },
+      });
+    </script>
   </body>
 </html>

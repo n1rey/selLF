@@ -18,31 +18,38 @@
   <body>
     <header class="nk-header nk-header-opaque"> 
       <div th:replace="@{/include/head}"></div>
+      <link rel="stylesheet" th:href="@{/resources/css/custom.css}">
       <script th:src="@{/resources/js/validation.js}"></script>
     </header>
     <th:block th:replace="@{/include/mobile_body}"></th:block>
     <div class="nk-main bg-white">
       <div class="container">
         <div class="nk-gap-5 mnt-10"></div>
-        <div class="row vertical-gap">
-          <div class="col-lg-5">
+        <div>
+          <div>
             <!-- START: Info -->
             <h2>Log List</h2>
             <div class="nk-gap mnt-3"></div>
             
-            <strong style="color: #10c9c3;">로그목록</strong>
-            <ul class="nk-contact-info" th:each="log:${logList}">
-              <li th:text="'Log_Ip : '+${log.logIp}"></li>
-              <li th:text="'Log_Type : '+${log.logType}"></li>
+            <ul class="nk-contact-info info-list">
+              <!-- 헤더니까 냅두셈 -->
+              <li class="info-item info-header">
+                <p class="num">순서</p>
+                <p class="code">로그 타입</p>
+                <p class="code">IP</p>
+                <p class="info">로그 정보</p>
+                <p class="info">날짜</p>
+              </li>
+              <!-- 아래꺼 each돌리면 됨 -->
+              <li class="info-item" th:each="log, index:${logList}">
+                <p class="num" th:text="${index.count}"></p>
+                <p class="code" th:text="${log.logType}"></p>
+                <p class="code" th:text="${log.logIp}"></p>
+                <p class="info" th:text="${log.logInfo}"></p>
+                <p class="info" th:text="${log.logDate}"></p>
+              </li>
             </ul>
-
-            <!-- <ul class="nk-contact-info">
-              <li><strong style="color: #10c9c3;">로그목록</strong></li>
-              <li th:each="log:${logList}" th:text="'Log_Ip : '+${log.logIp}"></li>
-            </ul> -->
-            <!-- END: Info -->
           </div>
-
         </div>
         <div class="nk-gap-5"></div>
       </div>
@@ -50,7 +57,6 @@
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
     <script>
-
     </script>
   </body>
 </html>
