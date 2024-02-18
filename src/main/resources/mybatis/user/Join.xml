@@ -46,6 +46,7 @@
       AND USER_JOIN_DATE <= CURRENT_DATE
       AND USER_JOIN_TIME <= CURRENT_TIME - INTERVAL '1HOUR'
       AND USER_ROLE = 'guest'
+      AND USER_PASSWORD <> ''
     ]]>
   </update>
 
@@ -58,6 +59,7 @@
       AND USER_JOIN_DATE <= CURRENT_DATE
       AND USER_JOIN_TIME <= CURRENT_TIME - INTERVAL '1HOUR'
       AND USER_ROLE = 'guest'
+      AND USER_PASSWORD <> ''
     ]]>
   </select>
 

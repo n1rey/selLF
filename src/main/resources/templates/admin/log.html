@@ -30,6 +30,7 @@
   <body>
     <header class="nk-header nk-header-opaque"> 
       <div th:replace="@{/include/head}"></div>
+      <link rel="stylesheet" th:href="@{/resources/css/custom.css}">
       <script th:src="@{/resources/js/validation.js}"></script>
     </header>
     <th:block th:replace="@{/include/mobile_body}"></th:block>
@@ -37,41 +38,23 @@
       <div class="container">
         <div class="nk-gap-5 mnt-10"></div>
         <div class="row vertical-gap">
-          <div class="col-lg">
+          <div class="col-lg-5">
             <!-- START: Info -->
             <h2>Log List</h2>
             <div class="nk-gap mnt-3"></div>
-              <div style="display:table; width:1000px;">
-                <div class="wrapper" style="display:table-row">
-                    <div class="child" style="display:table-cell">Log Type</div>
-                    <div class="child" style="display:table-cell">Log Ip</div>
-                    <div class="child" style="display:table-cell">Log Info</div>
-                    <div class="child" style="display:table-cell">Log User No</div>
-                    <div class="child" style="display:table-cell">Log Uri</div>
-                    <div class="child" style="display:table-cell">Log Date</div>
-                    <div class="child" style="display:table-cell">Log Time</div>
-                </div>
-                <ul style="display:table-row" th:each="log:${logList}">
-                  <li class="child" style="display:table-cell" th:text="${log.logType}"></li>
-                  <li class="child" style="display:table-cell" th:text="${log.logIp}"></li>
-                  <li class="child" style="display:table-cell" th:text="${log.logInfo}"></li>
-                  <li class="child" style="display:table-cell" th:text="${log.logUserNo}"></li>
-                  <li class="child" style="display:table-cell" th:text="${log.logUri}"></li>
-                  <li class="child" style="display:table-cell" th:text="${log.log_date}"></li>
-                  <li class="child" style="display:table-cell" th:text="${log.log_time}"></li>
-                </ul>
-                <!-- <div style="display:table-row" th:each="log:${logList}"> 
-                    <div class="child" style="display:table-cell" th:text="${log.logType}"></div>
-                    <div class="child" style="display:table-cell" th:text="${log.logIp}"></div>
-                    <div class="child" style="display:table-cell" th:text="${log.logInfo}"></div>
-                    <div class="child" style="display:table-cell" th:text="${log.logUserNo}"></div>
-                    <div class="child" style="display:table-cell" th:text="${log.logUri}"></div>
-                    <div class="child" style="display:table-cell" th:text="${log.log_date}"></div>
-                    <div class="child" style="display:table-cell" th:text="${log.log_time}"></div>
-                </div> -->
-              </div>
-          </div>
+            
+            <strong style="color: #10c9c3;">로그목록</strong>
+            <ul class="nk-contact-info" th:each="log:${logList}">
+              <li th:text="'Log_Ip : '+${log.logIp}"></li>
+              <li th:text="'Log_Type : '+${log.logType}"></li>
+            </ul>
 
+            <!-- <ul class="nk-contact-info">
+              <li><strong style="color: #10c9c3;">로그목록</strong></li>
+              <li th:each="log:${logList}" th:text="'Log_Ip : '+${log.logIp}"></li>
+            </ul> -->
+            <!-- END: Info -->
+          </div>
         </div>
         <div class="nk-gap-5"></div>
       </div>
@@ -79,7 +62,7 @@
       <th:block th:replace="@{/include/footer}"></th:block>
     </div>
     <script>
-      
+
     </script>
   </body>
 </html>

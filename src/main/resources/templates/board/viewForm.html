@@ -26,6 +26,7 @@
   <body>
     <header class="nk-header nk-header-opaque">
       <div th:replace="@{/include/head}"></div>
+      <link rel="stylesheet" th:href="@{/resources/css/custom.css}">
       <script th:src="@{/resources/js/validation.js}"></script>
     </header>
     <th:block th:replace="@{/include/mobile_body}"></th:block>
@@ -44,6 +45,54 @@
             <div th:if="${boardHideYn == 'Y'}" class="boardBtn" id="hideBtn">숨김해제</div>
           </div>
           <div class="nk-gap-5"></div>
+        </div>
+
+        <div class="container">
+          <h5 class="comment-title">댓글 <span class="primary">(0)</span></h5>
+          <div class="wrap-comment">
+            <div class="box-comment">
+              <div class="d-flex">
+                <input type="text" class="input-name" placeholder="닉네임">
+                <input type="password" class="input-pwd"placeholder="비밀번호">
+                <button class="btn-submit">댓글 등록</button>
+              </div>
+              <textarea type="text" class="input-comment" placeholder="댓글을 입력해 주세요."></textarea>
+            </div>
+            <div class="comment-list">
+              <div class="comment">
+                <div class="comment-detail">
+                  <div class="comment-top">
+                    <p class="name">이용택</p>
+                    <p class="date">12.34.56</p>
+                    <div class="box-btn">
+                      <button class="btn btn-recomment">답글 달기</button>
+                      <button class="btn btn-edit">수정</button>
+                      <button class="btn btn-delete">삭제</button>
+                    </div>
+                  </div>
+                  <div class="comment-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem quos hic, necessitatibus voluptate explicabo harum veniam, molestiae veritatis reprehenderit doloribus asperiores unde totam sequi repellat laborum perspiciatis ipsa laudantium dolorum.
+                  </div>
+                </div>
+              </div>
+              <div class="comment recomment">
+                <div class="comment-detail">
+                  <div class="comment-top">
+                    <p class="name">이용택</p>
+                    <p class="date">12.34.56</p>
+                    <div class="box-btn">
+                      <button class="btn btn-recomment">답글 달기</button>
+                      <button class="btn btn-edit">수정</button>
+                      <button class="btn btn-delete">삭제</button>
+                    </div>
+                  </div>
+                  <div class="comment-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem quos hic, necessitatibus voluptate explicabo harum veniam, molestiae veritatis reprehenderit doloribus asperiores unde totam sequi repellat laborum perspiciatis ipsa laudantium dolorum.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- END: Contact Info -->
